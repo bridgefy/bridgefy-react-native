@@ -1,8 +1,15 @@
 import BridgefySDK
+import React
 
 @objc(BridgefyReactNative)
-class BridgefyReactNative: NSObject, BridgefyDelegate {
+class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
+  public static var emitter: RCTEventEmitter!
   private var bridgefy: Bridgefy?
+
+  override init() {
+    super.init()
+    BridgefyReactNative.emitter = self
+  }
 
   @objc(initializeWithApiKey:propagationProfile:verboseLogging:resolve:reject:)
   func initialize(apiKey: String,
@@ -81,58 +88,94 @@ class BridgefyReactNative: NSObject, BridgefyDelegate {
     }
   }
 
+  // MARK: - RCTEventEmitter
+
+  @objc(supportedEvents)
+  open override func supportedEvents() -> [String] {
+    [
+      "bridgefyDidStart", "bridgefyDidFailToStart", "bridgefyDidStop", "bridgefyDidFailToStop",
+      "bridgefyDidDestroySession", "bridgefyDidFailToDestroySession", "bridgefyDidConnect",
+      "bridgefyDidDisconnect", "bridgefyDidEstablishSecureConnection",
+      "bridgefyDidFailToEstablishSecureConnection", "bridgefyDidSendMessage",
+      "bridgefyDidFailSendingMessage", "bridgefyDidReceiveData"
+    ]
+  }
+
   // MARK: BridgefyDelegate
 
   func bridgefyDidStart(with userId: UUID) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidStart",
+                                          body: ["userId": userId.uuidString])
   }
 
   func bridgefyDidFailToStart(with error: BridgefySDK.BridgefyError) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToStart",
+                                          body: ["error": errorDictionary(from: error)])
   }
 
   func bridgefyDidStop() {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidStop", body: nil)
   }
 
   func bridgefyDidFailToStop(with error: BridgefySDK.BridgefyError) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToStop",
+                                          body: ["error": errorDictionary(from: error)])
   }
 
   func bridgefyDidDestroySession() {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidDestroySession", body: nil)
   }
 
   func bridgefyDidFailToDestroySession() {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToDestroySession", body: nil)
   }
 
   func bridgefyDidConnect(with userId: UUID) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidConnect",
+                                          body: ["userId": userId.uuidString])
   }
 
   func bridgefyDidDisconnect(from userId: UUID) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidDisconnect",
+                                          body: ["userId": userId.uuidString])
   }
 
   func bridgefyDidEstablishSecureConnection(with userId: UUID) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidEstablishSecureConnection",
+                                          body: ["userId": userId.uuidString])
   }
 
-  func bridgefyDidFailToEstablishSecureConnection(with userId: UUID, error: BridgefySDK.BridgefyError) {
-    <#code#>
+  func bridgefyDidFailToEstablishSecureConnection(with userId: UUID,
+                                                  error: BridgefySDK.BridgefyError) {
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToEstablishSecureConnection",
+                                          body: [
+                                            "userId": userId.uuidString,
+                                            "error": errorDictionary(from: error)
+                                          ] as [String : Any])
   }
 
   func bridgefyDidSendMessage(with messageId: UUID) {
-    <#code#>
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidSendMessage",
+                                          body: ["messageId": messageId.uuidString])
   }
 
-  func bridgefyDidFailSendingMessage(with messageId: UUID, withError error: BridgefySDK.BridgefyError) {
-    <#code#>
+  func bridgefyDidFailSendingMessage(with messageId: UUID,
+                                     withError error: BridgefySDK.BridgefyError) {
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailSendingMessage",
+                                          body: [
+                                            "messageId": messageId.uuidString,
+                                            "error": errorDictionary(from: error)
+                                          ] as [String : Any])
   }
 
   func bridgefyDidReceiveData(_ data: Data, with messageId: UUID, using transmissionMode: BridgefySDK.TransmissionMode) {
-    <#code#>
+    let mode = transmissionModeDictionary(from: transmissionMode)
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidReceiveData",
+                                          body: [
+                                            "data": data,
+                                            "messageId": messageId.uuidString,
+                                            "transmissionMode": mode
+                                          ] as [String : Any])
   }
 
   // MARK: Utils

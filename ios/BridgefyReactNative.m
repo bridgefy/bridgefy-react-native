@@ -1,6 +1,7 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(BridgefyReactNative, NSObject)
+@interface RCT_EXTERN_MODULE(BridgefyReactNative, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(initializeWithApiKey:(NSString *)apiKey
                   propagationProfile:(NSString *)propagationProfile
@@ -31,6 +32,8 @@ RCT_EXTERN_METHOD(establishSecureConnectionToUserWithId:(NSString *)userId
 
 RCT_EXTERN_METHOD(licenseExpirationDateWithResolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(supportedEvents)
 
 + (BOOL)requiresMainQueueSetup
 {
