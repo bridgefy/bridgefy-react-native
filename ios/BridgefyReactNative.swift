@@ -4,12 +4,7 @@ import BridgefySDK
 class BridgefyReactNative: NSObject, BridgefyDelegate {
   private var bridgefy: Bridgefy?
 
-  @objc(multiply:withB:withResolver:withRejecter:)
-  func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-    resolve(a*b)
-  }
-
-  @objc(initialize:propagationProfile:verboseLogging:withResolver:withRejecter:)
+  @objc(initializeWithApiKey:propagationProfile:verboseLogging:resolve:reject:)
   func initialize(apiKey: String,
                   propagationProfile: String,
                   verboseLogging: Bool,
@@ -25,6 +20,64 @@ class BridgefyReactNative: NSObject, BridgefyDelegate {
     } catch let error {
       let dict = errorDictionary(from: error as! BridgefyError)
       reject(dict["code"] as? String, dict["message"] as? String, error)
+    }
+  }
+
+  @objc(startWithResolve:reject:)
+  func start(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    bridgefy!.start()
+    resolve(nil)
+  }
+
+  @objc(sendData:transmissionMode:resolve:reject:)
+  func send(data: Data,
+            transmissionMode: Dictionary<String, String>,
+            resolve: RCTPromiseResolveBlock,
+            reject: RCTPromiseRejectBlock) -> Void {
+    let mode = self.transmissionMode(from: transmissionMode)!
+    do {
+      let uuid = try bridgefy!.send(data, using: mode)
+      resolve(["messageId": uuid.uuidString])
+    } catch let error {
+      let dict = errorDictionary(from: error as! BridgefyError)
+      reject(dict["code"] as? String, dict["message"] as? String, error)
+    }
+  }
+
+  @objc(stopWithResolve:reject:)
+  func stop(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    bridgefy!.stop()
+    resolve(nil)
+  }
+
+  @objc(connectedPeersWithResolve:reject:)
+  func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    resolve(["connectedPeers": bridgefy!.connectedPeers.map({ uuid in
+      uuid.uuidString
+    })])
+  }
+
+  @objc(currentUserIdWithResolve:reject:)
+  func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    resolve(["userId": bridgefy!.currentUserId.uuidString])
+  }
+
+  @objc(establishSecureConnectionToUserWithId:resolve:reject:)
+  func establishSecureConnection(userId: String,
+                                 resolve: RCTPromiseResolveBlock,
+                                 reject: RCTPromiseRejectBlock) -> Void {
+    let uuid = UUID(uuidString: userId)!
+    bridgefy!.establishSecureConnection(with: uuid)
+    resolve(nil)
+  }
+
+  @objc(licenseExpirationDateWithResolve:reject:)
+  func licenseExpirationDate(resolve: RCTPromiseResolveBlock,
+                             reject: RCTPromiseRejectBlock) -> Void {
+    if let interval = bridgefy!.licenseExpirationDate?.timeIntervalSince1970 {
+      resolve(["licenseExpirationDate": interval * 1000])
+    } else {
+      resolve(nil)
     }
   }
 
