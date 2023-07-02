@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E555C0D2413F4C50049A1A2 /* BridgefyReactNative.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* BridgefyReactNative.m */; };
-		F4FF95D7245B92E800C19C63 /*  BridgefyReactNative.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /*  BridgefyReactNative.swift */; };
+		3C24F7762A51F10F00E53E39 /* BridgefySDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C24F7752A51F10F00E53E39 /* BridgefySDK.xcframework */; };
+		F4FF95D7245B92E800C19C63 /* BridgefyReactNative.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* BridgefyReactNative.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libBridgefyReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBridgefyReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C24F7752A51F10F00E53E39 /* BridgefySDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = BridgefySDK.xcframework; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* BridgefyReactNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgefyReactNative.m; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* BridgefyReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BridgefyReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* BridgefyReactNative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgefyReactNative.swift; sourceTree = "<group>"; };
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C24F7762A51F10F00E53E39 /* BridgefySDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,9 +51,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3C24F7742A51F10F00E53E39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C24F7752A51F10F00E53E39 /* BridgefySDK.xcframework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				3C24F7742A51F10F00E53E39 /* Frameworks */,
 				F4FF95D6245B92E800C19C63 /* BridgefyReactNative.swift */,
 				B3E7B5891CC2AC0600A0062D /* BridgefyReactNative.m */,
 				F4FF95D5245B92E700C19C63 /* BridgefyReactNative-Bridging-Header.h */,
@@ -117,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FF95D7245B92E800C19C63 /* BridgefyReactNative.swift in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* BridgefyReactNative.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
