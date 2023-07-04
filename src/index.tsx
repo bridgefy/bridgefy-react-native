@@ -17,6 +17,300 @@ const BridgefyReactNative = NativeModules.BridgefyReactNative
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return BridgefyReactNative.multiply(a, b);
+/** Profile that defines a series of properties and rules for the propagation of messages. */
+export enum BridgefyPropagationProfile {
+  standard = 'standard',
+  highDensityNetwork = 'highDensityNetwork',
+  sparseNetwork = 'sparseNetwork',
+  longReach = 'longReach',
+  shortReach = 'shortReach',
+}
+
+/** The mode used to propagate a message through nearby devices. */
+export enum BridgefyTransmissionModeType {
+  /** Deliver a message to a specific recipient only if there's an active connection with it. */
+  p2p = 'p2p',
+  /** Deliver a message to a specific recipient using nearby devices to propagate it. */
+  mesh = 'mesh',
+  /** Propagate a message readable by every device that receives it. */
+  broadcast = 'broadcast',
+}
+
+export interface BridgefyTransmissionMode {
+  type: BridgefyTransmissionModeType;
+  uuid: string;
+}
+
+/** Describes errors in the Bridgefy error domain. */
+export enum BridgefyErrorType {
+  /** The Bridgefy SDK cannot run in the simulator */
+  simulatorIsNotSupported = 'simulatorIsNotSupported',
+  /** The Bridgefy SDK is already running */
+  alreadyStarted = 'alreadyStarted',
+  /** The provided API key is not valid */
+  invalidAPIKey = 'invalidAPIKey',
+  /** The license is expired */
+  expiredLicense = 'expiredLicense',
+  /** An error occurred while creating the session */
+  sessionError = 'sessionError',
+  /** (iOS) The Bridgefy SDK hasn't been started */
+  notStarted = 'notStarted',
+  /** (iOS) A Bridgefy SDK instance already exists */
+  alreadyInstantiated = 'alreadyInstantiated',
+  /** (iOS) The Bridgefy SDK is performing the start process */
+  startInProgress = 'startInProgress',
+  /** (iOS) The Bridgefy SDK service is not started */
+  serviceNotStarted = 'serviceNotStarted',
+  /** (iOS) Cannot get app's bundle id */
+  missingBundleID = 'missingBundleID',
+  /** (iOS) An internet connection is required to validate the license */
+  internetConnectionRequired = 'internetConnectionRequired',
+  /** (iOS) The device's time has been modified */
+  inconsistentDeviceTime = 'inconsistentDeviceTime',
+  /** (iOS) The user does not allow the use of BLE */
+  BLEUsageNotGranted = 'BLEUsageNotGranted',
+  /** (iOS) The use of BLE in this device is restricted */
+  BLEUsageRestricted = 'BLEUsageRestricted',
+  /** (iOS) The BLE antenna has been turned off */
+  BLEPoweredOff = 'BLEPoweredOff',
+  /** (iOS) The usage of BLE is not supported in the device */
+  BLEUnsupported = 'BLEUnsupported',
+  /** (iOS) BLE usage failed with an unknown error */
+  BLEUnknownError = 'BLEUnknownError',
+  /** (iOS) Inconsistent connection */
+  inconsistentConnection = 'inconsistentConnection',
+  /** (iOS) Connection is already secure */
+  connectionIsAlreadySecure = 'connectionIsAlreadySecure',
+  /** (iOS) Cannot create secure connection */
+  cannotCreateSecureConnection = 'cannotCreateSecureConnection',
+  /** (iOS) The length of the data exceed the maximum limit */
+  dataLengthExceeded = 'dataLengthExceeded',
+  /** (iOS) The data to send is empty */
+  dataValueIsEmpty = 'dataValueIsEmpty',
+  /** (iOS) The requested peer is not connected */
+  peerIsNotConnected = 'peerIsNotConnected',
+  /** (iOS) An internal error occurred */
+  internalError = 'internalError',
+  /** (iOS) An error occurred while validating the license */
+  licenseError = 'licenseError',
+  /** (iOS) An error occurred while storing data */
+  storageError = 'storageError',
+  /** (iOS) An error occurred while encoding the message */
+  encodingError = 'encodingError',
+  /** (iOS) An error occurred while encrypting the message */
+  encryptionError = 'encryptionError',
+  /** (Android) Missing application ID */
+  missingApplicationId = 'missingApplicationId',
+  /** (Android) Permission exception */
+  permissionException = 'permissionException',
+  /** (Android) Registration exception */
+  registrationException = 'registrationException',
+  /** (Android) Size limit exceeded */
+  sizeLimitExceeded = 'sizeLimitExceeded',
+  /** (Android) Device capabilities error */
+  deviceCapabilities = 'deviceCapabilities',
+  /** (Android) Generic exception */
+  genericException = 'genericException',
+  /** (Android) Inconsistent device time */
+  inconsistentDeviceTimeException = 'inconsistentDeviceTimeException',
+  /** (Android) Internet connection required */
+  internetConnectionRequiredException = 'internetConnectionRequiredException',
+  /** (Android) Unknown exception */
+  unknownException = 'unknownException',
+}
+
+export class BridgefyError extends Error {
+  type: BridgefyErrorType;
+  code?: number;
+
+  constructor(type: BridgefyErrorType, code?: number, message?: string) {
+    super(message);
+    this.type = type;
+    this.code = code;
+    this.name = 'BridgefyError';
+  }
+}
+
+export interface BridgefyDelegate {
+  /**
+   * This function is called when the BridgefySDK has been started.
+   * @param currentUserId The current user id
+   */
+  bridgefyDidStart(currentUserId: string): void;
+  /**
+   * This function is called when an error occurred while starting the BridgefySDK.
+   * @param error Error reason
+   */
+  bridgefyDidFailToStart(error: BridgefyError): void;
+  /**
+   * This function is called when the BridgefySDK has been stopped.
+   */
+  bridgefyDidStop(): void;
+  /**
+   * This function is called when an error occurred while stopping the BridgefySDK.
+   * @param error Error reason
+   */
+  bridgefyDidFailToStop(error: BridgefyError): void;
+  /**
+   * The current session was destroyed
+   */
+  bridgefyDidDestroySession(): void;
+  /**
+   * An error occurred while destroying the current session
+   */
+  bridgefyDidFailToDestroySession(): void;
+  /**
+   * This function is called to notify a new connection.
+   * @param userId The id of the connected peer.
+   */
+  bridgefyDidConnect(userId: string): void;
+  /**
+   * This function is called to notify a disconnection.
+   * @param userId The id of the disconnected peer.
+   */
+  bridgefyDidDisconnect(userId: string): void;
+  /**
+   * This function is called to notify when an on-demand secure connection was established.
+   * @param userId The id of the user with whom the secure connection was established.
+   */
+  bridgefyDidEstablishSecureConnection(userId: string): void;
+  /**
+   * This function is called to notify when an on-demand secure connection could not be established.
+   * @param userId The id of the user with whom the secure connection failed.
+   * @param error Error reason
+   */
+  bridgefyDidFailToEstablishSecureConnection(
+    userId: string,
+    error: BridgefyError
+  ): void;
+  /**
+   * This function is called when you confirm the sending of the message
+   * @param messageId The id of the message sent successfully
+   */
+  bridgefyDidSendMessage(messageId: string): void;
+  /**
+   * This function is called when the message could not be sent
+   * @param messageId The id of the message that was tried to be sent
+   * @param error Error reason
+   */
+  bridgefyDidFailSendingMessage(messageId: string, error?: BridgefyError): void;
+  /**
+   * This function is called when a new message is received
+   * @param data The message data
+   * @param messageId The id of the message that was received
+   * @param transmissionMode The mode used to propagate a message
+   */
+  bridgefyDidReceiveData(
+    data: string,
+    messageId: string,
+    transmissionMode: BridgefyTransmissionMode
+  ): void;
+  /**
+   * (Android) Called when there is progress while transmitting data.
+   * @param messageId Message Id
+   * @param position Position
+   * @param of Total
+   */
+  bridgefyDidSendDataProgress(
+    messageId: string,
+    position: number,
+    of: number
+  ): void;
+}
+
+export class Bridgefy {
+  private delegate?: BridgefyDelegate;
+
+  /**
+   * Initialize the SDK
+   * @param apiKey API key
+   * @param propagationProfile Profile that defines a series of properties and rules for the
+   * propagation of messages.
+   * @param verboseLogging The log level.
+   * @param delegate Delegate that handles Bridgefy SDK events.
+   */
+  async initialize(
+    apiKey: string,
+    propagationProfile: BridgefyPropagationProfile,
+    verboseLogging: boolean,
+    delegate: BridgefyDelegate
+  ): Promise<void> {
+    this.delegate = delegate;
+    return BridgefyReactNative.initialize(
+      apiKey,
+      propagationProfile,
+      verboseLogging
+    );
+  }
+
+  /**
+   * Start Bridgefy SDK operations
+   */
+  async start(): Promise<void> {
+    return BridgefyReactNative.start();
+  }
+
+  /**
+   * Stop Bridgefy SDK operations
+   */
+  async stop(): Promise<void> {
+    return BridgefyReactNative.stop();
+  }
+
+  /**
+   * Destroy current session
+   */
+  async destroySession(): Promise<void> {
+    return BridgefyReactNative.destroySession();
+  }
+
+  /**
+   * Function used to send data using a ``TransmissionMode``. This method returns a UUID to identify
+   * the message sent.
+   * @param data The message data
+   * @param transmissionMode The mode used to propagate a message through nearby devices.
+   * @returns The id of the message that was sent.
+   */
+  async send(
+    data: string,
+    transmissionMode: BridgefyTransmissionMode
+  ): Promise<string> {
+    const result = await BridgefyReactNative.send(data, transmissionMode);
+    return result['messageId'];
+  }
+
+  /**
+   * Establishes a secure connection with the specified user
+   * @param userId The UUID of the user with whom a secure connection should be established.
+   */
+  async establishSecureConnection(userId: string): Promise<void> {
+    return BridgefyReactNative.establishSecureConnection(userId);
+  }
+
+  /**
+   * Get current user Id
+   * @returns User Id
+   */
+  async currentUserId(): Promise<string> {
+    const result = BridgefyReactNative.currentUserId();
+    return result['userId'];
+  }
+
+  /**
+   * Returns connected peers
+   * @returns List of connected peers
+   */
+  async connectedPeers(): Promise<string[]> {
+    const result = BridgefyReactNative.connectedPeers();
+    return result['connectedPeers'];
+  }
+
+  /**
+   * Returns license expiration date
+   * @returns Expiration date
+   */
+  async licenseExpirationDate(): Promise<Date> {
+    const result = BridgefyReactNative.licenseExpirationDate();
+    return new Date(result['licenseExpirationDate']);
+  }
 }
