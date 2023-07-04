@@ -14,6 +14,15 @@ buildscript {
   }
 }
 
+rootProject.allprojects {
+  repositories {
+    maven {
+      url "http://34.82.5.94:8081/artifactory/libs-release-local"
+      allowInsecureProtocol = true
+    }
+  }
+}
+
 def isNewArchitectureEnabled() {
   return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
 }
@@ -74,6 +83,9 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.0.0", ext: "aar") {
+    transitive = true
+  }
 }
 
 if (isNewArchitectureEnabled()) {
