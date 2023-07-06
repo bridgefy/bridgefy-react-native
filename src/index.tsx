@@ -131,116 +131,109 @@ export class BridgefyError extends Error {
   }
 }
 
-export interface BridgefyDelegate {
+export type BridgefyEvents = {
   /**
    * This function is called when the BridgefySDK has been started.
    * @param currentUserId The current user id
    */
-  bridgefyDidStart(currentUserId: string): void;
+  bridgefyDidStart: (currentUserId: string) => void;
   /**
    * This function is called when an error occurred while starting the BridgefySDK.
    * @param error Error reason
    */
-  bridgefyDidFailToStart(error: BridgefyError): void;
+  bridgefyDidFailToStart: (error: BridgefyError) => void;
   /**
    * This function is called when the BridgefySDK has been stopped.
    */
-  bridgefyDidStop(): void;
+  bridgefyDidStop: () => void;
   /**
    * This function is called when an error occurred while stopping the BridgefySDK.
    * @param error Error reason
    */
-  bridgefyDidFailToStop(error: BridgefyError): void;
+  bridgefyDidFailToStop: (error: BridgefyError) => void;
   /**
    * The current session was destroyed
    */
-  bridgefyDidDestroySession(): void;
+  bridgefyDidDestroySession: () => void;
   /**
    * An error occurred while destroying the current session
    */
-  bridgefyDidFailToDestroySession(): void;
+  bridgefyDidFailToDestroySession: () => void;
   /**
    * This function is called to notify a new connection.
    * @param userId The id of the connected peer.
    */
-  bridgefyDidConnect(userId: string): void;
+  bridgefyDidConnect: (userId: string) => void;
   /**
    * This function is called to notify a disconnection.
    * @param userId The id of the disconnected peer.
    */
-  bridgefyDidDisconnect(userId: string): void;
+  bridgefyDidDisconnect: (userId: string) => void;
   /**
    * This function is called to notify when an on-demand secure connection was established.
    * @param userId The id of the user with whom the secure connection was established.
    */
-  bridgefyDidEstablishSecureConnection(userId: string): void;
+  bridgefyDidEstablishSecureConnection: (userId: string) => void;
   /**
    * This function is called to notify when an on-demand secure connection could not be established.
    * @param userId The id of the user with whom the secure connection failed.
    * @param error Error reason
    */
-  bridgefyDidFailToEstablishSecureConnection(
+  bridgefyDidFailToEstablishSecureConnection: (
     userId: string,
     error: BridgefyError
-  ): void;
+  ) => void;
   /**
    * This function is called when you confirm the sending of the message
    * @param messageId The id of the message sent successfully
    */
-  bridgefyDidSendMessage(messageId: string): void;
+  bridgefyDidSendMessage: (messageId: string) => void;
   /**
    * This function is called when the message could not be sent
    * @param messageId The id of the message that was tried to be sent
    * @param error Error reason
    */
-  bridgefyDidFailSendingMessage(messageId: string, error?: BridgefyError): void;
+  bridgefyDidFailSendingMessage: (
+    messageId: string,
+    error?: BridgefyError
+  ) => void;
   /**
    * This function is called when a new message is received
    * @param data The message data
    * @param messageId The id of the message that was received
    * @param transmissionMode The mode used to propagate a message
    */
-  bridgefyDidReceiveData(
+  bridgefyDidReceiveData: (
     data: string,
     messageId: string,
     transmissionMode: BridgefyTransmissionMode
-  ): void;
+  ) => void;
   /**
    * (Android) Called when there is progress while transmitting data.
    * @param messageId Message Id
    * @param position Position
    * @param of Total
    */
-  bridgefyDidSendDataProgress(
+  bridgefyDidSendDataProgress: (
     messageId: string,
     position: number,
     of: number
-  ): void;
-}
+  ) => void;
+};
 
 export class Bridgefy {
-  private delegate?: BridgefyDelegate;
-
   /**
    * Initialize the SDK
    * @param apiKey API key
    * @param propagationProfile Profile that defines a series of properties and rules for the
    * propagation of messages.
    * @param verboseLogging The log level.
-   * @param delegate Delegate that handles Bridgefy SDK events.
    */
   async initialize(
     apiKey: string,
-    propagationProfile: BridgefyPropagationProfile,
-    verboseLogging: boolean,
-    delegate: BridgefyDelegate
+    propagationProfile: BridgefyPropagationProfile
   ): Promise<void> {
-    this.delegate = delegate;
-    return BridgefyReactNative.initialize(
-      apiKey,
-      propagationProfile,
-      verboseLogging
-    );
+    return BridgefyReactNative.initialize(apiKey, propagationProfile);
   }
 
   /**
@@ -276,7 +269,7 @@ export class Bridgefy {
     transmissionMode: BridgefyTransmissionMode
   ): Promise<string> {
     const result = await BridgefyReactNative.send(data, transmissionMode);
-    return result['messageId'];
+    return result.messageId;
   }
 
   /**
@@ -293,7 +286,7 @@ export class Bridgefy {
    */
   async currentUserId(): Promise<string> {
     const result = BridgefyReactNative.currentUserId();
-    return result['userId'];
+    return result.userId;
   }
 
   /**
@@ -302,7 +295,7 @@ export class Bridgefy {
    */
   async connectedPeers(): Promise<string[]> {
     const result = BridgefyReactNative.connectedPeers();
-    return result['connectedPeers'];
+    return result.connectedPeers;
   }
 
   /**
@@ -311,6 +304,6 @@ export class Bridgefy {
    */
   async licenseExpirationDate(): Promise<Date> {
     const result = BridgefyReactNative.licenseExpirationDate();
-    return new Date(result['licenseExpirationDate']);
+    return new Date(result.licenseExpirationDate);
   }
 }

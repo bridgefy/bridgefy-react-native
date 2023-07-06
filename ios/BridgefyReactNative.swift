@@ -11,10 +11,9 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     BridgefyReactNative.emitter = self
   }
 
-  @objc(initializeWithApiKey:propagationProfile:verboseLogging:resolve:reject:)
+  @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
                   propagationProfile: String,
-                  verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
@@ -22,7 +21,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
       bridgefy = try Bridgefy(withApiKey: apiKey,
                               propagationProfile: profile,
                               delegate: self,
-                              verboseLogging: verboseLogging)
+                              verboseLogging: false)
       resolve(nil)
     } catch let error {
       let dict = errorDictionary(from: error as! BridgefyError)
@@ -30,13 +29,13 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     }
   }
 
-  @objc(startWithResolve:reject:)
+  @objc(start:reject:)
   func start(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     bridgefy!.start()
     resolve(nil)
   }
 
-  @objc(sendData:transmissionMode:resolve:reject:)
+  @objc(send:transmissionMode:resolve:reject:)
   func send(data: Data,
             transmissionMode: Dictionary<String, String>,
             resolve: RCTPromiseResolveBlock,
@@ -51,25 +50,25 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     }
   }
 
-  @objc(stopWithResolve:reject:)
+  @objc(stop:reject:)
   func stop(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     bridgefy!.stop()
     resolve(nil)
   }
 
-  @objc(connectedPeersWithResolve:reject:)
+  @objc(connectedPeers:reject:)
   func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     resolve(["connectedPeers": bridgefy!.connectedPeers.map({ uuid in
       uuid.uuidString
     })])
   }
 
-  @objc(currentUserIdWithResolve:reject:)
+  @objc(currentUserId:reject:)
   func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     resolve(["userId": bridgefy!.currentUserId.uuidString])
   }
 
-  @objc(establishSecureConnectionToUserWithId:resolve:reject:)
+  @objc(establishSecureConnection:resolve:reject:)
   func establishSecureConnection(userId: String,
                                  resolve: RCTPromiseResolveBlock,
                                  reject: RCTPromiseRejectBlock) -> Void {
@@ -78,7 +77,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     resolve(nil)
   }
 
-  @objc(licenseExpirationDateWithResolve:reject:)
+  @objc(licenseExpirationDate:reject:)
   func licenseExpirationDate(resolve: RCTPromiseResolveBlock,
                              reject: RCTPromiseRejectBlock) -> Void {
     if let interval = bridgefy!.licenseExpirationDate?.timeIntervalSince1970 {
@@ -90,9 +89,8 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   // MARK: - RCTEventEmitter
 
-  @objc(supportedEvents)
   open override func supportedEvents() -> [String] {
-    [
+    return [
       "bridgefyDidStart", "bridgefyDidFailToStart", "bridgefyDidStop", "bridgefyDidFailToStop",
       "bridgefyDidDestroySession", "bridgefyDidFailToDestroySession", "bridgefyDidConnect",
       "bridgefyDidDisconnect", "bridgefyDidEstablishSecureConnection",
