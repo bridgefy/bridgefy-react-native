@@ -119,108 +119,72 @@ export enum BridgefyErrorType {
   unknownException = 'unknownException',
 }
 
-export class BridgefyError extends Error {
-  type: BridgefyErrorType;
-  code?: number;
-
-  constructor(type: BridgefyErrorType, code?: number, message?: string) {
-    super(message);
-    this.type = type;
-    this.code = code;
-    this.name = 'BridgefyError';
-  }
-}
-
-export type BridgefyEvents = {
+/**
+ * These events are available via subscriptions to the `NativeEventEmitter` using the
+ * `NativeModules.BridgefyReactNative` component. See README for further instructions.
+ */
+export enum BridgefyEvents {
   /**
    * This function is called when the BridgefySDK has been started.
-   * @param currentUserId The current user id
    */
-  bridgefyDidStart: (currentUserId: string) => void;
+  bridgefyDidStart = 'bridgefyDidStart',
   /**
    * This function is called when an error occurred while starting the BridgefySDK.
-   * @param error Error reason
    */
-  bridgefyDidFailToStart: (error: BridgefyError) => void;
+  bridgefyDidFailToStart = 'bridgefyDidFailToStart',
   /**
    * This function is called when the BridgefySDK has been stopped.
    */
-  bridgefyDidStop: () => void;
+  bridgefyDidStop = 'bridgefyDidStop',
   /**
    * This function is called when an error occurred while stopping the BridgefySDK.
-   * @param error Error reason
    */
-  bridgefyDidFailToStop: (error: BridgefyError) => void;
+  bridgefyDidFailToStop = 'bridgefyDidFailToStop',
   /**
    * The current session was destroyed
    */
-  bridgefyDidDestroySession: () => void;
+  bridgefyDidDestroySession = 'bridgefyDidDestroySession',
   /**
    * An error occurred while destroying the current session
    */
-  bridgefyDidFailToDestroySession: () => void;
+  bridgefyDidFailToDestroySession = 'bridgefyDidFailToDestroySession',
   /**
    * This function is called to notify a new connection.
-   * @param userId The id of the connected peer.
    */
-  bridgefyDidConnect: (userId: string) => void;
+  bridgefyDidConnect = 'bridgefyDidConnect',
   /**
    * This function is called to notify a disconnection.
-   * @param userId The id of the disconnected peer.
    */
-  bridgefyDidDisconnect: (userId: string) => void;
+  bridgefyDidDisconnect = 'bridgefyDidDisconnect',
   /**
    * This function is called to notify when an on-demand secure connection was established.
-   * @param userId The id of the user with whom the secure connection was established.
    */
-  bridgefyDidEstablishSecureConnection: (userId: string) => void;
+  bridgefyDidEstablishSecureConnection = 'bridgefyDidEstablishSecureConnection',
   /**
    * This function is called to notify when an on-demand secure connection could not be established.
-   * @param userId The id of the user with whom the secure connection failed.
-   * @param error Error reason
    */
-  bridgefyDidFailToEstablishSecureConnection: (
-    userId: string,
-    error: BridgefyError
-  ) => void;
+  bridgefyDidFailToEstablishSecureConnection = 'bridgefyDidFailToEstablishSecureConnection',
   /**
    * This function is called when you confirm the sending of the message
-   * @param messageId The id of the message sent successfully
    */
-  bridgefyDidSendMessage: (messageId: string) => void;
+  bridgefyDidSendMessage = 'bridgefyDidSendMessage',
   /**
    * This function is called when the message could not be sent
-   * @param messageId The id of the message that was tried to be sent
-   * @param error Error reason
    */
-  bridgefyDidFailSendingMessage: (
-    messageId: string,
-    error?: BridgefyError
-  ) => void;
+  bridgefyDidFailSendingMessage = 'bridgefyDidFailSendingMessage',
   /**
    * This function is called when a new message is received
-   * @param data The message data
-   * @param messageId The id of the message that was received
-   * @param transmissionMode The mode used to propagate a message
    */
-  bridgefyDidReceiveData: (
-    data: string,
-    messageId: string,
-    transmissionMode: BridgefyTransmissionMode
-  ) => void;
+  bridgefyDidReceiveData = 'bridgefyDidReceiveData',
   /**
    * (Android) Called when there is progress while transmitting data.
-   * @param messageId Message Id
-   * @param position Position
-   * @param of Total
    */
-  bridgefyDidSendDataProgress: (
-    messageId: string,
-    position: number,
-    of: number
-  ) => void;
-};
+  bridgefyDidSendDataProgress = 'bridgefyDidSendDataProgress',
+}
 
+/**
+ * Bridgefy
+ */
 export class Bridgefy {
   /**
    * Initialize the SDK
