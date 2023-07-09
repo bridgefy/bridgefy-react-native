@@ -2,6 +2,7 @@ import {
   Bridgefy,
   BridgefyEvents,
   BridgefyPropagationProfile,
+  BridgefyTransmissionModeType,
 } from 'bridgefy-react-native';
 import * as React from 'react';
 import {
@@ -11,41 +12,54 @@ import {
   NativeEventEmitter,
   NativeModules,
   type EmitterSubscription,
+  Button,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 
+const bridgefy = new Bridgefy();
+
 export default function App() {
-  const [result, _setResult] = React.useState<number | undefined>();
-  const bridgefy = new Bridgefy();
+  const [logText, setLog] = React.useState<string>('');
 
   // Subscribe to Bridgefy real-time events so we can act on them as required.
   React.useEffect(() => {
+    function log(text: string, obj: any, error = false) {
+      setLog(`${logText}${text} ${JSON.stringify(obj)}\n`);
+      if (error) {
+        console.error(text, obj);
+      } else {
+        console.log(text, obj);
+      }
+    }
+
     const subscriptions: EmitterSubscription[] = [];
     const eventEmitter = new NativeEventEmitter(
       NativeModules.BridgefyReactNative
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStart, (event) => {
-        console.log(`bridgefyDidStart: ${event}`);
+        log(`bridgefyDidStart`, event);
       })
     );
     subscriptions.push(
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidFailToStart,
         (event) => {
-          console.error(`bridgefyDidFailToStart: ${event}`);
+          log(`bridgefyDidFailToStart`, event, true);
         }
       )
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStop, (event) => {
-        console.log(`bridgefyDidStop: ${event}`);
+        log(`bridgefyDidStop`, event);
       })
     );
     subscriptions.push(
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidFailToStop,
         (event) => {
-          console.error(`bridgefyDidFailToStop: ${event}`);
+          log(`bridgefyDidFailToStop`, event, true);
         }
       )
     );
@@ -53,7 +67,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidDestroySession,
         (event) => {
-          console.log(`bridgefyDidDestroySession: ${event}`);
+          log(`bridgefyDidDestroySession`, event);
         }
       )
     );
@@ -61,20 +75,20 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidFailToDestroySession,
         (event) => {
-          console.error(`bridgefyDidFailToDestroySession: ${event}`);
+          log(`bridgefyDidFailToDestroySession`, event, true);
         }
       )
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidConnect, (event) => {
-        console.log(`bridgefyDidConnect: ${event}`);
+        log(`bridgefyDidConnect`, event);
       })
     );
     subscriptions.push(
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidDisconnect,
         (event) => {
-          console.log(`bridgefyDidDisconnect: ${event}`);
+          log(`bridgefyDidDisconnect`, event);
         }
       )
     );
@@ -82,7 +96,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidEstablishSecureConnection,
         (event) => {
-          console.log(`bridgefyDidEstablishSecureConnection: ${event}`);
+          log(`bridgefyDidEstablishSecureConnection`, event);
         }
       )
     );
@@ -90,7 +104,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidFailToEstablishSecureConnection,
         (event) => {
-          console.error(`bridgefyDidFailToEstablishSecureConnection: ${event}`);
+          log(`bridgefyDidFailToEstablishSecureConnection`, event, true);
         }
       )
     );
@@ -98,7 +112,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidSendMessage,
         (event) => {
-          console.log(`bridgefyDidSendMessage: ${event}`);
+          log(`bridgefyDidSendMessage`, event);
         }
       )
     );
@@ -106,7 +120,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidFailSendingMessage,
         (event) => {
-          console.error(`bridgefyDidFailSendingMessage: ${event}`);
+          log(`bridgefyDidFailSendingMessage`, event, true);
         }
       )
     );
@@ -114,7 +128,7 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidReceiveData,
         (event) => {
-          console.log(`bridgefyDidReceiveData: ${event}`);
+          log(`bridgefyDidReceiveData`, event);
         }
       )
     );
@@ -122,42 +136,76 @@ export default function App() {
       eventEmitter.addListener(
         BridgefyEvents.bridgefyDidSendDataProgress,
         (event) => {
-          console.log(`bridgefyDidSendDataProgress: ${event}`);
+          log(`bridgefyDidSendDataProgress`, event);
         }
       )
     );
+
+    // Initialize Bridgefy using our API key.
+    bridgefy
+      .initialize(
+        '40a8483d-c2ec-4749-9b09-a85c6957f95e',
+        BridgefyPropagationProfile.standard
+      )
+      .then(() => {
+        log('Initialized', {});
+      })
+      .catch((error) => {
+        log(`Initialize error`, error.message, true);
+      });
+
     return () => {
       for (const sub of subscriptions) {
         sub.remove();
       }
     };
-  }, []);
-
-  // Initialize Bridgefy using our API key.
-  bridgefy
-    .initialize(
-      '40a8483d-0000-0000-0000-000000000000',
-      BridgefyPropagationProfile.standard
-    )
-    .then(() => {
-      bridgefy.start();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  }, [logText]);
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titleText}>Bridgefy React Native</Text>
+      <View style={styles.buttonBar}>
+        <Button title="Start" onPress={() => bridgefy.start()} />
+        <Button
+          title="Send data"
+          onPress={() =>
+            bridgefy.send('test', {
+              type: BridgefyTransmissionModeType.broadcast,
+              uuid: '00000',
+            })
+          }
+        />
+      </View>
+      <ScrollView style={styles.logTextBox}>
+        <Text style={styles.logText}>{logText}</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: 20,
+    textAlign: 'center',
+  },
+  buttonBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  logText: {
+    fontFamily: 'monospace',
+    flexGrow: 1,
+  },
+  logTextBox: {
+    padding: 16,
   },
   box: {
     width: 60,

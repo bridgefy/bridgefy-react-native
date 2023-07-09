@@ -95,7 +95,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
       "bridgefyDidDestroySession", "bridgefyDidFailToDestroySession", "bridgefyDidConnect",
       "bridgefyDidDisconnect", "bridgefyDidEstablishSecureConnection",
       "bridgefyDidFailToEstablishSecureConnection", "bridgefyDidSendMessage",
-      "bridgefyDidFailSendingMessage", "bridgefyDidReceiveData"
+      "bridgefyDidFailSendingMessage", "bridgefyDidReceiveData", "bridgefyDidSendDataProgress"
     ]
   }
 
