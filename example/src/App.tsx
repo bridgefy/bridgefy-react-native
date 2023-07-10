@@ -159,7 +159,7 @@ export default function App() {
         sub.remove();
       }
     };
-  }, [logText]);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
