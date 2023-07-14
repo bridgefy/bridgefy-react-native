@@ -1,4 +1,4 @@
-package com.bridgefyreactnative
+package me.bridgefy.plugin.react_native
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

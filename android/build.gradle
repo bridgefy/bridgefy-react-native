@@ -23,6 +23,13 @@ rootProject.allprojects {
   }
 }
 
+allprojects {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
 def isNewArchitectureEnabled() {
   return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
 }
@@ -78,20 +85,20 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
+  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.0.1", ext: "aar") {
+    transitive = true
+  }
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.0.0", ext: "aar") {
-    transitive = true
-  }
 }
 
 if (isNewArchitectureEnabled()) {
   react {
     jsRootDir = file("../src/")
     libraryName = "BridgefyReactNative"
-    codegenJavaPackageName = "com.bridgefyreactnative"
+    codegenJavaPackageName = "me.bridgefy.plugin.react_native"
   }
 }

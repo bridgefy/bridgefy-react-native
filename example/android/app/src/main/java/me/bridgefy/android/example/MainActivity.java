@@ -1,4 +1,4 @@
-package com.bridgefyreactnativeexample;
+package me.bridgefy.android.example;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

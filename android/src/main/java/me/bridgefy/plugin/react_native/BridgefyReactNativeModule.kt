@@ -1,4 +1,4 @@
-package com.bridgefyreactnative
+package me.bridgefy.plugin.react_native
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactApplicationContext
@@ -31,7 +31,6 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun initialize(apiKey: String,
                  propagationProfile: String,
-                 verboseLogging: Boolean,
                  promise: Promise) {
     val profile = propagationProfileFromString(propagationProfile)
     try {
@@ -85,7 +84,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
                 val errMap = mapFromBridgefyException(error)
                 putString("code", errMap["code"] as String)
                 putString("message", errMap["message"] as String)
-                putString("details", errMap["details"] as String)
+                putString("details", errMap["details"] as? String)
               })
             }
             sendEvent(reactApplicationContext, "bridgefyDidFailToStart", params)
@@ -209,7 +208,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   companion object {
-    const val NAME = "Bridgefy"
+    const val NAME = "BridgefyReactNative"
   }
 
   private fun sendEvent(reactContext: ReactContext, eventName: String, params: WritableMap?) {

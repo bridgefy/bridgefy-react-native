@@ -21,5 +21,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+        android:name="com.bridgefy.sdk.API_KEY"
+        android:value="40a8483d-c2ec-4749-9b09-a85c6957f95e" />
     </application>
 </manifest>
