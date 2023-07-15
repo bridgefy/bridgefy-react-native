@@ -4,6 +4,7 @@ import {
   BridgefyPropagationProfile,
   BridgefyTransmissionModeType,
 } from 'bridgefy-react-native';
+import * as RNPermissions from 'react-native-permissions';
 import * as React from 'react';
 import {
   StyleSheet,
@@ -20,25 +21,27 @@ import {
 const bridgefy = new Bridgefy();
 
 export default function App() {
+  const [userId, setUserId] = React.useState<string>('');
   const [logText, setLog] = React.useState<string>('');
+
+  const log = (text: string, obj: any, error = false) => {
+    setLog(`${logText}${text} ${JSON.stringify(obj)}\n`);
+    if (error) {
+      console.error(text, obj);
+    } else {
+      console.log(text, obj);
+    }
+  };
 
   // Subscribe to Bridgefy real-time events so we can act on them as required.
   React.useEffect(() => {
-    function log(text: string, obj: any, error = false) {
-      setLog(`${logText}${text} ${JSON.stringify(obj)}\n`);
-      if (error) {
-        console.error(text, obj);
-      } else {
-        console.log(text, obj);
-      }
-    }
-
     const subscriptions: EmitterSubscription[] = [];
     const eventEmitter = new NativeEventEmitter(
       NativeModules.BridgefyReactNative
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStart, (event) => {
+        setUserId(event.userId);
         log(`bridgefyDidStart`, event);
       })
     );
@@ -141,25 +144,32 @@ export default function App() {
       )
     );
 
-    // Initialize Bridgefy using our API key.
-    bridgefy
-      .initialize(
-        '40a8483d-c2ec-4749-9b09-a85c6957f95e',
-        BridgefyPropagationProfile.standard
-      )
-      .then(() => {
-        log('Initialized', {});
-      })
-      .catch((error) => {
-        log(`Initialize error`, error.message, true);
-      });
+    RNPermissions.requestMultiple([
+      RNPermissions.PERMISSIONS.IOS.LOCATION_ALWAYS,
+      RNPermissions.PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL,
+      RNPermissions.PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      RNPermissions.PERMISSIONS.ANDROID.BLUETOOTH_ADVERTISE,
+      RNPermissions.PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+      RNPermissions.PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+    ]).then((_statuses) => {
+      // Initialize Bridgefy using our API key.
+      bridgefy
+        .initialize(
+          '20ef12d5-9b06-4762-a581-3f2348fa1f0b',
+          BridgefyPropagationProfile.standard
+        )
+        .catch((error) => {
+          log(`Initialize error`, error.message, true);
+        });
+    });
 
     return () => {
       for (const sub of subscriptions) {
         sub.remove();
       }
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -169,10 +179,14 @@ export default function App() {
         <Button
           title="Send data"
           onPress={() =>
-            bridgefy.send('test', {
-              type: BridgefyTransmissionModeType.broadcast,
-              uuid: '00000',
-            })
+            bridgefy
+              .send('Hello world', {
+                type: BridgefyTransmissionModeType.broadcast,
+                uuid: userId,
+              })
+              .then((result) => {
+                log(`Sent message`, result);
+              })
           }
         />
       </View>

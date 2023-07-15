@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactContext
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import me.bridgefy.Bridgefy
@@ -80,24 +81,14 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
           override fun onFailToStart(error: BridgefyException) {
             val params = Arguments.createMap().apply {
-              putMap("error", Arguments.createMap().apply {
-                val errMap = mapFromBridgefyException(error)
-                putString("code", errMap["code"] as String)
-                putString("message", errMap["message"] as String)
-                putString("details", errMap["details"] as? String)
-              })
+              putMap("error", mapFromBridgefyException(error))
             }
             sendEvent(reactApplicationContext, "bridgefyDidFailToStart", params)
           }
 
           override fun onFailToStop(error: BridgefyException) {
             val params = Arguments.createMap().apply {
-              putMap("error", Arguments.createMap().apply {
-                val errMap = mapFromBridgefyException(error)
-                putString("code", errMap["code"] as String)
-                putString("message", errMap["message"] as String)
-                putString("details", errMap["details"] as String)
-              })
+              putMap("error", mapFromBridgefyException(error))
             }
             sendEvent(reactApplicationContext, "bridgefyDidFailToStop", params)
           }
@@ -117,13 +108,9 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             transmissionMode: TransmissionMode
           ) {
             val params = Arguments.createMap().apply {
-              putString("data", data.toString())
+              putString("data", String(data))
               putString("messageId", messageID.toString())
-              putMap("transmissionMode", Arguments.createMap().apply {
-                val modeMap = mapFromTransmissionMode(transmissionMode)
-                putString("mode", modeMap["mode"])
-                putString("uuid", modeMap["uuid"])
-              })
+              putMap("transmissionMode", mapFromTransmissionMode(transmissionMode))
             }
             sendEvent(reactApplicationContext, "bridgefyDidReceiveData", params)
           }
@@ -149,12 +136,12 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
           override fun onStopped() {
             sendEvent(reactApplicationContext, "bridgefyDidStop", null)
           }
-
         }
       )
+      promise.resolve(null)
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
-      promise.reject(map["code"] as String, map["message"] as String, error)
+      promise.reject(map.getString("code"), map.getString("message"), error)
     }
   }
 
@@ -165,14 +152,16 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun send(data: ByteArray, transmissionMode: HashMap<String, String>, promise: Promise) {
-    val mode = transmissionModeFromHashMap(transmissionMode)!!
+  fun send(data: String, transmissionMode: ReadableMap, promise: Promise) {
+    val mode = transmissionModeFromMap(transmissionMode)!!
     try {
-      val uuid = bridgefy.send(data, mode)
-      promise.resolve(hashMapOf("messageId" to uuid.toString()))
+      val uuid = bridgefy.send(data.toByteArray(), mode)
+      promise.resolve(Arguments.createMap().apply {
+        putString("messageId", uuid.toString())
+      })
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
-      promise.reject(map["code"] as String, map["message"] as String, error)
+      promise.reject(map.getString("code"), map.getString("message"), error)
     }
   }
 
@@ -191,7 +180,9 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun currentUserID(promise: Promise) {
     val userId = bridgefy.currentBridgefyUser()
-    promise.resolve(hashMapOf("userId" to userId.toString()))
+    promise.resolve(Arguments.createMap().apply {
+      putString("userId", userId.toString())
+    })
   }
 
   @ReactMethod
@@ -204,7 +195,9 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun licenseExpirationDate(promise: Promise) {
     val date = bridgefy.licenseExpirationDate()
-    promise.resolve(hashMapOf("licenseExpirationDate" to date?.time))
+    promise.resolve(Arguments.createMap().apply {
+      putString("licenseExpirationDate", date?.time.toString())
+    })
   }
 
   companion object {
@@ -217,7 +210,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
       .emit(eventName, params)
   }
 
-  private fun mapFromBridgefyException(exception: BridgefyException): HashMap<String, Any?> {
+  private fun mapFromBridgefyException(exception: BridgefyException): ReadableMap {
     var code: String
     var details: Int? = null
     var message: String? = null
@@ -282,7 +275,11 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
         message = exception.toString()
       }
     }
-    return hashMapOf("code" to code, "message" to message, "details" to details)
+    return Arguments.createMap().apply {
+      putString("code", code)
+      putString("message", message)
+      if (details != null) putInt("details", details) else putNull("details")
+    }
   }
 
   private fun propagationProfileFromString(str: String): PropagationProfile? {
@@ -296,27 +293,27 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  private fun mapFromTransmissionMode(mode: TransmissionMode): HashMap<String, String> {
+  private fun mapFromTransmissionMode(mode: TransmissionMode): ReadableMap {
     return when (mode) {
-      is TransmissionMode.Broadcast -> hashMapOf(
-        "mode" to "broadcast",
-        "uuid" to mode.sender.toString(),
-      )
-      is TransmissionMode.Mesh -> hashMapOf(
-        "mode" to "mesh",
-        "uuid" to mode.receiver.toString(),
-      )
-      is TransmissionMode.P2P -> hashMapOf(
-        "mode" to "p2p",
-        "uuid" to mode.receiver.toString(),
-      )
-      else -> hashMapOf<String, String>()
+      is TransmissionMode.Broadcast -> Arguments.createMap().apply {
+        putString("mode", "broadcast")
+        putString("uuid", mode.sender.toString())
+      }
+      is TransmissionMode.Mesh -> Arguments.createMap().apply {
+        putString("mode", "mesh")
+        putString("uuid", mode.receiver.toString())
+      }
+      is TransmissionMode.P2P -> Arguments.createMap().apply {
+        putString("mode", "p2p")
+        putString("uuid", mode.receiver.toString())
+      }
+      else -> Arguments.createMap()
     }
   }
 
-  private fun transmissionModeFromHashMap(map: HashMap<String, String>): TransmissionMode? {
-    val uuid = UUID.fromString(map["uuid"])
-    return when (map["mode"]) {
+  private fun transmissionModeFromMap(map: ReadableMap): TransmissionMode? {
+    val uuid = UUID.fromString(map.getString("uuid"))
+    return when (map.getString("type")) {
       "p2p" -> TransmissionMode.P2P(uuid)
       "mesh" -> TransmissionMode.Mesh(uuid)
       "broadcast" -> TransmissionMode.Broadcast(uuid)

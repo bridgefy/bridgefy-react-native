@@ -6,12 +6,20 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "pods": "pod-install --quiet"
+    "pods": "pod-install --quiet",
+    "postinstall": "react-native setup-ios-permissions && pod-install"
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.72.1"
+    "react-native": "0.72.1",
+    "react-native-permissions": "^3.8.4"
   },
+  "reactNativePermissionsIOS": [
+    "BluetoothPeripheral",
+    "LocationAccuracy",
+    "LocationAlways",
+    "LocationWhenInUse"
+  ],
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
