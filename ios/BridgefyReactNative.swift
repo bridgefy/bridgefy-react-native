@@ -36,13 +36,13 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
   }
 
   @objc(send:transmissionMode:resolve:reject:)
-  func send(data: Data,
+  func send(data: String,
             transmissionMode: Dictionary<String, String>,
             resolve: RCTPromiseResolveBlock,
             reject: RCTPromiseRejectBlock) -> Void {
     let mode = self.transmissionMode(from: transmissionMode)!
     do {
-      let uuid = try bridgefy!.send(data, using: mode)
+      let uuid = try bridgefy!.send(Data(data.utf8), using: mode)
       resolve(["messageId": uuid.uuidString])
     } catch let error {
       let dict = errorDictionary(from: error as! BridgefyError)
@@ -196,7 +196,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
   }
 
   private func transmissionMode(from dict: Dictionary<String, String>) -> TransmissionMode? {
-    if let mode = dict["mode"],
+    if let mode = dict["type"],
        let uuidStr = dict["uuid"],
        let uuid = UUID(uuidString: uuidStr) {
       switch mode {

@@ -11,7 +11,7 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apiKey
 RCT_EXTERN_METHOD(start:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(send:(NSData *)data
+RCT_EXTERN_METHOD(send:(NSString *)data
                   transmissionMode:(NSDictionary *)transmissionMode
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
