@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		kMPhbNx7Kqdlsgqghz8X3Fre9Eg=
+		nIHND/FSAsG2DknD2kfzokoxoCQ=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		4FNeC/UxGQHp9a5rJiEiQpaQ4xw=
+		TEvyIzsu/ULB+5nCiY1R83KsKHk=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		94LZtr6W90MpQ+lj/U0V5raIwlk=
+		G0RyMgvzCRurW0gOMWGLGVeFv2M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -61,7 +61,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tgKtj/fPhWBnxlNAbpe/R0LFJI5JofRdYbuJ7aBnPEs=
+			6s/qUFk7kHSbdwLafHHt2jd3vjgl28JApHsHo7WN6F4=
 			</data>
 		</dict>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xBHl+wghDRKyvfAIPQkTdsCPuXjh7fbdJz4TekRkJqk=
+			oQMJJHvUEH8PG/pYoCCTYg/i7sadHEkRGpmHsw/iu1o=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
