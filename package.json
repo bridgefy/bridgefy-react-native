@@ -1,6 +1,6 @@
 {
   "name": "bridgefy-react-native",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Bridgefy React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -39,10 +39,12 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "mesh",
+    "offline"
   ],
   "repository": "https://github.com/bridgefy/bridgefy-react-native",
-  "author": "Bridgefy Inc <info@bridgefy.me> (https://bridgefy.me)",
+  "author": "Bridgefy Inc <contact@bridgefy.me> (https://bridgefy.me)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bridgefy/bridgefy-react-native/issues"
