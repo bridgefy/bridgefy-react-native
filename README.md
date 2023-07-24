@@ -7,8 +7,8 @@
 </p>
 
 # Bridgefy React Native SDK
-![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy_flutter)
-![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy_flutter?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-react-native)
+![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-react-native?style=plastic)
 
 The Bridgefy Software Development Kit (SDK) is a state-of-the-art, plug-and-play package that will let people use your mobile app when they don’t have access to the Internet, by using Bluetooth mesh networks.
 
