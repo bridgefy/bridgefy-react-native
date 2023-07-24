@@ -1,0 +1,11 @@
+framework module BridgefySDK {
+  umbrella header "BridgefySDK.h"
+
+  export *
+  module * { export * }
+}
+
+module BridgefySDK.Swift {
+  header "BridgefySDK-Swift.h"
+  requires objc
+}

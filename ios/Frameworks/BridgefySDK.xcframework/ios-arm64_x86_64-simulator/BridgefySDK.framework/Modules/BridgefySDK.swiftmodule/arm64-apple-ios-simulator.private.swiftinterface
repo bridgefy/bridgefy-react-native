@@ -1,0 +1,101 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BridgefySDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+@_exported import BridgefySDK
+import CommonCrypto
+import CoreBluetooth
+import CryptoKit
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+public class Bridgefy {
+  public init(withApiKey apiKey: Swift.String, propagationProfile: BridgefySDK.PropagationProfile = .standard, delegate: any BridgefySDK.BridgefyDelegate, verboseLogging: Swift.Bool = false) throws
+  @objc deinit
+  public func start()
+  public func stop()
+  public func destroySession()
+  public func send(_ data: Foundation.Data, using transmissionMode: BridgefySDK.TransmissionMode) throws -> Foundation.UUID
+  public func updateLicense()
+  public func establishSecureConnection(with userId: Foundation.UUID)
+  public var currentUserId: Foundation.UUID {
+    get
+  }
+  public var connectedPeers: [Foundation.UUID] {
+    get
+  }
+  public var licenseExpirationDate: Foundation.Date? {
+    get
+  }
+}
+public enum BridgefyError : Swift.Error {
+  case simulatorIsNotSupported
+  case notStarted
+  case alreadyInstantiated
+  case startInProgress
+  case alreadyStarted
+  case serviceNotStarted
+  case missingBundleID
+  case invalidAPIKey
+  case internetConnectionRequired
+  case sessionError
+  case expiredLicense
+  case inconsistentDeviceTime
+  case BLEUsageNotGranted
+  case BLEUsageRestricted
+  case BLEPoweredOff
+  case BLEUnsupported
+  case BLEUnknownError
+  case inconsistentConnection
+  case connectionIsAlreadySecure
+  case cannotCreateSecureConnection
+  case dataLengthExceeded
+  case dataValueIsEmpty
+  case peerIsNotConnected
+  case internalError
+  case licenseError(code: Swift.Int)
+  case storageError(code: Swift.Int)
+  case encodingError(code: Swift.Int)
+  case encryptionError(code: Swift.Int)
+}
+extension BridgefySDK.BridgefyError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum PropagationProfile {
+  case standard
+  case highDensityNetwork
+  case sparseNetwork
+  case longReach
+  case shortReach
+  public static func == (a: BridgefySDK.PropagationProfile, b: BridgefySDK.PropagationProfile) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum TransmissionMode {
+  case p2p(userId: Foundation.UUID)
+  case mesh(userId: Foundation.UUID)
+  case broadcast(senderId: Foundation.UUID)
+}
+public protocol BridgefyDelegate : AnyObject {
+  func bridgefyDidStart(with userId: Foundation.UUID)
+  func bridgefyDidFailToStart(with error: BridgefySDK.BridgefyError)
+  func bridgefyDidStop()
+  func bridgefyDidFailToStop(with error: BridgefySDK.BridgefyError)
+  func bridgefyDidDestroySession()
+  func bridgefyDidFailToDestroySession()
+  func bridgefyDidConnect(with userId: Foundation.UUID)
+  func bridgefyDidDisconnect(from userId: Foundation.UUID)
+  func bridgefyDidEstablishSecureConnection(with userId: Foundation.UUID)
+  func bridgefyDidFailToEstablishSecureConnection(with userId: Foundation.UUID, error: BridgefySDK.BridgefyError)
+  func bridgefyDidSendMessage(with messageId: Foundation.UUID)
+  func bridgefyDidFailSendingMessage(with messageId: Foundation.UUID, withError error: BridgefySDK.BridgefyError)
+  func bridgefyDidReceiveData(_ data: Foundation.Data, with messageId: Foundation.UUID, using transmissionMode: BridgefySDK.TransmissionMode)
+}
+extension BridgefySDK.PropagationProfile : Swift.Equatable {}
+extension BridgefySDK.PropagationProfile : Swift.Hashable {}
