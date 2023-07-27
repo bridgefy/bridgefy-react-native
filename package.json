@@ -1,6 +1,6 @@
 {
   "name": "bridgefy-react-native",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bridgefy React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
