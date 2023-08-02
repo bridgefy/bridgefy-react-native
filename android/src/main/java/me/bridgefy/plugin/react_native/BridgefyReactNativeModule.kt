@@ -178,6 +178,18 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun destroySession(promise: Promise) {
+    bridgefy.destroySession()
+    promise.resolve(null)
+  }
+
+  @ReactMethod
+  fun updateLicense(promise: Promise) {
+    bridgefy.updateLicense()
+    promise.resolve(null)
+  }
+
+  @ReactMethod
   fun currentUserID(promise: Promise) {
     val userId = bridgefy.currentBridgefyUser()
     promise.resolve(Arguments.createMap().apply {
