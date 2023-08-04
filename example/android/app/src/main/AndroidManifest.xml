@@ -23,6 +23,6 @@
       </activity>
       <meta-data
         android:name="com.bridgefy.sdk.API_KEY"
-        android:value="20ef12d5-9b06-4762-a581-3f2348fa1f0b" />
+        android:value="a0ef12d5-9c06-4862-a881-3f2349fa1f0b" />
     </application>
 </manifest>
