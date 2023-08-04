@@ -222,6 +222,13 @@ export class Bridgefy {
   }
 
   /**
+   * Update license
+   */
+  async updateLicense(): Promise<void> {
+    return BridgefyReactNative.updateLicense();
+  }
+
+  /**
    * Function used to send data using a ``TransmissionMode``. This method returns a UUID to identify
    * the message sent.
    * @param data The message data

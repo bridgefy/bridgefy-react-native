@@ -87,6 +87,18 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     }
   }
 
+  @objc(destroySession:reject:)
+  func destroySession(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    bridgefy!.destroySession()
+    resolve(nil)
+  }
+
+  @objc(updateLicense:reject:)
+  func updateLicense(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+    bridgefy!.updateLicense()
+    resolve(nil)
+  }
+
   // MARK: - RCTEventEmitter
 
   open override func supportedEvents() -> [String] {
