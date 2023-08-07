@@ -5,7 +5,7 @@ import {
   BridgefyTransmissionModeType,
 } from 'bridgefy-react-native';
 import * as RNPermissions from 'react-native-permissions';
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -21,8 +21,8 @@ import {
 const bridgefy = new Bridgefy();
 
 export default function App() {
-  const [userId, setUserId] = React.useState<string>('');
-  const [logText, setLog] = React.useState<string>('');
+  const [logText, setLog] = useState<string>('');
+  const userId = useRef<string>('');
 
   const log = (text: string, obj: any, error = false) => {
     setLog(`${logText}${text} ${JSON.stringify(obj)}\n`);
@@ -34,14 +34,14 @@ export default function App() {
   };
 
   // Subscribe to Bridgefy real-time events so we can act on them as required.
-  React.useEffect(() => {
+  useEffect(() => {
     const subscriptions: EmitterSubscription[] = [];
     const eventEmitter = new NativeEventEmitter(
       NativeModules.BridgefyReactNative
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStart, (event) => {
-        setUserId(event.userId);
+        userId.current = event.userId;
         log(`bridgefyDidStart`, event);
       })
     );
@@ -155,7 +155,7 @@ export default function App() {
       // Initialize Bridgefy using our API key.
       bridgefy
         .initialize(
-          '20ef12d5-9b06-4762-a581-3f2348fa1f0b',
+          'a0ef12d5-9c06-4862-a881-3f2349fa1f0b',
           BridgefyPropagationProfile.standard
         )
         .catch((error) => {
@@ -182,7 +182,7 @@ export default function App() {
             bridgefy
               .send('Hello world', {
                 type: BridgefyTransmissionModeType.broadcast,
-                uuid: userId,
+                uuid: userId.current,
               })
               .then((result) => {
                 log(`Sent message`, result);
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   titleText: {
+    color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
     margin: 20,
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   logText: {
+    color: 'black',
     fontFamily: 'monospace',
     flexGrow: 1,
   },
