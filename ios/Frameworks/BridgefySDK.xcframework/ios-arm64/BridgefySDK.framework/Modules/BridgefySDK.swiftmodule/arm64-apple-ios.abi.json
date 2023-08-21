@@ -22,7 +22,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(withApiKey:propagationProfile:delegate:verboseLogging:)",
+            "printedName": "init(withApiKey:delegate:verboseLogging:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -35,13 +35,6 @@
                 "name": "String",
                 "printedName": "Swift.String",
                 "usr": "s:SS"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "PropagationProfile",
-                "printedName": "BridgefySDK.PropagationProfile",
-                "hasDefaultArg": true,
-                "usr": "s:11BridgefySDK18PropagationProfileO"
               },
               {
                 "kind": "TypeNominal",
@@ -58,8 +51,8 @@
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:11BridgefySDK0A0C10withApiKey18propagationProfile8delegate14verboseLoggingACSS_AA011PropagationG0OAA0A8Delegate_pSbtKcfc",
-            "mangledName": "$s11BridgefySDK0A0C10withApiKey18propagationProfile8delegate14verboseLoggingACSS_AA011PropagationG0OAA0A8Delegate_pSbtKcfc",
+            "usr": "s:11BridgefySDK0A0C10withApiKey8delegate14verboseLoggingACSS_AA0A8Delegate_pSbtKcfc",
+            "mangledName": "$s11BridgefySDK0A0C10withApiKey8delegate14verboseLoggingACSS_AA0A8Delegate_pSbtKcfc",
             "moduleName": "BridgefySDK",
             "declAttributes": [
               "AccessControl",
@@ -71,17 +64,39 @@
           {
             "kind": "Function",
             "name": "start",
-            "printedName": "start()",
+            "printedName": "start(withUserId:andPropagationProfile:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.UUID?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PropagationProfile",
+                "printedName": "BridgefySDK.PropagationProfile",
+                "hasDefaultArg": true,
+                "usr": "s:11BridgefySDK18PropagationProfileO"
               }
             ],
             "declKind": "Func",
-            "usr": "s:11BridgefySDK0A0C5startyyF",
-            "mangledName": "$s11BridgefySDK0A0C5startyyF",
+            "usr": "s:11BridgefySDK0A0C5start10withUserId21andPropagationProfiley10Foundation4UUIDVSg_AA0hI0OtF",
+            "mangledName": "$s11BridgefySDK0A0C5start10withUserId21andPropagationProfiley10Foundation4UUIDVSg_AA0hI0OtF",
             "moduleName": "BridgefySDK",
             "declAttributes": [
               "AccessControl",
@@ -168,27 +183,6 @@
           },
           {
             "kind": "Function",
-            "name": "updateLicense",
-            "printedName": "updateLicense()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:11BridgefySDK0A0C13updateLicenseyyF",
-            "mangledName": "$s11BridgefySDK0A0C13updateLicenseyyF",
-            "moduleName": "BridgefySDK",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "establishSecureConnection",
             "printedName": "establishSecureConnection(with:)",
             "children": [
@@ -215,10 +209,24 @@
             "funcSelfKind": "NonMutating"
           },
           {
-            "kind": "Var",
-            "name": "currentUserId",
-            "printedName": "currentUserId",
+            "kind": "Function",
+            "name": "fingerprint",
+            "printedName": "fingerprint(for:)",
             "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "BridgefySDK.BridgefyFingerprint?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BridgefyFingerprint",
+                    "printedName": "BridgefySDK.BridgefyFingerprint",
+                    "usr": "s:11BridgefySDK0A11FingerprintV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
               {
                 "kind": "TypeNominal",
                 "name": "UUID",
@@ -226,9 +234,75 @@
                 "usr": "s:10Foundation4UUIDV"
               }
             ],
+            "declKind": "Func",
+            "usr": "s:11BridgefySDK0A0C11fingerprint3forAA0A11FingerprintVSg10Foundation4UUIDV_tKF",
+            "mangledName": "$s11BridgefySDK0A0C11fingerprint3forAA0A11FingerprintVSg10Foundation4UUIDV_tKF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isFingerprintValid",
+            "printedName": "isFingerprintValid(_:for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UUID",
+                "printedName": "Foundation.UUID",
+                "usr": "s:10Foundation4UUIDV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:11BridgefySDK0A0C18isFingerprintValid_3forSb10Foundation4DataV_AF4UUIDVtKF",
+            "mangledName": "$s11BridgefySDK0A0C18isFingerprintValid_3forSb10Foundation4DataV_AF4UUIDVtKF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "currentUserId",
+            "printedName": "currentUserId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.UUID?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
             "declKind": "Var",
-            "usr": "s:11BridgefySDK0A0C13currentUserId10Foundation4UUIDVvp",
-            "mangledName": "$s11BridgefySDK0A0C13currentUserId10Foundation4UUIDVvp",
+            "usr": "s:11BridgefySDK0A0C13currentUserId10Foundation4UUIDVSgvp",
+            "mangledName": "$s11BridgefySDK0A0C13currentUserId10Foundation4UUIDVSgvp",
             "moduleName": "BridgefySDK",
             "declAttributes": [
               "AccessControl",
@@ -242,14 +316,22 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "UUID",
-                    "printedName": "Foundation.UUID",
-                    "usr": "s:10Foundation4UUIDV"
+                    "name": "Optional",
+                    "printedName": "Foundation.UUID?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UUID",
+                        "printedName": "Foundation.UUID",
+                        "usr": "s:10Foundation4UUIDV"
+                      }
+                    ],
+                    "usr": "s:Sq"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:11BridgefySDK0A0C13currentUserId10Foundation4UUIDVvg",
-                "mangledName": "$s11BridgefySDK0A0C13currentUserId10Foundation4UUIDVvg",
+                "usr": "s:11BridgefySDK0A0C13currentUserId10Foundation4UUIDVSgvg",
+                "mangledName": "$s11BridgefySDK0A0C13currentUserId10Foundation4UUIDVSgvg",
                 "moduleName": "BridgefySDK",
                 "accessorKind": "get"
               }
@@ -262,32 +344,8 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Array",
-                "printedName": "[Foundation.UUID]",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UUID",
-                    "printedName": "Foundation.UUID",
-                    "usr": "s:10Foundation4UUIDV"
-                  }
-                ],
-                "usr": "s:Sa"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGvp",
-            "mangledName": "$s11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGvp",
-            "moduleName": "BridgefySDK",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
+                "name": "Optional",
+                "printedName": "[Foundation.UUID]?",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -304,9 +362,49 @@
                     "usr": "s:Sa"
                   }
                 ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGSgvp",
+            "mangledName": "$s11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGSgvp",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Foundation.UUID]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[Foundation.UUID]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UUID",
+                            "printedName": "Foundation.UUID",
+                            "usr": "s:10Foundation4UUIDV"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
                 "declKind": "Accessor",
-                "usr": "s:11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGvg",
-                "mangledName": "$s11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGvg",
+                "usr": "s:11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGSgvg",
+                "mangledName": "$s11BridgefySDK0A0C14connectedPeersSay10Foundation4UUIDVGSgvg",
                 "moduleName": "BridgefySDK",
                 "accessorKind": "get"
               }
@@ -596,6 +694,46 @@
           },
           {
             "kind": "Var",
+            "name": "inconsistentUserId",
+            "printedName": "inconsistentUserId",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(BridgefySDK.BridgefyError.Type) -> BridgefySDK.BridgefyError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BridgefyError",
+                    "printedName": "BridgefySDK.BridgefyError",
+                    "usr": "s:11BridgefySDK0A5ErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "BridgefySDK.BridgefyError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BridgefyError",
+                        "printedName": "BridgefySDK.BridgefyError",
+                        "usr": "s:11BridgefySDK0A5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11BridgefySDK0A5ErrorO18inconsistentUserIdyA2CmF",
+            "mangledName": "$s11BridgefySDK0A5ErrorO18inconsistentUserIdyA2CmF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "notStarted",
             "printedName": "notStarted",
             "children": [
@@ -756,6 +894,86 @@
           },
           {
             "kind": "Var",
+            "name": "stopInProgress",
+            "printedName": "stopInProgress",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(BridgefySDK.BridgefyError.Type) -> BridgefySDK.BridgefyError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BridgefyError",
+                    "printedName": "BridgefySDK.BridgefyError",
+                    "usr": "s:11BridgefySDK0A5ErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "BridgefySDK.BridgefyError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BridgefyError",
+                        "printedName": "BridgefySDK.BridgefyError",
+                        "usr": "s:11BridgefySDK0A5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11BridgefySDK0A5ErrorO14stopInProgressyA2CmF",
+            "mangledName": "$s11BridgefySDK0A5ErrorO14stopInProgressyA2CmF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "destroySessionInProgress",
+            "printedName": "destroySessionInProgress",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(BridgefySDK.BridgefyError.Type) -> BridgefySDK.BridgefyError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BridgefyError",
+                    "printedName": "BridgefySDK.BridgefyError",
+                    "usr": "s:11BridgefySDK0A5ErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "BridgefySDK.BridgefyError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BridgefyError",
+                        "printedName": "BridgefySDK.BridgefyError",
+                        "usr": "s:11BridgefySDK0A5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11BridgefySDK0A5ErrorO24destroySessionInProgressyA2CmF",
+            "mangledName": "$s11BridgefySDK0A5ErrorO24destroySessionInProgressyA2CmF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "serviceNotStarted",
             "printedName": "serviceNotStarted",
             "children": [
@@ -796,6 +1014,46 @@
           },
           {
             "kind": "Var",
+            "name": "invalidApiKey",
+            "printedName": "invalidApiKey",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(BridgefySDK.BridgefyError.Type) -> BridgefySDK.BridgefyError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BridgefyError",
+                    "printedName": "BridgefySDK.BridgefyError",
+                    "usr": "s:11BridgefySDK0A5ErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "BridgefySDK.BridgefyError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BridgefyError",
+                        "printedName": "BridgefySDK.BridgefyError",
+                        "usr": "s:11BridgefySDK0A5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:11BridgefySDK0A5ErrorO13invalidApiKeyyA2CmF",
+            "mangledName": "$s11BridgefySDK0A5ErrorO13invalidApiKeyyA2CmF",
+            "moduleName": "BridgefySDK",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "missingBundleID",
             "printedName": "missingBundleID",
             "children": [
@@ -829,46 +1087,6 @@
             "declKind": "EnumElement",
             "usr": "s:11BridgefySDK0A5ErrorO15missingBundleIDyA2CmF",
             "mangledName": "$s11BridgefySDK0A5ErrorO15missingBundleIDyA2CmF",
-            "moduleName": "BridgefySDK",
-            "declAttributes": [
-              "RawDocComment"
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "invalidAPIKey",
-            "printedName": "invalidAPIKey",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(BridgefySDK.BridgefyError.Type) -> BridgefySDK.BridgefyError",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "BridgefyError",
-                    "printedName": "BridgefySDK.BridgefyError",
-                    "usr": "s:11BridgefySDK0A5ErrorO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "BridgefySDK.BridgefyError.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "BridgefyError",
-                        "printedName": "BridgefySDK.BridgefyError",
-                        "usr": "s:11BridgefySDK0A5ErrorO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:11BridgefySDK0A5ErrorO13invalidAPIKeyyA2CmF",
-            "mangledName": "$s11BridgefySDK0A5ErrorO13invalidAPIKeyyA2CmF",
             "moduleName": "BridgefySDK",
             "declAttributes": [
               "RawDocComment"
@@ -1984,6 +2202,36 @@
       },
       {
         "kind": "Import",
+        "name": "Logging",
+        "printedName": "Logging",
+        "declKind": "Import",
+        "moduleName": "BridgefySDK",
+        "declAttributes": [
+          "ImplementationOnly"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "BridgefySDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "BridgefySDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -2826,17 +3074,23 @@
           {
             "kind": "Function",
             "name": "bridgefyDidFailToDestroySession",
-            "printedName": "bridgefyDidFailToDestroySession()",
+            "printedName": "bridgefyDidFailToDestroySession(with:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BridgefyError",
+                "printedName": "BridgefySDK.BridgefyError",
+                "usr": "s:11BridgefySDK0A5ErrorO"
               }
             ],
             "declKind": "Func",
-            "usr": "s:11BridgefySDK0A8DelegateP31bridgefyDidFailToDestroySessionyyF",
-            "mangledName": "$s11BridgefySDK0A8DelegateP31bridgefyDidFailToDestroySessionyyF",
+            "usr": "s:11BridgefySDK0A8DelegateP31bridgefyDidFailToDestroySession4withyAA0A5ErrorO_tF",
+            "mangledName": "$s11BridgefySDK0A8DelegateP31bridgefyDidFailToDestroySession4withyAA0A5ErrorO_tF",
             "moduleName": "BridgefySDK",
             "genericSig": "<τ_0_0 where τ_0_0 : BridgefySDK.BridgefyDelegate>",
             "sugared_genericSig": "<Self where Self : BridgefySDK.BridgefyDelegate>",
@@ -3306,26 +3560,6 @@
       },
       {
         "kind": "Import",
-        "name": "Logging",
-        "printedName": "Logging",
-        "declKind": "Import",
-        "moduleName": "BridgefySDK",
-        "declAttributes": [
-          "ImplementationOnly"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "BridgefySDK",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "LibSignalClient",
         "printedName": "LibSignalClient",
         "declKind": "Import",
@@ -3435,6 +3669,19 @@
         "declKind": "Import",
         "moduleName": "BridgefySDK",
         "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BridgefyFingerprint",
+        "printedName": "BridgefyFingerprint",
+        "declKind": "Struct",
+        "usr": "s:11BridgefySDK0A11FingerprintV",
+        "mangledName": "$s11BridgefySDK0A11FingerprintV",
+        "moduleName": "BridgefySDK",
+        "declAttributes": [
+          "AccessControl",
           "RawDocComment"
         ]
       },
@@ -3687,30 +3934,30 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Public\/Bridgefy.swift",
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
       "offset": 277,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Public\/Bridgefy.swift",
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
-      "offset": 870,
+      "offset": 683,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Public\/Bridgefy.swift",
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
-      "offset": 1344,
+      "offset": 1057,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Public\/Bridgefy.swift",
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
-      "offset": 1407,
+      "offset": 1120,
       "length": 5,
       "value": "false"
     },
@@ -3829,56 +4076,56 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1084,
+      "offset": 1076,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2199,
+      "offset": 2175,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 2651,
+      "offset": 2627,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "StringLiteral",
-      "offset": 4037,
+      "offset": 4009,
       "length": 22,
       "value": "\"Invalid message type\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4279,
+      "offset": 4251,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 8680,
+      "offset": 8629,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 8761,
+      "offset": 8710,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEHandshakeManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 11128,
+      "offset": 11061,
       "length": 1,
       "value": "1"
     },
@@ -3947,22 +4194,36 @@
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Networking\/NetworkingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1172,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Networking\/NetworkingManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1187,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Networking\/NetworkingManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 3822,
+      "offset": 3885,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Networking\/NetworkingManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4255,
+      "offset": 4318,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Networking\/NetworkingManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4318,
+      "offset": 4381,
       "length": 5,
       "value": "false"
     },
@@ -4179,196 +4440,217 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 3536,
+      "offset": 3915,
       "length": 46,
       "value": "\"The Bridgefy SDK cannot run in the simulator\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 3628,
+      "offset": 4015,
+      "length": 136,
+      "value": "\"The userId passed in the start function is different from the stored one. Call the destroySession function before changing the userId.\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
+      "kind": "StringLiteral",
+      "offset": 4197,
       "length": 38,
       "value": "\"The Bridgefy SDK hasn't been started\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 3721,
+      "offset": 4290,
       "length": 40,
       "value": "\"A Bridgefy SDK instance already exists\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 3812,
+      "offset": 4381,
       "length": 50,
       "value": "\"The Bridgefy SDK is performing the start process\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 3912,
+      "offset": 4481,
       "length": 37,
       "value": "\"The Bridgefy SDK is already running\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4002,
+      "offset": 4571,
       "length": 41,
       "value": "\"The Bridgefy SDK service is not started\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4094,
+      "offset": 4662,
+      "length": 49,
+      "value": "\"The Bridgefy SDK is performing the stop process\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
+      "kind": "StringLiteral",
+      "offset": 4771,
+      "length": 52,
+      "value": "\"The Bridgefy SDK is destroying the current session\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
+      "kind": "StringLiteral",
+      "offset": 4872,
+      "length": 33,
+      "value": "\"The provided API key is invalid\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
+      "kind": "StringLiteral",
+      "offset": 4956,
       "length": 28,
       "value": "\"Cannot get app's bundle id\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4171,
-      "length": 35,
-      "value": "\"The provided API key is not valid\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
-      "kind": "StringLiteral",
-      "offset": 4268,
+      "offset": 5046,
       "length": 60,
       "value": "\"An internet connection is required to validate the license\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4376,
+      "offset": 5154,
       "length": 46,
       "value": "\"An error occurred while creating the session\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4472,
+      "offset": 5250,
       "length": 24,
       "value": "\"The license is expired\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4554,
+      "offset": 5332,
       "length": 37,
       "value": "\"The device's time has been modified\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4645,
+      "offset": 5423,
       "length": 40,
       "value": "\"The user does not allow the use of BLE\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4739,
+      "offset": 5517,
       "length": 45,
       "value": "\"The use of BLE in this device is restricted\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4833,
+      "offset": 5611,
       "length": 37,
       "value": "\"The BLE antenna has been turned off\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 4920,
+      "offset": 5698,
       "length": 49,
       "value": "\"The usage of BLE is not supported in the device\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5020,
+      "offset": 5798,
       "length": 40,
       "value": "\"BLE usage failed with an unknown error\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5114,
+      "offset": 5892,
       "length": 49,
       "value": "\"The length of the data exceed the maximum limit\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5215,
+      "offset": 5993,
       "length": 27,
       "value": "\"The data to send is empty\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5296,
+      "offset": 6074,
       "length": 37,
       "value": "\"The requested peer is not connected\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5382,
+      "offset": 6160,
       "length": 28,
       "value": "\"An internal error occurred\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5458,
+      "offset": 6236,
       "length": 48,
       "value": "\"An error occurred while validating the license\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5554,
+      "offset": 6332,
       "length": 38,
       "value": "\"An error occurred while storing data\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5641,
+      "offset": 6419,
       "length": 46,
       "value": "\"An error occurred while encoding the message\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5738,
+      "offset": 6516,
       "length": 48,
       "value": "\"An error occurred while encrypting the message\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5847,
+      "offset": 6625,
       "length": 48,
       "value": "\"The connection with the peer is already secure\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 5953,
+      "offset": 6731,
       "length": 46,
       "value": "\"There are inconsistences with the connection\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/API\/BridgefyError.swift",
       "kind": "StringLiteral",
-      "offset": 6063,
+      "offset": 6841,
       "length": 47,
       "value": "\"Is not possible to create a secure connection\""
     },
@@ -5812,7 +6094,7 @@
       "kind": "IntegerLiteral",
       "offset": 514,
       "length": 1,
-      "value": "0"
+      "value": "1"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
@@ -5866,14 +6148,28 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageManager.swift",
       "kind": "StringLiteral",
-      "offset": 1340,
+      "offset": 1400,
       "length": 15,
       "value": "\"SafdRRmsa5HaF\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1463,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1478,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageManager.swift",
       "kind": "Array",
-      "offset": 2205,
+      "offset": 2320,
       "length": 2,
       "value": "[]"
     },
@@ -6046,6 +6342,286 @@
       "value": "\"\n}\""
     },
     {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 147,
+      "length": 14,
+      "value": "\"Bridgefy.SDK\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 228,
+      "length": 4,
+      "value": "1024"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 235,
+      "length": 3,
+      "value": "140"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 912,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 935,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1597,
+      "length": 22,
+      "value": "\"Initializing the SDK\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1814,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2432,
+      "length": 17,
+      "value": "\"Invalid API key\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2659,
+      "length": 53,
+      "value": "\"The BridgefySDK cannot be executed on the simulator\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2940,
+      "length": 37,
+      "value": "\"Cannot find app's bundle identifier\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 3177,
+      "length": 3,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 3254,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4888,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 5158,
+      "length": 37,
+      "value": "\"Cannot configure the cypher manager\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 5881,
+      "length": 69,
+      "value": "\"Did fail to start service with error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 5949,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6285,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6500,
+      "length": 32,
+      "value": "\"Will stop the Bridgefy Manager\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6737,
+      "length": 68,
+      "value": "\"Did fail to stop service with error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6804,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 7431,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7828,
+      "length": 71,
+      "value": "\"Did fail to destroy session with error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7898,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 8100,
+      "length": 71,
+      "value": "\"Did fail to destroy session with error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 8170,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 8609,
+      "length": 56,
+      "value": "\"Cannot send message because the service is not started\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10034,
+      "length": 34,
+      "value": "\"Did connect with user: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10067,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10197,
+      "length": 32,
+      "value": "\"Did disconnect from: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10228,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10376,
+      "length": 49,
+      "value": "\"Did establish secure connection with: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10424,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10659,
+      "length": 76,
+      "value": "\"Did fail establishing a secure connection with: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10717,
+      "length": 1,
+      "value": "\". Error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10734,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10817,
+      "length": 40,
+      "value": "\"Did send message with id: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 10856,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 11067,
+      "length": 86,
+      "value": "\"Did fail sending message with id: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 11114,
+      "length": 1,
+      "value": "\". Error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 11152,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 133,
@@ -6093,6 +6669,20 @@
       "offset": 785,
       "length": 22,
       "value": "\"JjdQWYIAy5pcmgpmJ75E\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "kind": "StringLiteral",
+      "offset": 1313,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "kind": "StringLiteral",
+      "offset": 1328,
+      "length": 2,
+      "value": "\"\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
@@ -6342,35 +6932,56 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
       "kind": "IntegerLiteral",
-      "offset": 989,
+      "offset": 983,
+      "length": 2,
+      "value": "28"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1095,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
       "kind": "IntegerLiteral",
-      "offset": 993,
+      "offset": 1099,
       "length": 2,
       "value": "12"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
       "kind": "IntegerLiteral",
-      "offset": 1048,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1074,
+      "offset": 1140,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
       "kind": "IntegerLiteral",
-      "offset": 1144,
+      "offset": 1147,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1267,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1293,
+      "length": 2,
+      "value": "16"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/AES\/AES.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1363,
       "length": 2,
       "value": "16"
     },
@@ -6650,28 +7261,35 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "BooleanLiteral",
-      "offset": 403,
+      "offset": 395,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "StringLiteral",
-      "offset": 527,
+      "offset": 519,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "StringLiteral",
-      "offset": 1756,
-      "length": 45,
-      "value": "\"BLEMessageOperator has no delegate assigned\""
+      "offset": 1701,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
+      "kind": "StringLiteral",
+      "offset": 1716,
+      "length": 2,
+      "value": "\"\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "Array",
-      "offset": 2174,
+      "offset": 2111,
       "length": 2,
       "value": "[]"
     },
@@ -6936,17 +7554,31 @@
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 4406,
+      "length": 19,
+      "value": "\"BLEManager deinit\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 4807,
+      "offset": 4873,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 5061,
+      "offset": 5127,
       "length": 1,
       "value": "0"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "Array",
+      "offset": 5338,
+      "length": 2,
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
@@ -6957,106 +7589,183 @@
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "Array",
-      "offset": 5394,
-      "length": 2,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "Dictionary",
-      "offset": 5435,
+      "offset": 5407,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "Array",
-      "offset": 5473,
+      "offset": 5445,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "Array",
-      "offset": 5502,
+      "offset": 5474,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 5808,
+      "offset": 5780,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 5862,
+      "offset": 5834,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 5867,
+      "length": 30,
+      "value": "\"BLEManager did start service\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6587,
+      "length": 38,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6605,
+      "length": 3,
+      "value": "\" did start scanning\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6727,
+      "length": 30,
+      "value": "\"BLEManager may stop scanning\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 6872,
+      "length": 30,
+      "value": "\"BLEManager did stop scanning\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7101,
+      "length": 35,
+      "value": "\"BLEManager will start advertising\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7217,
+      "length": 58,
+      "value": "\"BLEManager did add service: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7274,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7511,
+      "length": 110,
+      "value": "\"BLEManager did set advertising data.\nService UUID: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7580,
+      "length": 1,
+      "value": "\"\nAdvertising string: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7620,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 7762,
+      "length": 34,
+      "value": "\"BLEManager will stop advertising\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 12713,
+      "offset": 13389,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 12889,
+      "offset": 13565,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 13335,
+      "offset": 14011,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 14045,
+      "offset": 14721,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 14113,
+      "offset": 14789,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "Array",
-      "offset": 14391,
+      "offset": 15067,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 14427,
+      "offset": 15103,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 14930,
+      "offset": 15606,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 17571,
+      "offset": 18247,
       "length": 5,
       "value": "false"
     },
@@ -7069,92 +7778,127 @@
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 22693,
+      "length": 62,
+      "value": "\"BLEManager did discover peripheral: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 22754,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 24399,
+      "length": 84,
+      "value": "\"BLEManager did fail to start advertising with error: \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 24482,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "kind": "StringLiteral",
+      "offset": 24567,
+      "length": 34,
+      "value": "\"BLEManager did start advertising\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 28697,
+      "offset": 29618,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30953,
+      "offset": 31874,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30964,
+      "offset": 31885,
       "length": 10,
       "value": "1"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30984,
+      "offset": 31905,
       "length": 6,
       "value": "2"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 31000,
+      "offset": 31921,
       "length": 10,
       "value": "3"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30953,
+      "offset": 31874,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30964,
+      "offset": 31885,
       "length": 10,
       "value": "1"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30984,
+      "offset": 31905,
       "length": 6,
       "value": "2"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 31000,
+      "offset": 31921,
       "length": 10,
       "value": "3"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30953,
+      "offset": 31874,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30964,
+      "offset": 31885,
       "length": 10,
       "value": "1"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 30984,
+      "offset": 31905,
       "length": 6,
       "value": "2"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 31000,
+      "offset": 31921,
       "length": 10,
       "value": "3"
     },
@@ -7313,167 +8057,6 @@
       "value": "false"
     },
     {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 147,
-      "length": 14,
-      "value": "\"Bridgefy.SDK\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 228,
-      "length": 4,
-      "value": "1024"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 235,
-      "length": 3,
-      "value": "140"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1124,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1476,
-      "length": 22,
-      "value": "\"Initializing the SDK\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1677,
-      "length": 53,
-      "value": "\"The BridgefySDK cannot be executed on the simulator\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1901,
-      "length": 37,
-      "value": "\"The API key has an incorrect format\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2136,
-      "length": 37,
-      "value": "\"Cannot find app's bundle identifier\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2470,
-      "length": 3,
-      "value": "\".\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2543,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 4632,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 4776,
-      "length": 33,
-      "value": "\"Will start the Bridgefy Manager\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 5183,
-      "length": 27,
-      "value": "\"Did fail to start service\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 5577,
-      "length": 32,
-      "value": "\"Will stop the Bridgefy Manager\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 5760,
-      "length": 26,
-      "value": "\"Did fail to stop service\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 5999,
-      "length": 22,
-      "value": "\"Will destroy session\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 6097,
-      "length": 63,
-      "value": "\"Will wait until start process finishes to destroy the session\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6197,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 6269,
-      "length": 53,
-      "value": "\"Will stop the service before destroying the session\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6359,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 6772,
-      "length": 50,
-      "value": "\"Did fail to destroy session with error: \""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "StringLiteral",
-      "offset": 6821,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6930,
-      "length": 5,
-      "value": "false"
-    },
-    {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationResponse.swift",
       "kind": "StringLiteral",
       "offset": 298,
@@ -7490,51 +8073,44 @@
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
       "kind": "BooleanLiteral",
-      "offset": 616,
+      "offset": 675,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
+      "kind": "StringLiteral",
+      "offset": 1167,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
+      "kind": "StringLiteral",
+      "offset": 1182,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1257,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
       "kind": "BooleanLiteral",
-      "offset": 734,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1133,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1241,
+      "offset": 1365,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
       "kind": "StringLiteral",
-      "offset": 1342,
+      "offset": 1466,
       "length": 23,
       "value": "\"Will validate license\""
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1389,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1809,
-      "length": 4,
-      "value": "true"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Extensions\/DataExtensions.swift",
@@ -7607,6 +8183,34 @@
       "value": "\"bundleId\""
     },
     {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/SessionManager\/SessionManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1159,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/SessionManager\/SessionManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1174,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/CypherManager.swift",
+      "kind": "StringLiteral",
+      "offset": 569,
+      "length": 16,
+      "value": "\"Deinit \""
+    },
+    {
+      "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/CypherManager.swift",
+      "kind": "StringLiteral",
+      "offset": 584,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "Array",
       "offset": 269,
@@ -7624,111 +8228,111 @@
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "Array",
       "offset": 663,
-      "length": 144,
-      "value": "[38, 66, 92, 85, 1, 7, 85, 79, 110, 14, 95, 74, 67, 76, 90, 77, 17, 96, 105, 42, 97, 92, 75, 94, 81, 88, 11, 39, 16, 94, 87, 4, 93, 95, 76, 117]"
+      "length": 147,
+      "value": "[39, 75, 13, 81, 85, 6, 81, 65, 110, 92, 15, 74, 76, 76, 90, 18, 69, 101, 105, 41, 100, 81, 65, 94, 95, 14, 12, 38, 68, 13, 92, 82, 4, 80, 75, 117]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "Array",
-      "offset": 979,
+      "offset": 982,
       "length": 1531,
       "value": "[15, 59, 32, 38, 46, 15, 39, 55, 1, 8, 5, 2, 28, 10, 7, 51, 74, 36, 116, 9, 23, 52, 55, 53, 40, 46, 33, 1, 51, 56, 92, 38, 40, 47, 48, 1, 44, 9, 56, 55, 32, 63, 49, 50, 32, 113, 25, 61, 86, 19, 64, 33, 0, 25, 51, 21, 7, 49, 87, 1, 53, 23, 113, 54, 39, 36, 35, 10, 33, 60, 49, 2, 118, 14, 46, 6, 29, 29, 81, 58, 44, 41, 20, 10, 20, 33, 3, 73, 78, 13, 23, 13, 42, 23, 21, 8, 7, 63, 5, 118, 19, 5, 13, 3, 5, 25, 64, 39, 50, 0, 90, 42, 14, 50, 45, 62, 38, 87, 56, 18, 63, 27, 57, 55, 31, 96, 111, 18, 21, 7, 43, 66, 51, 56, 62, 24, 59, 88, 60, 29, 17, 62, 51, 0, 57, 22, 66, 69, 57, 1, 71, 56, 60, 124, 121, 17, 23, 65, 54, 15, 62, 0, 11, 20, 93, 80, 33, 4, 21, 33, 18, 63, 20, 56, 68, 10, 6, 63, 11, 26, 112, 7, 5, 23, 39, 4, 63, 46, 55, 46, 11, 66, 51, 61, 80, 37, 35, 119, 89, 33, 59, 23, 4, 40, 28, 60, 39, 119, 32, 51, 81, 26, 5, 36, 40, 60, 48, 37, 88, 55, 37, 21, 46, 61, 23, 21, 93, 54, 68, 0, 56, 48, 65, 57, 13, 4, 100, 86, 24, 39, 92, 38, 37, 37, 49, 57, 55, 41, 35, 43, 22, 18, 56, 33, 39, 38, 85, 10, 45, 50, 62, 16, 29, 17, 39, 1, 16, 44, 86, 33, 116, 8, 58, 61, 2, 74, 48, 61, 2, 38, 45, 58, 60, 39, 25, 35, 43, 102, 23, 40, 14, 29, 33, 21, 13, 55, 32, 11, 59, 34, 2, 15, 54, 22, 8, 53, 27, 43, 34, 71, 16, 11, 37, 49, 38, 60, 56, 48, 80, 42, 22, 90, 2, 29, 41, 63, 11, 50, 4, 20, 23, 75, 116, 12, 37, 48, 3, 42, 5, 14, 3, 33, 60, 14, 15, 14, 10, 88, 32, 8, 31, 56, 66, 35, 41, 54, 29, 43, 73, 40, 8, 41, 0, 95, 82, 33, 57, 68, 37, 23, 46, 53, 78, 65, 54, 4, 63, 89, 43, 93, 6, 1, 45, 84, 14, 40, 10, 43, 47, 34, 53, 35]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "Array",
-      "offset": 2558,
+      "offset": 2561,
       "length": 1522,
       "value": "[15, 59, 32, 38, 46, 15, 39, 55, 1, 8, 5, 2, 28, 10, 7, 51, 74, 36, 116, 9, 23, 52, 55, 53, 40, 46, 33, 1, 51, 56, 92, 38, 40, 47, 48, 1, 44, 9, 56, 55, 32, 63, 49, 50, 98, 10, 126, 61, 1, 31, 36, 34, 45, 31, 122, 20, 32, 85, 44, 7, 80, 48, 123, 14, 58, 33, 35, 22, 69, 63, 11, 49, 53, 1, 15, 78, 64, 10, 45, 9, 88, 39, 25, 66, 6, 36, 8, 36, 53, 17, 5, 28, 60, 6, 57, 9, 65, 3, 6, 10, 29, 18, 61, 25, 50, 44, 34, 44, 19, 53, 63, 3, 63, 39, 47, 61, 6, 30, 20, 6, 56, 53, 60, 71, 20, 61, 29, 50, 34, 86, 19, 21, 70, 11, 7, 59, 65, 61, 47, 0, 7, 94, 22, 41, 22, 15, 30, 49, 7, 40, 71, 56, 98, 117, 24, 125, 18, 29, 23, 0, 68, 43, 1, 60, 40, 14, 81, 63, 52, 23, 58, 40, 41, 3, 49, 83, 87, 66, 5, 16, 17, 63, 24, 3, 74, 56, 43, 57, 30, 18, 71, 7, 39, 20, 11, 82, 16, 45, 89, 34, 37, 23, 81, 45, 5, 49, 35, 28, 35, 46, 23, 55, 59, 66, 1, 91, 47, 29, 33, 85, 61, 31, 63, 76, 118, 3, 4, 23, 23, 12, 63, 76, 64, 27, 0, 13, 62, 11, 30, 75, 35, 42, 34, 10, 54, 66, 2, 31, 47, 54, 75, 43, 37, 37, 3, 46, 35, 6, 3, 48, 10, 50, 10, 6, 39, 69, 30, 43, 44, 57, 24, 34, 61, 83, 9, 6, 42, 26, 55, 9, 3, 55, 29, 55, 56, 77, 26, 16, 112, 27, 51, 2, 66, 70, 39, 4, 43, 1, 89, 30, 51, 16, 21, 12, 59, 59, 94, 10, 25, 58, 40, 90, 64, 35, 25, 29, 47, 111, 36, 21, 41, 91, 28, 61, 15, 54, 35, 17, 16, 2, 44, 82, 47, 60, 15, 6, 62, 9, 27, 67, 35, 56, 22, 59, 52, 18, 34, 6, 29, 54, 94, 117, 63, 0, 12, 16, 48, 84, 78, 37, 87, 43, 43, 30, 51, 40, 24, 36, 50, 9, 123, 59, 15, 49, 21, 28, 57, 61, 26, 16, 48, 3, 46, 47, 86, 40, 10, 43, 47, 34, 53, 35]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "Array",
-      "offset": 4134,
-      "length": 1532,
-      "value": "[15, 59, 32, 38, 46, 15, 39, 55, 1, 8, 5, 2, 28, 10, 7, 51, 74, 36, 116, 9, 23, 52, 55, 53, 40, 46, 33, 1, 51, 56, 92, 38, 40, 47, 48, 1, 44, 9, 56, 55, 32, 63, 49, 50, 60, 22, 41, 15, 38, 17, 63, 2, 46, 33, 51, 65, 56, 38, 50, 84, 83, 47, 13, 89, 15, 23, 59, 25, 58, 16, 61, 58, 3, 49, 15, 12, 48, 41, 5, 26, 93, 21, 51, 4, 18, 36, 55, 44, 61, 17, 8, 27, 37, 16, 43, 27, 67, 55, 22, 10, 126, 12, 40, 57, 50, 40, 22, 63, 22, 74, 4, 30, 83, 38, 32, 19, 10, 62, 55, 67, 91, 53, 12, 3, 32, 2, 22, 58, 63, 87, 74, 2, 40, 10, 56, 40, 28, 37, 61, 55, 78, 11, 11, 58, 22, 26, 27, 59, 80, 56, 53, 74, 42, 34, 63, 5, 63, 66, 27, 56, 5, 22, 44, 75, 56, 6, 80, 84, 62, 20, 51, 28, 24, 10, 1, 37, 15, 65, 26, 21, 32, 8, 97, 39, 33, 37, 61, 0, 32, 42, 27, 95, 60, 14, 33, 81, 14, 44, 41, 8, 11, 32, 52, 57, 33, 27, 107, 10, 127, 62, 18, 60, 49, 59, 59, 0, 23, 3, 43, 12, 80, 93, 49, 43, 4, 29, 59, 6, 3, 10, 27, 22, 0, 100, 18, 33, 110, 10, 52, 43, 25, 11, 2, 42, 66, 81, 23, 55, 9, 85, 31, 6, 3, 9, 53, 57, 84, 90, 61, 66, 50, 48, 38, 44, 84, 51, 25, 42, 23, 42, 117, 3, 80, 40, 45, 74, 3, 53, 38, 35, 63, 39, 91, 53, 12, 55, 26, 17, 115, 31, 44, 38, 24, 39, 6, 86, 37, 54, 71, 62, 39, 35, 28, 13, 60, 44, 53, 90, 67, 77, 36, 8, 19, 42, 17, 117, 126, 51, 38, 30, 52, 90, 68, 3, 23, 26, 51, 17, 13, 17, 18, 15, 52, 25, 13, 24, 69, 74, 2, 67, 39, 4, 17, 100, 3, 49, 61, 9, 80, 95, 32, 43, 33, 66, 20, 23, 38, 17, 54, 42, 14, 54, 42, 59, 2, 24, 59, 48, 101, 114, 19, 4, 43, 65, 4, 1, 55, 90, 10, 54, 15, 82, 82, 13, 62, 40, 10, 43, 47, 34, 53, 35]"
+      "offset": 4137,
+      "length": 1527,
+      "value": "[15, 59, 32, 38, 46, 15, 39, 55, 1, 8, 5, 2, 28, 10, 7, 51, 74, 36, 116, 9, 23, 52, 55, 53, 40, 46, 33, 1, 51, 56, 92, 38, 40, 47, 48, 1, 44, 9, 56, 55, 32, 63, 49, 50, 37, 117, 4, 37, 32, 0, 58, 33, 86, 36, 46, 8, 30, 51, 10, 51, 80, 12, 19, 90, 60, 58, 19, 89, 65, 34, 36, 60, 124, 96, 125, 40, 10, 70, 94, 39, 59, 16, 38, 45, 35, 81, 83, 62, 58, 9, 4, 56, 48, 50, 0, 54, 91, 23, 26, 41, 49, 98, 15, 24, 58, 8, 44, 23, 3, 3, 42, 23, 1, 74, 50, 48, 22, 3, 94, 11, 14, 9, 63, 7, 48, 48, 116, 12, 59, 9, 2, 25, 35, 35, 8, 53, 23, 26, 48, 86, 44, 36, 79, 7, 10, 59, 59, 5, 15, 88, 13, 29, 1, 7, 127, 14, 87, 58, 52, 7, 53, 57, 17, 19, 19, 62, 23, 18, 73, 56, 46, 90, 41, 53, 45, 15, 15, 24, 69, 33, 11, 49, 28, 32, 34, 54, 59, 14, 26, 54, 11, 5, 47, 61, 42, 86, 27, 18, 90, 6, 70, 34, 4, 30, 50, 64, 120, 54, 49, 20, 32, 0, 48, 34, 12, 26, 51, 39, 25, 60, 30, 47, 82, 43, 51, 43, 29, 30, 2, 36, 55, 28, 43, 28, 40, 8, 28, 23, 56, 27, 48, 91, 69, 53, 39, 3, 39, 51, 43, 7, 31, 53, 45, 32, 50, 0, 19, 59, 22, 31, 17, 10, 5, 27, 78, 4, 58, 28, 91, 10, 58, 57, 89, 40, 62, 34, 87, 76, 10, 10, 45, 9, 64, 54, 8, 5, 53, 31, 119, 39, 15, 53, 49, 48, 29, 42, 25, 59, 49, 30, 45, 21, 48, 33, 86, 114, 62, 15, 21, 61, 35, 60, 7, 64, 32, 114, 125, 34, 33, 11, 54, 40, 2, 56, 123, 60, 47, 34, 72, 34, 40, 11, 116, 94, 1, 65, 37, 43, 57, 23, 41, 26, 62, 57, 7, 63, 0, 31, 34, 34, 42, 13, 57, 90, 28, 17, 20, 62, 45, 9, 6, 33, 69, 34, 54, 37, 49, 52, 29, 54, 25, 3, 33, 39, 62, 57, 91, 0, 14, 43, 13, 15, 16, 7, 85, 14, 10, 43, 47, 34, 53, 35]"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 5749,
+      "offset": 5747,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 5754,
+      "offset": 5752,
       "length": 2,
       "value": "60"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 5821,
+      "offset": 5819,
       "length": 2,
       "value": "24"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 5826,
+      "offset": 5824,
       "length": 2,
       "value": "60"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
-      "offset": 5831,
+      "offset": 5829,
       "length": 2,
       "value": "60"
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 5918,
+      "offset": 5916,
       "length": 55,
       "value": "\"iOS\/\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 5944,
+      "offset": 5942,
       "length": 1,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 5957,
+      "offset": 5955,
       "length": 1,
       "value": "\"\/APPLE\/\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 5972,
+      "offset": 5970,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 6236,
+      "offset": 6234,
       "length": 32,
       "value": "\"yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 6338,
+      "offset": 6336,
       "length": 12,
       "value": "\"User-Agent\""
     },
     {
       "filePath": "\/Users\/guillermo\/Developer\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
-      "offset": 6940,
+      "offset": 6938,
       "length": 28,
       "value": "\"SIMULATOR_MODEL_IDENTIFIER\""
     },
