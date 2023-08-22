@@ -195,7 +195,7 @@ export class Bridgefy {
    */
   async initialize(
     apiKey: string,
-    propagationProfile: BridgefyPropagationProfile
+    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.standard
   ): Promise<void> {
     return BridgefyReactNative.initialize(apiKey, propagationProfile);
   }
@@ -203,8 +203,11 @@ export class Bridgefy {
   /**
    * Start Bridgefy SDK operations
    */
-  async start(): Promise<void> {
-    return BridgefyReactNative.start();
+  async start(
+    userId?: string,
+    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.standard
+  ): Promise<void> {
+    return BridgefyReactNative.start(userId, propagationProfile);
   }
 
   /**

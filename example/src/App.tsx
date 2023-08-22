@@ -23,13 +23,15 @@ const bridgefy = new Bridgefy();
 export default function App() {
   const [logText, setLog] = useState<string>('');
   const userId = useRef<string>('');
+  const scrollViewLogs = useRef<ScrollView>(null);
 
-  const log = (text: string, obj: any, error = false) => {
-    setLog(`${logText}${text} ${JSON.stringify(obj)}\n`);
+  const log = (event: string, body: any, error = false) => {
+    setLog(`${logText}${event} ${JSON.stringify(body)}\n`);
+    scrollViewLogs.current?.scrollToEnd();
     if (error) {
-      console.error(text, obj);
+      console.error(event, body);
     } else {
-      console.log(text, obj);
+      console.log(event, body);
     }
   };
 
@@ -190,7 +192,7 @@ export default function App() {
           }
         />
       </View>
-      <ScrollView style={styles.logTextBox}>
+      <ScrollView contentContainerStyle={styles.logTextBox} ref={scrollViewLogs}>
         <Text style={styles.logText}>{logText}</Text>
       </ScrollView>
     </SafeAreaView>
