@@ -33,7 +33,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   fun initialize(
     apiKey: String,
-    priorityLogger: Int = Log.WARN,
+    verboseLogging: Boolean = false,
     promise: Promise,
   ) {
     try {
@@ -151,7 +151,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidStop", null)
           }
         },
-        priorityLogger,
+        if (verboseLogging) Log.DEBUG else 1,
       )
       promise.resolve(null)
     } catch (error: BridgefyException) {

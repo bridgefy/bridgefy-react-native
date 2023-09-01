@@ -157,8 +157,8 @@ export default function App() {
       // Initialize Bridgefy using our API key.
       bridgefy
         .initialize(
-          'a0ef12d5-9c06-4862-a881-3f2349fa1f0b',
-          BridgefyPropagationProfile.standard
+          'YOUR_API_KEY_HERE',
+          true,
         )
         .catch((error) => {
           log(`Initialize error`, error.message, true);
@@ -177,7 +177,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>Bridgefy React Native</Text>
       <View style={styles.buttonBar}>
-        <Button title="Start" onPress={() => bridgefy.start()} />
+        <Button title="Start" onPress={() => bridgefy.start( null, BridgefyPropagationProfile.standard)}/>
         <Button
           title="Send data"
           onPress={() =>
