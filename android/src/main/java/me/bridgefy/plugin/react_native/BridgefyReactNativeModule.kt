@@ -1,11 +1,12 @@
 package me.bridgefy.plugin.react_native
 
+import android.util.Log
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.Promise
-import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
@@ -30,15 +31,14 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun initialize(apiKey: String,
-                 propagationProfile: String,
-                 promise: Promise) {
-    val profile = propagationProfileFromString(propagationProfile)
+  fun initialize(
+    apiKey: String,
+    verboseLogging: Boolean = false,
+    promise: Promise,
+  ) {
     try {
       bridgefy.init(
-        null,
         UUID.fromString(apiKey),
-        profile!!,
         object : BridgefyDelegate {
           override fun onConnected(peerID: UUID) {
             val params = Arguments.createMap().apply {
@@ -53,14 +53,14 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             }
           }
 
-          override fun onConnectedSecurely(peerID: UUID) {
+          override fun onEstablishSecureConnection(userId: UUID) {
             val params = Arguments.createMap().apply {
-              putString("userId", peerID.toString())
+              putString("userId", userId.toString())
             }
             sendEvent(
               reactApplicationContext,
               "bridgefyDidEstablishSecureConnection",
-              params
+              params,
             )
           }
 
@@ -71,8 +71,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidDisconnect", params)
           }
 
-          // TODO: iOS provides BridgefyError
-          override fun onFailToSend(messageID: UUID) {
+          override fun onFailToSend(messageID: UUID, error: BridgefyException) {
             val params = Arguments.createMap().apply {
               putString("messageId", messageID.toString())
             }
@@ -102,10 +101,10 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidSendDataProgress", params)
           }
 
-          override fun onReceive(
+          override fun onReceiveData(
             data: ByteArray,
             messageID: UUID,
-            transmissionMode: TransmissionMode
+            transmissionMode: TransmissionMode,
           ) {
             val params = Arguments.createMap().apply {
               putString("data", String(data))
@@ -129,14 +128,30 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidStart", params)
           }
 
-          // TODO: bridgefyDidFailToEstablishSecureConnection
-          // TODO: bridgefyDidDestroySession
-          // TODO: bridgefyDidFailToDestroySession
+          override fun onFailToEstablishSecureConnection(userId: UUID, error: BridgefyException) {
+            val params = Arguments.createMap().apply {
+              putString("userId", userId.toString())
+              putMap("error", mapFromBridgefyException(error))
+            }
+            sendEvent(reactApplicationContext, "bridgefyDidFailToEstablishSecureConnection", params)
+          }
+
+          override fun onDestroySession() {
+            sendEvent(reactApplicationContext, "bridgefyDidDestroySession", null)
+          }
+
+          override fun onFailToDestroySession(error: BridgefyException) {
+            val params = Arguments.createMap().apply {
+              putMap("error", mapFromBridgefyException(error))
+            }
+            sendEvent(reactApplicationContext, "bridgefyDidFailToDestroySession", params)
+          }
 
           override fun onStopped() {
             sendEvent(reactApplicationContext, "bridgefyDidStop", null)
           }
-        }
+        },
+        if (verboseLogging) Log.DEBUG else 1,
       )
       promise.resolve(null)
     } catch (error: BridgefyException) {
@@ -146,8 +161,16 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun start(promise: Promise) {
-    bridgefy.start()
+  fun start(
+    customUserID: String?,
+    propagationProfile: String,
+    promise: Promise,
+  ) {
+    val profile = propagationProfileFromString(propagationProfile)
+    bridgefy.start(
+      customUserID?.let { UUID.fromString(it) },
+      profile ?: PropagationProfile.Standard,
+    )
     promise.resolve(null)
   }
 
@@ -156,9 +179,11 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
     val mode = transmissionModeFromMap(transmissionMode)!!
     try {
       val uuid = bridgefy.send(data.toByteArray(), mode)
-      promise.resolve(Arguments.createMap().apply {
-        putString("messageId", uuid.toString())
-      })
+      promise.resolve(
+        Arguments.createMap().apply {
+          putString("messageId", uuid.toString())
+        },
+      )
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
       promise.reject(map.getString("code"), map.getString("message"), error)
@@ -173,8 +198,11 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun connectedPeers(promise: Promise) {
-    promise.resolve(arrayOf<String>())
-    TODO("Android impl")
+    val peers = bridgefy.connectedPeers().getOrNull()
+    val nodes = Arguments.createArray().apply {
+      peers?.forEach { pushString(it.toString()) }
+    }
+    promise.resolve(Arguments.createMap().apply { putArray("connectedPeers", nodes) })
   }
 
   @ReactMethod
@@ -191,7 +219,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun currentUserID(promise: Promise) {
-    val userId = bridgefy.currentBridgefyUser()
+    val userId = bridgefy.currentUserId().getOrThrow()
     promise.resolve(Arguments.createMap().apply {
       putString("userId", userId.toString())
     })
@@ -206,10 +234,12 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun licenseExpirationDate(promise: Promise) {
-    val date = bridgefy.licenseExpirationDate()
-    promise.resolve(Arguments.createMap().apply {
-      putString("licenseExpirationDate", date?.time.toString())
-    })
+    val date = bridgefy.licenseExpirationDate().getOrThrow()
+    promise.resolve(
+      Arguments.createMap().apply {
+        putString("licenseExpirationDate", date?.time.toString())
+      },
+    )
   }
 
   companion object {

@@ -13,13 +13,13 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
-                  propagationProfile: String,
+                  verboseLogging: Boolean,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
       bridgefy = try Bridgefy(withApiKey: apiKey,
                               delegate: self,
-                              verboseLogging: false)
+                              verboseLogging: verboseLogging)
       resolve(nil)
     } catch let error {
       let dict = errorDictionary(from: error as! BridgefyError)
