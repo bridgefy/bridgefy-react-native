@@ -14,27 +14,27 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		nIHND/FSAsG2DknD2kfzokoxoCQ=
+		sHMgdUEXM5vx1w9mdP4yYnBr1hY=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		TEvyIzsu/ULB+5nCiY1R83KsKHk=
+		3cRBHGMIUI+/OeZZWXc8179nWtg=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		RllkqGDxEgNUwAnkgb5yoihsSfo=
+		+meaX7TZyOyll5P8ySGQaejci+I=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		qRqZQD6HefXj1V+wpf+y+PNudVI=
+		gOIT6JpCBjayx5Mu+yOPJ+oR/AU=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		RllkqGDxEgNUwAnkgb5yoihsSfo=
+		+meaX7TZyOyll5P8ySGQaejci+I=
 		</data>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		G0RyMgvzCRurW0gOMWGLGVeFv2M=
+		qy9HLtOGUfjG83puPbeCSv7nAKM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -61,35 +61,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6s/qUFk7kHSbdwLafHHt2jd3vjgl28JApHsHo7WN6F4=
+			yxUixpzs0X7OXrGE3u6umkrYA10pEfPEB0PRt4kvw6o=
 			</data>
 		</dict>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ghjl1BFAb82tE7e+ikA0F//Fm4RWmAgsL+VPcRae1hM=
+			04z+/TaVhgW5t3W3zQtcac23GdFw8fQ2Op+biKovnnQ=
 			</data>
 		</dict>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6303iGbXRRxP1n+b47t3mvHaqKckrzwUofsSmUGfknA=
+			UMHTaRDY3Pf4J9hJuuPtO7o9DYBRKRi/A/rQGUEHDEc=
 			</data>
 		</dict>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ghjl1BFAb82tE7e+ikA0F//Fm4RWmAgsL+VPcRae1hM=
+			04z+/TaVhgW5t3W3zQtcac23GdFw8fQ2Op+biKovnnQ=
 			</data>
 		</dict>
 		<key>Modules/BridgefySDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oQMJJHvUEH8PG/pYoCCTYg/i7sadHEkRGpmHsw/iu1o=
+			E3WW24tcRRoPsHIk7rKbQcc17TSKyjqCXJ0j6Uae690=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
