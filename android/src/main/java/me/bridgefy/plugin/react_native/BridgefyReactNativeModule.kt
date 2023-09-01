@@ -218,6 +218,14 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  fun currentUserID(promise: Promise) {
+    val userId = bridgefy.currentUserId().getOrThrow()
+    promise.resolve(Arguments.createMap().apply {
+      putString("userId", userId.toString())
+    })
+  }
+
+  @ReactMethod
   fun establishSecureConnection(userId: String, promise: Promise) {
     val uuid = UUID.fromString(userId)
     bridgefy.establishSecureConnection(uuid)
