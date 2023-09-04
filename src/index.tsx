@@ -189,22 +189,23 @@ export class Bridgefy {
   /**
    * Initialize the SDK
    * @param apiKey API key
-   * @param propagationProfile Profile that defines a series of properties and rules for the
-   * propagation of messages.
    * @param verboseLogging The log level.
    */
   async initialize(
     apiKey: string,
-    propagationProfile: BridgefyPropagationProfile
+    verboseLogging: boolean
   ): Promise<void> {
-    return BridgefyReactNative.initialize(apiKey, propagationProfile);
+    return BridgefyReactNative.initialize(apiKey, verboseLogging);
   }
 
   /**
    * Start Bridgefy SDK operations
    */
-  async start(): Promise<void> {
-    return BridgefyReactNative.start();
+  async start(
+    userId?: string,
+    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.standard
+  ): Promise<void> {
+    return BridgefyReactNative.start(userId, propagationProfile);
   }
 
   /**

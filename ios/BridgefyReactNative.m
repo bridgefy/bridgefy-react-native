@@ -8,7 +8,9 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apiKey
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(start:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(start:(NSString *)userId
+                  propagationProfile:(NSString *)propagationProfile
+                  resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(send:(NSString *)data

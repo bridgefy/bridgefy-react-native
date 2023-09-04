@@ -12,18 +12,19 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 public class Bridgefy {
-  public init(withApiKey apiKey: Swift.String, propagationProfile: BridgefySDK.PropagationProfile = .standard, delegate: any BridgefySDK.BridgefyDelegate, verboseLogging: Swift.Bool = false) throws
+  public init(withApiKey apiKey: Swift.String, delegate: any BridgefySDK.BridgefyDelegate, verboseLogging: Swift.Bool = false) throws
   @objc deinit
-  public func start()
+  public func start(withUserId userId: Foundation.UUID? = nil, andPropagationProfile propagationProfile: BridgefySDK.PropagationProfile = .standard)
   public func stop()
   public func destroySession()
   public func send(_ data: Foundation.Data, using transmissionMode: BridgefySDK.TransmissionMode) throws -> Foundation.UUID
-  public func updateLicense()
   public func establishSecureConnection(with userId: Foundation.UUID)
-  public var currentUserId: Foundation.UUID {
+  public func fingerprint(for userId: Foundation.UUID) throws -> BridgefySDK.BridgefyFingerprint?
+  public func isFingerprintValid(_ fingerprintData: Foundation.Data, for userId: Foundation.UUID) throws -> Swift.Bool
+  public var currentUserId: Foundation.UUID? {
     get
   }
-  public var connectedPeers: [Foundation.UUID] {
+  public var connectedPeers: [Foundation.UUID]? {
     get
   }
   public var licenseExpirationDate: Foundation.Date? {
@@ -32,13 +33,16 @@ public class Bridgefy {
 }
 public enum BridgefyError : Swift.Error {
   case simulatorIsNotSupported
+  case inconsistentUserId
   case notStarted
   case alreadyInstantiated
   case startInProgress
   case alreadyStarted
+  case stopInProgress
+  case destroySessionInProgress
   case serviceNotStarted
+  case invalidApiKey
   case missingBundleID
-  case invalidAPIKey
   case internetConnectionRequired
   case sessionError
   case expiredLicense
@@ -88,7 +92,7 @@ public protocol BridgefyDelegate : AnyObject {
   func bridgefyDidStop()
   func bridgefyDidFailToStop(with error: BridgefySDK.BridgefyError)
   func bridgefyDidDestroySession()
-  func bridgefyDidFailToDestroySession()
+  func bridgefyDidFailToDestroySession(with error: BridgefySDK.BridgefyError)
   func bridgefyDidConnect(with userId: Foundation.UUID)
   func bridgefyDidDisconnect(from userId: Foundation.UUID)
   func bridgefyDidEstablishSecureConnection(with userId: Foundation.UUID)
@@ -96,6 +100,10 @@ public protocol BridgefyDelegate : AnyObject {
   func bridgefyDidSendMessage(with messageId: Foundation.UUID)
   func bridgefyDidFailSendingMessage(with messageId: Foundation.UUID, withError error: BridgefySDK.BridgefyError)
   func bridgefyDidReceiveData(_ data: Foundation.Data, with messageId: Foundation.UUID, using transmissionMode: BridgefySDK.TransmissionMode)
+}
+public struct BridgefyFingerprint {
+  public let displayable: Swift.String
+  public let scannable: Foundation.Data
 }
 extension BridgefySDK.PropagationProfile : Swift.Equatable {}
 extension BridgefySDK.PropagationProfile : Swift.Hashable {}

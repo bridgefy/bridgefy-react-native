@@ -13,15 +13,13 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
-                  propagationProfile: String,
+                  verboseLogging: Boolean,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
-      let profile = self.propagationProfile(from: propagationProfile)!
       bridgefy = try Bridgefy(withApiKey: apiKey,
-                              propagationProfile: profile,
                               delegate: self,
-                              verboseLogging: false)
+                              verboseLogging: verboseLogging)
       resolve(nil)
     } catch let error {
       let dict = errorDictionary(from: error as! BridgefyError)
@@ -29,9 +27,17 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     }
   }
 
-  @objc(start:reject:)
-  func start(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    bridgefy!.start()
+  @objc(start:propagationProfile:resolve:reject:)
+  func start(userId: String,
+             propagationProfile: String,
+             resolve: RCTPromiseResolveBlock,
+             reject: RCTPromiseRejectBlock) -> Void {
+    let profile = self.propagationProfile(from: propagationProfile)!
+    if let uuid = UUID(uuidString: userId) {
+        bridgefy?.start(withUserId: uuid, andPropagationProfile: profile)
+    }else{
+        bridgefy?.start(withUserId: nil, andPropagationProfile: profile)
+    }
     resolve(nil)
   }
 
@@ -58,14 +64,14 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(connectedPeers:reject:)
   func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["connectedPeers": bridgefy!.connectedPeers.map({ uuid in
+    resolve(["connectedPeers": bridgefy!.connectedPeers!.map({ uuid in
       uuid.uuidString
     })])
   }
 
   @objc(currentUserId:reject:)
   func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["userId": bridgefy!.currentUserId.uuidString])
+    resolve(["userId": bridgefy!.currentUserId!.uuidString])
   }
 
   @objc(establishSecureConnection:resolve:reject:)
@@ -95,7 +101,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(updateLicense:reject:)
   func updateLicense(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    bridgefy!.updateLicense()
+    //bridgefy!.updateLicense()
     resolve(nil)
   }
 
@@ -136,8 +142,9 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidDestroySession", body: nil)
   }
 
-  func bridgefyDidFailToDestroySession() {
-    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToDestroySession", body: nil)
+  func bridgefyDidFailToDestroySession(with error: BridgefySDK.BridgefyError) {
+    BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidFailToDestroySession",
+                                          body: ["error": errorDictionary(from: error)])
   }
 
   func bridgefyDidConnect(with userId: UUID) {
@@ -268,7 +275,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     case .missingBundleID:
       type = "missingBundleID"
       break;
-    case .invalidAPIKey:
+    case .invalidApiKey:
       type = "invalidAPIKey"
       break;
     case .internetConnectionRequired:
