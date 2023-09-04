@@ -74,6 +74,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
           override fun onFailToSend(messageID: UUID, error: BridgefyException) {
             val params = Arguments.createMap().apply {
               putString("messageId", messageID.toString())
+              putMap("error", mapFromBridgefyException(error))
             }
             sendEvent(reactApplicationContext, "bridgefyDidFailSendingMessage", params)
           }
