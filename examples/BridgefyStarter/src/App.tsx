@@ -155,14 +155,9 @@ export default function App() {
       RNPermissions.PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
     ]).then((_statuses) => {
       // Initialize Bridgefy using our API key.
-      bridgefy
-        .initialize(
-          'YOUR_API_KEY_HERE',
-          true,
-        )
-        .catch((error) => {
-          log(`Initialize error`, error.message, true);
-        });
+      bridgefy.initialize('YOUR_API_KEY_HERE', true).catch((error) => {
+        log(`Initialize error`, error.message, true);
+      });
     });
 
     return () => {
@@ -177,7 +172,12 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>Bridgefy React Native</Text>
       <View style={styles.buttonBar}>
-        <Button title="Start" onPress={() => bridgefy.start( null, BridgefyPropagationProfile.standard)}/>
+        <Button
+          title="Start"
+          onPress={() =>
+            bridgefy.start(undefined, BridgefyPropagationProfile.standard)
+          }
+        />
         <Button
           title="Send data"
           onPress={() =>
@@ -192,7 +192,10 @@ export default function App() {
           }
         />
       </View>
-      <ScrollView contentContainerStyle={styles.logTextBox} ref={scrollViewLogs}>
+      <ScrollView
+        contentContainerStyle={styles.logTextBox}
+        ref={scrollViewLogs}
+      >
         <Text style={styles.logText}>{logText}</Text>
       </ScrollView>
     </SafeAreaView>
