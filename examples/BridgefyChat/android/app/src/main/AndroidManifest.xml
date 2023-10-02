@@ -31,7 +31,7 @@
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>
     <meta-data
       android:name="com.bridgefy.sdk.API_KEY"
-      android:value="${bridgefy_api_key}" />
+      android:value="20ef12d5-9b06-4762-a581-3f2348fa1f0b" />
 
   </application>
 </manifest>

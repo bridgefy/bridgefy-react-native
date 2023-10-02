@@ -13,7 +13,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
-                  verboseLogging: Boolean,
+                  verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
