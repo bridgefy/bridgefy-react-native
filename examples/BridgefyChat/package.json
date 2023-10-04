@@ -2,10 +2,11 @@
   "name": "BridgefyChat",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "pods": "pod-install --quiet",
+    "postinstall": "react-native setup-ios-permissions && pod-install"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
@@ -34,6 +35,9 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.22.17"
+  },
+  "engines": {
+    "node": ">=16"
   },
   "private": true
 }
