@@ -33,7 +33,7 @@ export default function Splash({ route, navigation }) {
         PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
       ]).then((_statutes) => {
         bridgefy.initialize('YOUR_API_KEY_HERE', true).catch((e) => {
-          Alert.alert('Error to initialize Bridegfy SDK' + e.message);
+          Alert.alert('Error to initialize Bridegfy SDK', e.message);
         });
       });
     };

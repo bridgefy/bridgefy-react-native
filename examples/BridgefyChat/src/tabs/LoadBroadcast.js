@@ -12,9 +12,9 @@ const LoadBroadcast = () => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          navigation.navigate('Public')
+          navigation.navigate('Public');
         }}>
-        <Text style={styles.btnText}>Logout</Text>
+        <Text style={styles.btnText}>Join to broadcast.</Text>
       </TouchableOpacity>
     </View>
   );
@@ -25,7 +25,7 @@ export default LoadBroadcast;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
   btn: {
     width: '70%',
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 300,
-    backgroundColor: colors.red
+    backgroundColor: colors.red,
   },
-})
+});
