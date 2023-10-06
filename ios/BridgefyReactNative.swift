@@ -13,7 +13,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
-                  verboseLogging: Boolean,
+                  verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
@@ -64,14 +64,14 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(connectedPeers:reject:)
   func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["connectedPeers": bridgefy!.connectedPeers!.map({ uuid in
+    resolve(["connectedPeers": bridgefy!.connectedPeers?.map({ uuid in
       uuid.uuidString
     })])
   }
 
   @objc(currentUserId:reject:)
   func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["userId": bridgefy!.currentUserId!.uuidString])
+    resolve(["userId": bridgefy!.currentUserId?.uuidString])
   }
 
   @objc(establishSecureConnection:resolve:reject:)

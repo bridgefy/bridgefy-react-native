@@ -1,0 +1,48 @@
+{
+  "name": "BridgefyChat",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "pods": "pod-install --quiet",
+    "postinstall": "react-native setup-ios-permissions && pod-install"
+  },
+  "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "@react-navigation/bottom-tabs": "^6.5.8",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/stack": "^6.3.17",
+    "@reduxjs/toolkit": "^1.9.5",
+    "expo": "~49.0.8",
+    "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.6.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.72.5",
+    "react-native-gesture-handler": "~2.12.0",
+    "react-native-gifted-chat": "^2.4.0",
+    "react-native-permissions": "^3.9.1",
+    "react-native-pulse": "^1.0.7",
+    "react-native-safe-area-context": "4.6.3",
+    "react-native-screens": "~3.22.0",
+    "react-native-uuid": "^2.0.1",
+    "react-native-web": "~0.19.8",
+    "react-redux": "^8.1.2",
+    "bridgefy-react-native": "file:../../"
+  },
+  "reactNativePermissionsIOS": [
+    "BluetoothPeripheral",
+    "LocationAccuracy",
+    "LocationAlways",
+    "LocationWhenInUse"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.22.17"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "private": true
+}

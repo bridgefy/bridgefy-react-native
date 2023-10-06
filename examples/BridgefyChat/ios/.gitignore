@@ -1,0 +1,18 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+Pods
+Podfile.lock
+*.xcworkspace
+# builds
+build
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+.idea
