@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Bridgefy Chat",
-    "slug": "Bridgefy Chat",
+    "name": "BridgefyChat",
+    "slug": "BridgefyChat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,7 +10,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "me.bridgefy.ios.example",
+      "icon": "./assets/adaptive-icon.png"
     },
     "android": {
       "adaptiveIcon": {

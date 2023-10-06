@@ -6,7 +6,7 @@ import Login from '../screens/Login';
 import Splash from '../screens/Splash';
 import Main from '../screens/Main';
 import Chat from '../screens/Chat';
-import { Bridgefy } from 'bridgefy-react-native';
+import { Bridgefy } from 'bridgefy-react-native/src';
 import Broadcast from '../tabs/Broadcast';
 
 const _bridgefy = new Bridgefy();

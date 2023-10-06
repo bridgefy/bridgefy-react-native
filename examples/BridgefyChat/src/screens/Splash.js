@@ -32,7 +32,7 @@ export default function Splash({ route, navigation }) {
         PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
         PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
       ]).then((_statutes) => {
-        bridgefy.initialize('YOUR_API_KEY_HERE', true).catch((e) => {
+        bridgefy.initialize('20ef12d5-9b06-4762-a581-3f2348fa1f0b', true).catch((e) => {
           Alert.alert('Error to initialize Bridegfy SDK', e.message);
         });
       });

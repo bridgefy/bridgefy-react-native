@@ -4,7 +4,7 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import {
   BridgefyEvents,
   BridgefyTransmissionModeType,
-} from 'bridgefy-react-native';
+} from 'bridgefy-react-native/src';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = ({ route }) => {

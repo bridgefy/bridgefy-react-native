@@ -14,7 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "../../constants/colors";
 import User from '../../assets/user.png'
-import { BridgefyEvents } from "bridgefy-react-native";
+import { BridgefyEvents } from "bridgefy-react-native/src";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Pulse from "react-native-pulse";

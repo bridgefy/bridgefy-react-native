@@ -8,7 +8,7 @@ import Logout from '../tabs/Logout';
 import {
   BridgefyEvents,
   BridgefyPropagationProfile,
-} from 'bridgefy-react-native';
+} from 'bridgefy-react-native/src';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadBroadcast from '../tabs/LoadBroadcast';
 
