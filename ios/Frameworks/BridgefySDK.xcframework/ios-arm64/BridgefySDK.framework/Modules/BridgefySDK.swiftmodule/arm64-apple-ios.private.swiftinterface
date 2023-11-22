@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BridgefySDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 @_exported import BridgefySDK
@@ -11,6 +11,7 @@ import Swift
 import UIKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 public class Bridgefy {
   public init(withApiKey apiKey: Swift.String, delegate: any BridgefySDK.BridgefyDelegate, verboseLogging: Swift.Bool = false) throws
   @objc deinit
@@ -21,6 +22,12 @@ public class Bridgefy {
   public func establishSecureConnection(with userId: Foundation.UUID)
   public func fingerprint(for userId: Foundation.UUID) throws -> BridgefySDK.BridgefyFingerprint?
   public func isFingerprintValid(_ fingerprintData: Foundation.Data, for userId: Foundation.UUID) throws -> Swift.Bool
+  public static var isInitialized: Swift.Bool {
+    get
+  }
+  public static var isStarted: Swift.Bool {
+    get
+  }
   public var currentUserId: Foundation.UUID? {
     get
   }

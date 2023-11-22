@@ -61,8 +61,8 @@ export default function App() {
       )
     );
     subscriptions.push(
-      eventEmitter.addListener(BridgefyEvents.bridgefyDidStop, (event) => {
-        log(`bridgefyDidStop`, "Bridgefy stopped.");
+      eventEmitter.addListener(BridgefyEvents.bridgefyDidStop, () => {
+        log(`bridgefyDidStop`, 'Bridgefy stopped.');
         setStarted(false);
       })
     );
