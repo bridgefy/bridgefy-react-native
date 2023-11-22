@@ -5,17 +5,17 @@ import {
   BridgefyTransmissionModeType,
 } from 'bridgefy-react-native';
 import * as RNPermissions from 'react-native-permissions';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
+  Button,
+  type EmitterSubscription,
   NativeEventEmitter,
   NativeModules,
-  type EmitterSubscription,
-  Button,
-  ScrollView,
   SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
 const bridgefy = new Bridgefy();
@@ -24,6 +24,8 @@ export default function App() {
   const [logText, setLog] = useState<string>('');
   const userId = useRef<string>('');
   const scrollViewLogs = useRef<ScrollView>(null);
+  const [initialized, setInitialized] = useState<boolean>(false);
+  const [started, setStarted] = useState<boolean>(false);
 
   const log = (event: string, body: any, error = false) => {
     setLog(`${logText}${event} ${JSON.stringify(body)}\n`);
@@ -45,6 +47,9 @@ export default function App() {
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStart, (event) => {
         userId.current = event.userId;
         log(`bridgefyDidStart`, event);
+        bridgefy.isStarted().then((value) => {
+          setStarted(value);
+        });
       })
     );
     subscriptions.push(
@@ -57,7 +62,8 @@ export default function App() {
     );
     subscriptions.push(
       eventEmitter.addListener(BridgefyEvents.bridgefyDidStop, (event) => {
-        log(`bridgefyDidStop`, event);
+        log(`bridgefyDidStop`, "Bridgefy stopped.");
+        setStarted(false);
       })
     );
     subscriptions.push(
@@ -156,10 +162,22 @@ export default function App() {
     ]).then((_statuses) => {
       // Initialize Bridgefy using our API key.
       bridgefy
-        .initialize(
-          'YOUR_API_KEY_HERE',
-          true,
-        )
+        .initialize('YOUR_API_KEY_HERE', true)
+        .then(() => {
+          bridgefy
+            .isInitialized()
+            .then((value) => {
+              log(
+                `isInitialized`,
+                'SDK isInitialized: ' + JSON.stringify(value),
+                false
+              );
+              setInitialized(value);
+            })
+            .catch((error) => {
+              log(`isInitialized error`, error.message, true);
+            });
+        })
         .catch((error) => {
           log(`Initialize error`, error.message, true);
         });
@@ -170,16 +188,33 @@ export default function App() {
         sub.remove();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>Bridgefy React Native</Text>
       <View style={styles.buttonBar}>
-        <Button title="Start" onPress={() => bridgefy.start( null, BridgefyPropagationProfile.standard)}/>
+        <Button
+          disabled={!initialized || started}
+          title="Start"
+          onPress={() =>
+            bridgefy.start().catch((error) => {
+              log(`Started error`, error.message, true);
+            })
+          }
+        />
+        <Button
+          disabled={!initialized || !started}
+          title="Stop"
+          onPress={() =>
+            bridgefy.stop().catch((error) => {
+              log(`Stopped error`, error.message, true);
+            })
+          }
+        />
         <Button
           title="Send data"
+          disabled={initialized && !started}
           onPress={() =>
             bridgefy
               .send('Hello world', {
@@ -192,7 +227,10 @@ export default function App() {
           }
         />
       </View>
-      <ScrollView contentContainerStyle={styles.logTextBox} ref={scrollViewLogs}>
+      <ScrollView
+        contentContainerStyle={styles.logTextBox}
+        ref={scrollViewLogs}
+      >
         <Text style={styles.logText}>{logText}</Text>
       </ScrollView>
     </SafeAreaView>
