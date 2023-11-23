@@ -10,12 +10,12 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
+import java.util.UUID
 import me.bridgefy.Bridgefy
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
 import me.bridgefy.commons.listener.BridgefyDelegate
 import me.bridgefy.commons.propagation.PropagationProfile
-import java.util.UUID
 
 class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -34,7 +34,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   fun initialize(
     apiKey: String,
     verboseLogging: Boolean = false,
-    promise: Promise,
+    promise: Promise
   ) {
     try {
       bridgefy.init(
@@ -60,7 +60,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(
               reactApplicationContext,
               "bridgefyDidEstablishSecureConnection",
-              params,
+              params
             )
           }
 
@@ -105,7 +105,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
           override fun onReceiveData(
             data: ByteArray,
             messageID: UUID,
-            transmissionMode: TransmissionMode,
+            transmissionMode: TransmissionMode
           ) {
             val params = Arguments.createMap().apply {
               putString("data", String(data))
@@ -152,12 +152,14 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidStop", null)
           }
         },
-        if (verboseLogging) Log.DEBUG else 1,
+        if (verboseLogging) Log.DEBUG else 1
       )
       promise.resolve(null)
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
       promise.reject(map.getString("code"), map.getString("message"), error)
+    } catch (e: Exception) {
+      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
     }
   }
 
@@ -165,40 +167,53 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   fun start(
     customUserID: String?,
     propagationProfile: String,
-    promise: Promise,
+    promise: Promise
   ) {
-    val profile = propagationProfileFromString(propagationProfile)
-    bridgefy.start(
-      customUserID?.let { UUID.fromString(it) },
-      profile ?: PropagationProfile.Standard,
-    )
-    promise.resolve(null)
+    try {
+      assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+      val profile = propagationProfileFromString(propagationProfile)
+      bridgefy.start(
+        customUserID?.let { UUID.fromString(it) },
+        profile ?: PropagationProfile.Standard
+      )
+      promise.resolve(null)
+    } catch (e: Exception) {
+      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
+    }
   }
 
   @ReactMethod
   fun send(data: String, transmissionMode: ReadableMap, promise: Promise) {
-    val mode = transmissionModeFromMap(transmissionMode)!!
     try {
+      assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+      assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
+      val mode = transmissionModeFromMap(transmissionMode)!!
       val uuid = bridgefy.send(data.toByteArray(), mode)
       promise.resolve(
         Arguments.createMap().apply {
           putString("messageId", uuid.toString())
-        },
+        }
       )
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
       promise.reject(map.getString("code"), map.getString("message"), error)
+    } catch (e: Exception) {
+      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
     }
   }
 
   @ReactMethod
   fun stop(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
     bridgefy.stop()
     promise.resolve(null)
   }
 
   @ReactMethod
   fun connectedPeers(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
     val peers = bridgefy.connectedPeers().getOrNull()
     val nodes = Arguments.createArray().apply {
       peers?.forEach { pushString(it.toString()) }
@@ -214,20 +229,27 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun updateLicense(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
     bridgefy.updateLicense()
     promise.resolve(null)
   }
 
   @ReactMethod
   fun currentUserID(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
     val userId = bridgefy.currentUserId().getOrThrow()
-    promise.resolve(Arguments.createMap().apply {
-      putString("userId", userId.toString())
-    })
+    promise.resolve(
+      Arguments.createMap().apply {
+        putString("userId", userId.toString())
+      }
+    )
   }
 
   @ReactMethod
   fun establishSecureConnection(userId: String, promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
     val uuid = UUID.fromString(userId)
     bridgefy.establishSecureConnection(uuid)
     promise.resolve(null)
@@ -235,12 +257,31 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun licenseExpirationDate(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
     val date = bridgefy.licenseExpirationDate().getOrThrow()
     promise.resolve(
       Arguments.createMap().apply {
         putString("licenseExpirationDate", date?.time.toString())
-      },
+      }
     )
+  }
+
+  @ReactMethod
+  fun isInitialized(promise: Promise) {
+    try {
+      val isInitialized = bridgefy.isInitialized
+      promise.resolve(isInitialized)
+    } catch (e: Exception) {
+      e.printStackTrace()
+      promise.resolve(false)
+    }
+  }
+
+  @ReactMethod
+  fun isStarted(promise: Promise) {
+    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
+    val isStarted = bridgefy.isStarted
+    promise.resolve(isStarted)
   }
 
   companion object {

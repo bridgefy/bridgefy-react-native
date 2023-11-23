@@ -13,7 +13,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(initialize:propagationProfile:resolve:reject:)
   func initialize(apiKey: String,
-                  verboseLogging: Boolean,
+                  verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
                   reject: RCTPromiseRejectBlock) -> Void {
     do {
@@ -101,9 +101,18 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(updateLicense:reject:)
   func updateLicense(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    //bridgefy!.updateLicense()
-    resolve(nil)
+    // resolve(bridgefy!.updateLicense)
+      resolve(nil)
   }
+  @objc(isInitialized:reject:)
+  func isInitialized(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+      resolve(Bridgefy.isInitialized)
+  }
+
+  @objc(isStarted:reject:)
+    func isStarted(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+        resolve(Bridgefy.isStarted)
+    }
 
   // MARK: - RCTEventEmitter
 
@@ -338,6 +347,12 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
       type = "encryptionError"
       details = code
       break;
+    case .inconsistentUserId:
+        type = "inconsistentUserId"
+    case .stopInProgress:
+        type = "stopInProgress"
+    case .destroySessionInProgress:
+        type = "destroySessionInProgress"
     @unknown default:
       return [:]
     }

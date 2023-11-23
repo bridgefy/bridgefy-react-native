@@ -1,7 +1,7 @@
 framework module BridgefySDK {
   umbrella header "BridgefySDK.h"
-
   export *
+
   module * { export * }
 }
 

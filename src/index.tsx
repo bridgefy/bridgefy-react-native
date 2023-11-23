@@ -278,4 +278,12 @@ export class Bridgefy {
     const result = BridgefyReactNative.licenseExpirationDate();
     return new Date(result.licenseExpirationDate);
   }
+
+  async isInitialized(): Promise<boolean> {
+    return BridgefyReactNative.isInitialized();
+  }
+
+  async isStarted(): Promise<boolean> {
+    return BridgefyReactNative.isStarted();
+  }
 }
