@@ -1,7 +1,6 @@
 import {
   Bridgefy,
   BridgefyEvents,
-  BridgefyPropagationProfile,
   BridgefyTransmissionModeType,
 } from 'bridgefy-react-native';
 import * as RNPermissions from 'react-native-permissions';
@@ -18,7 +17,7 @@ import {
   View,
 } from 'react-native';
 
-const bridgefy = new Bridgefy();
+let bridgefy = new Bridgefy();
 
 export default function App() {
   const [logText, setLog] = useState<string>('');
@@ -167,11 +166,6 @@ export default function App() {
           bridgefy
             .isInitialized()
             .then((value) => {
-              log(
-                `isInitialized`,
-                'SDK isInitialized: ' + JSON.stringify(value),
-                false
-              );
               setInitialized(value);
             })
             .catch((error) => {
@@ -187,6 +181,8 @@ export default function App() {
       for (const sub of subscriptions) {
         sub.remove();
       }
+      bridgefy.stop();
+      bridgefy = null;
     };
   }, []);
 
