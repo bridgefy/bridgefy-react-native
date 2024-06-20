@@ -191,10 +191,7 @@ export class Bridgefy {
    * @param apiKey API key
    * @param verboseLogging The log level.
    */
-  async initialize(
-    apiKey: string,
-    verboseLogging: boolean
-  ): Promise<void> {
+  async initialize(apiKey: string, verboseLogging: boolean): Promise<void> {
     return BridgefyReactNative.initialize(apiKey, verboseLogging);
   }
 
@@ -257,7 +254,7 @@ export class Bridgefy {
    * @returns User Id
    */
   async currentUserId(): Promise<string> {
-    const result = BridgefyReactNative.currentUserId();
+    const result = await BridgefyReactNative.currentUserId();
     return result.userId;
   }
 
@@ -266,7 +263,7 @@ export class Bridgefy {
    * @returns List of connected peers
    */
   async connectedPeers(): Promise<string[]> {
-    const result = BridgefyReactNative.connectedPeers();
+    const result = await BridgefyReactNative.connectedPeers();
     return result.connectedPeers;
   }
 
@@ -275,8 +272,8 @@ export class Bridgefy {
    * @returns Expiration date
    */
   async licenseExpirationDate(): Promise<Date> {
-    const result = BridgefyReactNative.licenseExpirationDate();
-    return new Date(result.licenseExpirationDate);
+    const result = await BridgefyReactNative.licenseExpirationDate();
+    return new Date(result.licenseExpirationDate as number);
   }
 
   async isInitialized(): Promise<boolean> {
