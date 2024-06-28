@@ -11,7 +11,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     BridgefyReactNative.emitter = self
   }
 
-  @objc(initialize:propagationProfile:resolve:reject:)
+  @objc(initialize:verboseLogging:resolve:reject:)
   func initialize(apiKey: String,
                   verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
@@ -198,7 +198,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     let mode = transmissionModeDictionary(from: transmissionMode)
     BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidReceiveData",
                                           body: [
-                                            "data": data,
+                                            "data": String(decoding: data, as: UTF8.self),
                                             "messageId": messageId.uuidString,
                                             "transmissionMode": mode
                                           ] as [String : Any])

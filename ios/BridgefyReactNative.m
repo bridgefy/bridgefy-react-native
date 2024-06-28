@@ -4,7 +4,7 @@
 @interface RCT_EXTERN_MODULE(BridgefyReactNative, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(initialize:(NSString *)apiKey
-                  propagationProfile:(NSString *)propagationProfile
+                  verboseLogging:(BOOL)verboseLogging
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
