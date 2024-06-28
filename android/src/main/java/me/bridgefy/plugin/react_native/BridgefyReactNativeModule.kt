@@ -12,6 +12,7 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.util.UUID
 import me.bridgefy.Bridgefy
+import me.bridgefy.logger.enum.LogType
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
 import me.bridgefy.commons.listener.BridgefyDelegate
@@ -152,7 +153,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
             sendEvent(reactApplicationContext, "bridgefyDidStop", null)
           }
         },
-        if (verboseLogging) Log.DEBUG else 1
+        if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None,
       )
       promise.resolve(null)
     } catch (error: BridgefyException) {
@@ -235,7 +236,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun currentUserID(promise: Promise) {
+  fun currentUserId(promise: Promise) {
     assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
     assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
     val userId = bridgefy.currentUserId().getOrThrow()
