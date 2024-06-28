@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { BridgefyService, IInitializeIn, IStartIn } from './infraestructure';
 
 const LINKING_ERROR =
   `The package 'bridgefy-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -185,34 +186,33 @@ export enum BridgefyEvents {
 /**
  * Bridgefy
  */
-export class Bridgefy {
-  /**
+export class Bridgefy implements BridgefyService {
+    /**
    * Initialize the SDK
    * @param apiKey API key
    * @param verboseLogging The log level.
    */
-  async initialize(
-    apiKey: string,
-    verboseLogging: boolean
-  ): Promise<void> {
-    return BridgefyReactNative.initialize(apiKey, verboseLogging);
+  async initialize({
+    apiKey,
+    verboseLogging = false,
+  }: IInitializeIn): Promise<void> {
+    await BridgefyReactNative.initialize(apiKey, verboseLogging);
   }
 
   /**
    * Start Bridgefy SDK operations
    */
-  async start(
-    userId?: string,
-    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.standard
-  ): Promise<void> {
-    return BridgefyReactNative.start(userId, propagationProfile);
+  async start(params?: IStartIn): Promise<void> {
+    const userId = params?.userId ?? null;
+    const propagationProfile = params?.propagationProfile ?? BridgefyPropagationProfile.standard;
+    return await BridgefyReactNative.start(userId, propagationProfile);
   }
 
   /**
    * Stop Bridgefy SDK operations
    */
   async stop(): Promise<void> {
-    return BridgefyReactNative.stop();
+    return await BridgefyReactNative.stop();
   }
 
   /**
@@ -257,7 +257,7 @@ export class Bridgefy {
    * @returns User Id
    */
   async currentUserId(): Promise<string> {
-    const result = BridgefyReactNative.currentUserId();
+    const result = await BridgefyReactNative.currentUserId();
     return result.userId;
   }
 
@@ -266,7 +266,7 @@ export class Bridgefy {
    * @returns List of connected peers
    */
   async connectedPeers(): Promise<string[]> {
-    const result = BridgefyReactNative.connectedPeers();
+    const result = await BridgefyReactNative.connectedPeers();
     return result.connectedPeers;
   }
 
@@ -275,12 +275,12 @@ export class Bridgefy {
    * @returns Expiration date
    */
   async licenseExpirationDate(): Promise<Date> {
-    const result = BridgefyReactNative.licenseExpirationDate();
-    return new Date(result.licenseExpirationDate);
+    const result = await BridgefyReactNative.licenseExpirationDate();
+    return new Date(result.licenseExpirationDate as number);
   }
 
   async isInitialized(): Promise<boolean> {
-    return BridgefyReactNative.isInitialized();
+    return await BridgefyReactNative.isInitialized();
   }
 
   async isStarted(): Promise<boolean> {
