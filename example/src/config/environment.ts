@@ -1,4 +1,4 @@
 
 export abstract class EnvironmentConfig {
-  static apikey = 'YOUR_API_KEY_HERE';
+  static readonly apikey = 'YOUR_API_KEY_HERE';
 }
