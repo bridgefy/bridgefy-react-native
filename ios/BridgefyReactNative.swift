@@ -64,14 +64,21 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(connectedPeers:reject:)
   func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["connectedPeers": bridgefy!.connectedPeers!.map({ uuid in
-      uuid.uuidString
-    })])
+    guard let connectedPeers = bridgefy?.connectedPeers else {
+      resolve(["connectedPeers": []])
+      return
+    }
+    let peerUUIDs = connectedPeers.compactMap { $0.uuidString }
+    resolve(["connectedPeers": peerUUIDs])
   }
 
   @objc(currentUserId:reject:)
   func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["userId": bridgefy!.currentUserId!.uuidString])
+    if let currentUserId = bridgefy?.currentUserId?.uuidString {
+      resolve(["userId": currentUserId])
+    } else {
+      resolve(["userId": nil])
+    }
   }
 
   @objc(establishSecureConnection:resolve:reject:)
@@ -95,7 +102,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(destroySession:reject:)
   func destroySession(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    bridgefy!.destroySession()
+    bridgefy?.destroySession()
     resolve(nil)
   }
 
