@@ -11,7 +11,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     BridgefyReactNative.emitter = self
   }
 
-  @objc(initialize:propagationProfile:resolve:reject:)
+  @objc(initialize:verboseLogging:resolve:reject:)
   func initialize(apiKey: String,
                   verboseLogging: Bool,
                   resolve: RCTPromiseResolveBlock,
@@ -64,14 +64,21 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(connectedPeers:reject:)
   func connectedPeers(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["connectedPeers": bridgefy!.connectedPeers!.map({ uuid in
-      uuid.uuidString
-    })])
+    guard let connectedPeers = bridgefy?.connectedPeers else {
+      resolve(["connectedPeers": []])
+      return
+    }
+    let peerUUIDs = connectedPeers.compactMap { $0.uuidString }
+    resolve(["connectedPeers": peerUUIDs])
   }
 
   @objc(currentUserId:reject:)
   func currentUserId(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(["userId": bridgefy!.currentUserId!.uuidString])
+    if let currentUserId = bridgefy?.currentUserId?.uuidString {
+      resolve(["userId": currentUserId])
+    } else {
+      resolve(["userId": nil])
+    }
   }
 
   @objc(establishSecureConnection:resolve:reject:)
@@ -95,7 +102,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
 
   @objc(destroySession:reject:)
   func destroySession(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    bridgefy!.destroySession()
+    bridgefy?.destroySession()
     resolve(nil)
   }
 
@@ -198,7 +205,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     let mode = transmissionModeDictionary(from: transmissionMode)
     BridgefyReactNative.emitter.sendEvent(withName: "bridgefyDidReceiveData",
                                           body: [
-                                            "data": data,
+                                            "data": String(decoding: data, as: UTF8.self),
                                             "messageId": messageId.uuidString,
                                             "transmissionMode": mode
                                           ] as [String : Any])

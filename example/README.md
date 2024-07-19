@@ -4,6 +4,35 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
+To create a Bridgefy API KEY, follow these general steps:
+
+* **Register for a Bridgefy account:** If you haven't already, sign up for a Bridgefy account on their website (https://developer.bridgefy.me).
+
+* **Log in to the developer dashboard:** After registering, log in to your Bridgefy account and access the developer dashboard. The dashboard is where you can manage your API KEY and access other developer-related resources.
+
+* **Generate an API KEY:** Once you've created a project, you should be able to generate an API KEY specific to that project. The API KEY is a unique identifier that allows you to use Bridgefy's services.
+
+  **Only for this sample project**
+  * Add the application id `me.bridgefy.android.example` for Android.
+  * Add the bundleId `me.bridgefy.react.sample` for iOS.
+
+* **Integrate the API KEY:** After generating the API KEY, you'll typically receive a KEY string. Integrate this KEY into your application or project to start using Bridgefy's messaging services.
+
+  **Only for this sample project**
+
+  Replace the text "YOUR_API_KEY_HERE" with a key generated from your account, the paths where it should be replaced are as follows:
+>     example/android/app/src/main/AndroidManifest.xml
+>
+>     example/src/config/environment.ts
+
+* **Review the documentation:** As you integrate the API into your application, refer to the Bridgefy documentation and guides for information on how to use their API effectively. The documentation should include details on available endpoints, usage limits, and best practices.
+  * Documentation: https://docs.bridgefy.me/
+  * Github
+    * [Android](https://github.com/bridgefy/sdk-android)
+    * [iOS](https://github.com/bridgefy/sdk-ios)
+
+___
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.

@@ -59,10 +59,10 @@ const bridgefy = new Bridgefy();
 export default function App() {
     React.useEffect(() => {
         bridgefy
-            .initialize(
-                'your-api-key-here', // UUID - The license key registered on the Bridgefy developer site.
-                false, // The logging priority for SDK operations.
-            )
+            .initialize({
+                apiKey: 'your-api-key-here', // UUID - The license key registered on the Bridgefy developer site.
+                verboseLogging: false, // The logging priority for SDK operations.
+            })
             .catch((error) => {
                 console.error(error);
             });
