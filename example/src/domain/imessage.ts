@@ -1,4 +1,7 @@
-export enum OriginMessage {me, other}
+export enum OriginMessage {
+  me,
+  other,
+}
 
 export interface IMessage {
   body: string;

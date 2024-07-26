@@ -8,17 +8,15 @@ const modules = Object.keys({
   ...pak.peerDependencies,
 });
 
-const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const defaultConfig = getDefaultConfig(__dirname);
-const { resolver: { blacklistRE, extraNodeModules } } = defaultConfig;
 
 const config = {
   resolver: {
     blacklistRE: exclusionList(
       modules.map(
-        (m) =>
-          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`)
-      )
+        m => new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`),
+      ),
     ),
 
     extraNodeModules: modules.reduce((acc, name) => {

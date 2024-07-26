@@ -14,13 +14,16 @@ module.exports = {
       },
     ],
   ],
-  overrides: [{
-    plugins: [
-      [
-        '@babel/plugin-transform-private-methods', {
-          'loose': true
-        }
-      ]
-    ]
-  }]
+  overrides: [
+    {
+      plugins: [
+        [
+          '@babel/plugin-transform-private-methods',
+          {
+            loose: true,
+          },
+        ],
+      ],
+    },
+  ],
 };
