@@ -1,4 +1,3 @@
-import React from 'react';
 import {Button} from 'react-native-paper';
 import {globalColors} from '../theme/global.styles';
 
