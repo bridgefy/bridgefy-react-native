@@ -1,8 +1,8 @@
 import {
   BridgefyErrorType,
   BridgefyPropagationProfile,
-  BridgefyTransmissionMode,
-} from "bridgefy-react-native";
+  type BridgefyTransmissionMode,
+} from 'bridgefy-react-native';
 
 interface IBridgefyError {
   code: BridgefyErrorType;
@@ -21,7 +21,7 @@ export interface IDidFailOut {
   error: IBridgefyError;
 }
 export interface IDidReceiveDataOut {
-  data: string,
+  data: string;
   messageId: string;
   transmissionMode: BridgefyTransmissionMode;
 }
@@ -33,6 +33,6 @@ export interface IDidSendDataProgressOut {
   position: number;
   of: number;
 }
-export interface IDidConnectOut extends IDidStartOut{}
-export interface IDidDisconnectedOut extends IDidStartOut{}
-export interface IDidEstablishSecureConnectionOut extends IDidStartOut{}
+export interface IDidConnectOut extends IDidStartOut {}
+export interface IDidDisconnectedOut extends IDidStartOut {}
+export interface IDidEstablishSecureConnectionOut extends IDidStartOut {}

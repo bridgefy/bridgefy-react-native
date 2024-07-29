@@ -1,5 +1,5 @@
-import type { BridgefyTransmissionMode } from "bridgefy-react-native";
-import type { IInitializeIn, IStartIn } from "../interfaces";
+import type { BridgefyTransmissionMode } from 'bridgefy-react-native';
+import type { IInitializeIn, IStartIn } from '../interfaces';
 
 export interface BridgefyService {
   initialize(params: IInitializeIn): Promise<void>;
@@ -9,7 +9,7 @@ export interface BridgefyService {
   updateLicense(): Promise<void>;
   send(
     data: string,
-    transmissionMode: BridgefyTransmissionMode,
+    transmissionMode: BridgefyTransmissionMode
   ): Promise<string>;
   establishSecureConnection(userId: string): Promise<void>;
   currentUserId(): Promise<string>;

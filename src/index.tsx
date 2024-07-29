@@ -1,8 +1,12 @@
 import { NativeModules, Platform } from 'react-native';
-import type { BridgefyService, IInitializeIn, IStartIn } from './infraestructure';
+import type {
+  BridgefyService,
+  IInitializeIn,
+  IStartIn,
+} from './infraestructure';
 
 const LINKING_ERROR =
-  `The package 'bridgefy-react-native' doesn't seem to be linked. Make sure: \n\n` +
+  "The package 'bridgefy-react-native' doesn't seem to be linked. Make sure: \n\n" +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
@@ -187,7 +191,7 @@ export enum BridgefyEvents {
  * Bridgefy
  */
 export class Bridgefy implements BridgefyService {
-    /**
+  /**
    * Initialize the SDK
    * @param apiKey API key
    * @param verboseLogging The log level.
@@ -204,7 +208,8 @@ export class Bridgefy implements BridgefyService {
    */
   async start(params?: IStartIn): Promise<void> {
     const userId = params?.userId ?? null;
-    const propagationProfile = params?.propagationProfile ?? BridgefyPropagationProfile.standard;
+    const propagationProfile =
+      params?.propagationProfile ?? BridgefyPropagationProfile.standard;
     return await BridgefyReactNative.start(userId, propagationProfile);
   }
 

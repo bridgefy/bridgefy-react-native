@@ -1,11 +1,11 @@
-import { Platform, StyleSheet } from "react-native";
+import {Platform, StyleSheet} from 'react-native';
 
 export const globalColors = {
   primaryColor: '#FF4040',
   secondaryColor: '#760000',
   inactiveColor: 'grey',
   nofocusColor: '#F6ADA3',
-}
+};
 
 export const globalStyles = StyleSheet.create({
   screenContainer: {
@@ -13,7 +13,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
     paddingVertical: 10,
-    paddingBottom: Platform.OS==='ios' ? 30 : 20,
+    paddingBottom: Platform.OS === 'ios' ? 30 : 20,
   },
   log: {
     marginVertical: 3,
