@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {BridgefyEvents} from 'bridgefy-react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
-  EmitterSubscription,
+  type EmitterSubscription,
   NativeEventEmitter,
   NativeModules,
   Platform,
@@ -11,14 +11,14 @@ import {
 import {TabNavigator} from '../routes';
 import {useSdkStore} from '../store';
 import {
-  IDidConnectOut,
-  IDidDisconnectedOut,
-  IDidEstablishSecureConnectionOut,
-  IDidFailOut,
-  IDidReceiveDataOut,
-  IDidSendDataProgressOut,
-  IDidSendMessageOut,
-  IDidStartOut,
+  type IDidConnectOut,
+  type IDidDisconnectedOut,
+  type IDidEstablishSecureConnectionOut,
+  type IDidFailOut,
+  type IDidReceiveDataOut,
+  type IDidSendDataProgressOut,
+  type IDidSendMessageOut,
+  type IDidStartOut,
   LogType,
   OriginMessage,
 } from '../../domain';

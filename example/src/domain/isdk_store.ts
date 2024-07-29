@@ -1,7 +1,7 @@
 import {
   BridgefyErrorType,
   BridgefyPropagationProfile,
-  BridgefyTransmissionMode,
+  type BridgefyTransmissionMode,
 } from 'bridgefy-react-native';
 
 interface IBridgefyError {

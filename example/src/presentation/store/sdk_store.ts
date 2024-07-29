@@ -9,7 +9,13 @@ import {
 } from 'react-native-permissions';
 
 import {EnvironmentConfig} from '../../config';
-import {ILog, IMessage, ISdkStart, LogType, OriginMessage} from '../../domain';
+import {
+  type ILog,
+  type IMessage,
+  type ISdkStart,
+  LogType,
+  OriginMessage,
+} from '../../domain';
 
 const permissions =
   Platform.OS === 'android'
