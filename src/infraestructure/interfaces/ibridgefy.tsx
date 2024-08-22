@@ -1,4 +1,4 @@
-import type { BridgefyPropagationProfile } from "../../index";
+import type { BridgefyPropagationProfile } from '../../index';
 
 export interface IInitializeIn {
   apiKey: string;
@@ -6,5 +6,5 @@ export interface IInitializeIn {
 }
 export interface IStartIn {
   userId?: string;
-  propagationProfile?: BridgefyPropagationProfile
+  propagationProfile?: BridgefyPropagationProfile;
 }

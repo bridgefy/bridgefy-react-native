@@ -1,8 +1,8 @@
 export enum LogType {
-  success='success',
-  finish='finish',
-  error='error',
-  normal='normal'
+  success = 'success',
+  finish = 'finish',
+  error = 'error',
+  normal = 'normal',
 }
 
 export interface ILog {

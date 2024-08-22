@@ -1,36 +1,34 @@
-import { FlatList, Platform } from "react-native";
-import { create } from "zustand";
-import { Bridgefy, BridgefyTransmissionModeType } from "bridgefy-react-native";
+import {FlatList, Platform} from 'react-native';
+import {create} from 'zustand';
+import {Bridgefy, BridgefyTransmissionModeType} from 'bridgefy-react-native';
 import {
   checkMultiple,
   openSettings,
   requestMultiple,
-  PERMISSIONS
+  PERMISSIONS,
 } from 'react-native-permissions';
 
-import { EnvironmentConfig } from "../../config";
+import {EnvironmentConfig} from '../../config';
 import {
-  ILog,
-  IMessage,
-  ISdkStart,
+  type ILog,
+  type IMessage,
+  type ISdkStart,
   LogType,
   OriginMessage,
-} from "../../domain";
+} from '../../domain';
 
-const permissions = Platform.OS==='android' ?
-[
-  PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-  PERMISSIONS.ANDROID.BLUETOOTH_ADVERTISE,
-  PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
-  PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
-] :
-[
-  PERMISSIONS.IOS.LOCATION_ALWAYS,
-  PERMISSIONS.IOS.BLUETOOTH,
-];
+const permissions =
+  Platform.OS === 'android'
+    ? [
+        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+        PERMISSIONS.ANDROID.BLUETOOTH_ADVERTISE,
+        PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+        PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+      ]
+    : [PERMISSIONS.IOS.LOCATION_ALWAYS, PERMISSIONS.IOS.BLUETOOTH];
 
 export interface SdkState {
-  bridgefy: Bridgefy,
+  bridgefy: Bridgefy;
   arePermissionsGranted: boolean;
 
   isStarted: boolean;
@@ -42,23 +40,23 @@ export interface SdkState {
 
   messageList: IMessage[];
   scrollMessageList?: React.RefObject<FlatList>;
-  
-  checkPermissions: (withLog?:boolean)=>Promise<boolean>;
-  requestPermissions: ()=>Promise<boolean>; 
-  
-  initializedSdk: ()=>Promise<boolean>;
-  start: (params: ISdkStart)=>Promise<void>;
-  stop: ()=>Promise<void>;
-  addLog: (log: ILog)=>void;
-  clearLogs: ()=>void;
-  changeIsStarted: (isStarted:boolean)=>void;
-  changeUserId: (userId?:string)=>void;
 
-  addMessage: (message: IMessage)=>Promise<void>;
-  sendMessage: (input: string)=>Promise<void>;
+  checkPermissions: (withLog?: boolean) => Promise<boolean>;
+  requestPermissions: () => Promise<boolean>;
+
+  initializedSdk: () => Promise<boolean>;
+  start: (params: ISdkStart) => Promise<void>;
+  stop: () => Promise<void>;
+  addLog: (log: ILog) => void;
+  clearLogs: () => void;
+  changeIsStarted: (isStarted: boolean) => void;
+  changeUserId: (userId?: string) => void;
+
+  addMessage: (message: IMessage) => Promise<void>;
+  sendMessage: (input: string) => Promise<void>;
 }
 
-export const useSdkStore = create<SdkState>()((set, get)=> ({
+export const useSdkStore = create<SdkState>()((set, get) => ({
   bridgefy: new Bridgefy(),
   arePermissionsGranted: false,
 
@@ -70,17 +68,17 @@ export const useSdkStore = create<SdkState>()((set, get)=> ({
 
   messageList: [],
 
-  checkPermissions: async (withLog = true): Promise<boolean>=>{
+  checkPermissions: async (withLog = true): Promise<boolean> => {
     const {addLog} = get();
 
     let granted = true;
     const statuses = await checkMultiple(permissions);
-    Object.entries(statuses).forEach((item)=>{
-      if (item[1]!=='granted'){
+    Object.entries(statuses).forEach(item => {
+      if (item[1] !== 'granted') {
         granted = false;
-        if (withLog){
+        if (withLog) {
           addLog({
-            text:`The permission ${item[0]} is not granted`,
+            text: `The permission ${item[0]} is not granted`,
             type: LogType.error,
           });
         }
@@ -89,44 +87,48 @@ export const useSdkStore = create<SdkState>()((set, get)=> ({
     set({arePermissionsGranted: granted});
     return granted;
   },
-  requestPermissions: async (): Promise<boolean>=> {
+  requestPermissions: async (): Promise<boolean> => {
     const {checkPermissions} = get();
     let isGranted = await checkPermissions(false);
-    if (isGranted) return true;
+    if (isGranted) {
+      return true;
+    }
 
     await requestMultiple(permissions);
     isGranted = await checkPermissions();
-    if (!isGranted){
+    if (!isGranted) {
       await openSettings();
-    };
+    }
     return isGranted;
   },
 
-  initializedSdk: async (): Promise<boolean>=> {
+  initializedSdk: async (): Promise<boolean> => {
     const {isSdkInitialized, bridgefy, requestPermissions, addLog} = get();
     try {
       const arePermissionsGranted = await requestPermissions();
-      if (!arePermissionsGranted || isSdkInitialized) return true;
+      if (!arePermissionsGranted || isSdkInitialized) {
+        return true;
+      }
 
       await bridgefy.initialize({
         apiKey: EnvironmentConfig.apikey,
         verboseLogging: false,
       });
-      set({ isSdkInitialized: true });
+      set({isSdkInitialized: true});
       return true;
     } catch (error) {
-      set({ isSdkInitialized: false });
+      set({isSdkInitialized: false});
       addLog({
-        text:`isInitialized error: ${error}`,
+        text: `isInitialized error: ${error}`,
         type: LogType.error,
       });
       return false;
     }
   },
-  start: async() => {
+  start: async () => {
     const {addLog, bridgefy, isSdkInitialized} = get();
     try {
-      if (!isSdkInitialized){
+      if (!isSdkInitialized) {
         addLog({
           text: 'Bridgefy is not initialized',
           type: LogType.error,
@@ -136,74 +138,75 @@ export const useSdkStore = create<SdkState>()((set, get)=> ({
       await bridgefy.start();
     } catch (error) {
       addLog({
-        text:`Started error: ${error}`,
+        text: `Started error: ${error}`,
         type: LogType.error,
       });
     }
   },
-  changeIsStarted: (isStarted:boolean)=>{
+  changeIsStarted: (isStarted: boolean) => {
     set({isStarted});
   },
-  changeUserId: (userId?:string)=>{
+  changeUserId: (userId?: string) => {
     set({userId});
   },
   stop: async () => {
     const {addLog, bridgefy} = get();
     try {
       const initialize = await bridgefy.isInitialized();
-      if (!initialize) return;
+      if (!initialize) {
+        return;
+      }
 
       const isStarted = await bridgefy.isStarted();
-      if (!isStarted) return;
+      if (!isStarted) {
+        return;
+      }
 
       await bridgefy.stop();
     } catch (error) {
       addLog({
-        text:`Stopped error: ${error}`,
+        text: `Stopped error: ${error}`,
         type: LogType.error,
       });
     }
   },
-  addLog: ({
-    text,
-    type = LogType.normal,
-  }:ILog)=>{
+  addLog: ({text, type = LogType.normal}: ILog) => {
     const {logList, scrollLogList} = get();
     logList.push({text, type});
-    
-    set({ logList });
+
+    set({logList});
     scrollLogList?.current?.forceUpdate();
   },
-  clearLogs: ()=>{
-    set({logList: []})
+  clearLogs: () => {
+    set({logList: []});
   },
 
-  addMessage: async (message: IMessage)=>{
+  addMessage: async (message: IMessage) => {
     const {scrollMessageList, messageList} = get();
     messageList.push(message);
 
-
-    set({ messageList });
+    set({messageList});
     scrollMessageList?.current?.forceUpdate();
   },
-  sendMessage: async (text: string)=>{
+  sendMessage: async (text: string) => {
     const {addMessage, bridgefy} = get();
 
-    if (!text) return;
+    if (!text) {
+      return;
+    }
     const userId = await bridgefy.currentUserId();
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
 
-    const myMessage:IMessage = {
+    const myMessage: IMessage = {
       body: text,
       origin: OriginMessage.me,
     };
-    await bridgefy.send(
-      text,
-      {
-        type: BridgefyTransmissionModeType.broadcast,
-        uuid: userId,
-      }
-    );
+    await bridgefy.send(text, {
+      type: BridgefyTransmissionModeType.broadcast,
+      uuid: userId,
+    });
     addMessage(myMessage);
   },
 }));

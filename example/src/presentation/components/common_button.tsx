@@ -1,6 +1,5 @@
-import React from 'react'
-import { Button } from 'react-native-paper';
-import { globalColors } from '../theme/global.styles';
+import {Button} from 'react-native-paper';
+import {globalColors} from '../theme/global.styles';
 
 interface Props {
   label: string;
@@ -14,17 +13,16 @@ export const CommonButton = ({
   icon,
   disabled = false,
   onPress,
-}:Props) => {
+}: Props) => {
   return (
     <Button
       icon={icon}
-      mode='elevated'
+      mode="elevated"
       disabled={disabled}
       textColor={globalColors.primaryColor}
       buttonColor="white"
-      onPress={()=>onPress()}
-    >
+      onPress={() => onPress()}>
       {label}
     </Button>
-  )
-}
+  );
+};
