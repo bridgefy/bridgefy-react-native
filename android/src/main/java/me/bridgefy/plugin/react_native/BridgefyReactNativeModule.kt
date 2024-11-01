@@ -12,7 +12,7 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.util.UUID
 import me.bridgefy.Bridgefy
-import me.bridgefy.logger.enum.LogType
+import me.bridgefy.logger.enums.LogType
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
 import me.bridgefy.commons.listener.BridgefyDelegate
