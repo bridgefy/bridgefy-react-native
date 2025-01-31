@@ -72,6 +72,7 @@
     "react": "18.3.1",
     "react-native": "0.76.6",
     "react-native-builder-bob": "^0.21.0",
+    "metro-react-native-babel-preset": "^0.76.9",
     "release-it": "^15.0.0",
     "typescript": "^5.0.2"
   },
