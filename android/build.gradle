@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:8.5.0"
+    classpath "com.android.tools.build:gradle:8.5.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -88,7 +88,7 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
-  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.0", ext: "aar") {
+  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.2", ext: "aar") {
     transitive = true
   }
   // For < 0.71, this will be from the local maven repo

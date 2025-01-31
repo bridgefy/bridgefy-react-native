@@ -1,5 +1,6 @@
-import Icon from 'react-native-vector-icons/Ionicons';
 import {globalColors} from '../theme/global.styles';
+const Icon = require('react-native-vector-icons/IonIcons')
+  .default as React.ElementType;
 
 interface Props {
   name: string;
