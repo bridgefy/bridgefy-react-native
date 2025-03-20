@@ -1,6 +1,6 @@
 {
   "name": "bridgefy-react-native",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Bridgefy React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -34,7 +34,9 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install && yarn example pods",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
+    "clean": "rm -Rf node_modules yarn.lock",
+    "clean:android": "rm -Rf android/build",
+    "install:clean": "yarn example clean; yarn example clean:android; yarn example clean:ios; yarn clean; yarn clean:android; yarn bootstrap;"
   },
   "keywords": [
     "react-native",

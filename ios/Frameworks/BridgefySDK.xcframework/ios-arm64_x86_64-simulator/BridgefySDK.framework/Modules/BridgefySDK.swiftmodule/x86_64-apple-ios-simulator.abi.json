@@ -1,8 +1,8 @@
 {
   "ABIRoot": {
     "kind": "Root",
-    "name": "TopLevel",
-    "printedName": "TopLevel",
+    "name": "BridgefySDK",
+    "printedName": "BridgefySDK",
     "children": [
       {
         "kind": "Import",
@@ -568,6 +568,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -2135,6 +2151,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Error",
             "printedName": "Error",
             "usr": "s:s5ErrorP",
@@ -2735,6 +2765,20 @@
         "conformances": [
           {
             "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -2962,6 +3006,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -3438,6 +3498,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
         ]
       },
       {
@@ -3868,6 +3944,22 @@
         "declAttributes": [
           "AccessControl",
           "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
         ]
       },
       {
@@ -4119,2898 +4211,1309 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
       "offset": 277,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/API\/Bridgefy.swift",
       "kind": "BooleanLiteral",
       "offset": 683,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Wrappers\/Keychain\/KeychainWrapper.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Wrappers\/Keychain\/KeychainWrapper.swift",
       "kind": "StringLiteral",
       "offset": 3208,
       "length": 22,
       "value": "\"SwiftKeychainWrapper\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 183,
       "length": 2,
       "value": "-1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 238,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 312,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 415,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 531,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 619,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
       "kind": "IntegerLiteral",
       "offset": 702,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 183,
-      "length": 1,
-      "value": "-1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 238,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 312,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 415,
-      "length": 1,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 531,
-      "length": 1,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 619,
-      "length": 1,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 702,
-      "length": 1,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 183,
-      "length": 1,
-      "value": "-1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 238,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 312,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 415,
-      "length": 1,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 531,
-      "length": 1,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 619,
-      "length": 1,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEHandshakeMessageType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 702,
-      "length": 1,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
       "kind": "StringLiteral",
       "offset": 136,
       "length": 22,
       "value": "\"kp3ZM46R1A1mfLk7GqJu\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
       "kind": "BooleanLiteral",
       "offset": 191,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
       "kind": "StringLiteral",
       "offset": 254,
       "length": 21,
       "value": "\"mXGUYOYFlwCDzyntYqL\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/UserDefaultsRepository\/UserDefaultsRepository.swift",
       "kind": "BooleanLiteral",
       "offset": 308,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MeshManager\/MeshManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MeshManager\/MeshManager.swift",
       "kind": "StringLiteral",
       "offset": 344,
       "length": 15,
       "value": "\"FowardingList\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MeshManager\/MeshManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MeshManager\/MeshManager.swift",
       "kind": "StringLiteral",
       "offset": 386,
       "length": 22,
       "value": "\"NndQATFAy2pcarpmH1BE\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 205,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 216,
       "length": 25,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 251,
       "length": 25,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 286,
       "length": 13,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 309,
       "length": 22,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 341,
       "length": 20,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 397,
       "length": 12,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 419,
       "length": 13,
       "value": "7"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 442,
       "length": 13,
       "value": "8"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 465,
       "length": 15,
       "value": "9"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 490,
       "length": 11,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 511,
       "length": 17,
       "value": "11"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 538,
       "length": 13,
       "value": "12"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 561,
       "length": 23,
       "value": "13"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 594,
       "length": 24,
       "value": "14"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 628,
       "length": 26,
       "value": "15"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 664,
       "length": 14,
       "value": "16"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 688,
       "length": 10,
       "value": "17"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 708,
       "length": 16,
       "value": "18"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 734,
       "length": 26,
       "value": "19"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 770,
       "length": 23,
       "value": "20"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 803,
       "length": 20,
       "value": "21"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 833,
       "length": 17,
       "value": "22"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 860,
       "length": 20,
       "value": "23"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 890,
       "length": 15,
       "value": "24"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 915,
       "length": 14,
       "value": "25"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 939,
       "length": 21,
       "value": "26"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 970,
       "length": 23,
       "value": "27"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1003,
       "length": 17,
       "value": "28"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1030,
       "length": 18,
       "value": "29"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1058,
       "length": 13,
       "value": "30"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1081,
       "length": 13,
       "value": "31"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1104,
       "length": 13,
       "value": "32"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1127,
       "length": 20,
       "value": "33"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1157,
       "length": 16,
       "value": "34"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1183,
       "length": 16,
       "value": "35"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1209,
       "length": 20,
       "value": "36"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1239,
       "length": 16,
       "value": "37"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1265,
       "length": 15,
       "value": "38"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1290,
       "length": 7,
       "value": "39"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1307,
       "length": 17,
       "value": "40"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1334,
       "length": 21,
       "value": "41"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1365,
       "length": 36,
       "value": "42"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1411,
       "length": 19,
       "value": "43"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1440,
       "length": 22,
       "value": "44"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1472,
       "length": 21,
       "value": "45"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1503,
       "length": 28,
       "value": "46"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1541,
       "length": 25,
       "value": "47"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1576,
       "length": 34,
       "value": "48"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1620,
       "length": 33,
       "value": "49"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1663,
       "length": 40,
       "value": "50"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1713,
       "length": 43,
       "value": "51"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1766,
       "length": 29,
       "value": "52"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1805,
       "length": 14,
       "value": "53"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1829,
       "length": 22,
       "value": "54"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1861,
       "length": 16,
       "value": "55"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1887,
       "length": 20,
       "value": "56"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1917,
       "length": 16,
       "value": "57"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1943,
       "length": 16,
       "value": "58"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1969,
       "length": 14,
       "value": "59"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 1993,
       "length": 16,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
       "kind": "IntegerLiteral",
       "offset": 2019,
       "length": 19,
       "value": "61"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 205,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 216,
-      "length": 25,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 251,
-      "length": 25,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 286,
-      "length": 13,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 309,
-      "length": 22,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 341,
-      "length": 20,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 397,
-      "length": 12,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 419,
-      "length": 13,
-      "value": "7"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 442,
-      "length": 13,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 465,
-      "length": 15,
-      "value": "9"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 490,
-      "length": 11,
-      "value": "10"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 511,
-      "length": 17,
-      "value": "11"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 538,
-      "length": 13,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 561,
-      "length": 23,
-      "value": "13"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 594,
-      "length": 24,
-      "value": "14"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 628,
-      "length": 26,
-      "value": "15"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 664,
-      "length": 14,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 688,
-      "length": 10,
-      "value": "17"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 708,
-      "length": 16,
-      "value": "18"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 734,
-      "length": 26,
-      "value": "19"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 770,
-      "length": 23,
-      "value": "20"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 803,
-      "length": 20,
-      "value": "21"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 833,
-      "length": 17,
-      "value": "22"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 860,
-      "length": 20,
-      "value": "23"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 890,
-      "length": 15,
-      "value": "24"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 915,
-      "length": 14,
-      "value": "25"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 939,
-      "length": 21,
-      "value": "26"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 970,
-      "length": 23,
-      "value": "27"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1003,
-      "length": 17,
-      "value": "28"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1030,
-      "length": 18,
-      "value": "29"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1058,
-      "length": 13,
-      "value": "30"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1081,
-      "length": 13,
-      "value": "31"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1104,
-      "length": 13,
-      "value": "32"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1127,
-      "length": 20,
-      "value": "33"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1157,
-      "length": 16,
-      "value": "34"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1183,
-      "length": 16,
-      "value": "35"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1209,
-      "length": 20,
-      "value": "36"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1239,
-      "length": 16,
-      "value": "37"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1265,
-      "length": 15,
-      "value": "38"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1290,
-      "length": 7,
-      "value": "39"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1307,
-      "length": 17,
-      "value": "40"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1334,
-      "length": 21,
-      "value": "41"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1365,
-      "length": 36,
-      "value": "42"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1411,
-      "length": 19,
-      "value": "43"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1440,
-      "length": 22,
-      "value": "44"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1472,
-      "length": 21,
-      "value": "45"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1503,
-      "length": 28,
-      "value": "46"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1541,
-      "length": 25,
-      "value": "47"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1576,
-      "length": 34,
-      "value": "48"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1620,
-      "length": 33,
-      "value": "49"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1663,
-      "length": 40,
-      "value": "50"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1713,
-      "length": 43,
-      "value": "51"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1766,
-      "length": 29,
-      "value": "52"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1805,
-      "length": 14,
-      "value": "53"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1829,
-      "length": 22,
-      "value": "54"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1861,
-      "length": 16,
-      "value": "55"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1887,
-      "length": 20,
-      "value": "56"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1917,
-      "length": 16,
-      "value": "57"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1943,
-      "length": 16,
-      "value": "58"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1969,
-      "length": 14,
-      "value": "59"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1993,
-      "length": 16,
-      "value": "60"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2019,
-      "length": 19,
-      "value": "61"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 205,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 216,
-      "length": 25,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 251,
-      "length": 25,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 286,
-      "length": 13,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 309,
-      "length": 22,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 341,
-      "length": 20,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 397,
-      "length": 12,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 419,
-      "length": 13,
-      "value": "7"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 442,
-      "length": 13,
-      "value": "8"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 465,
-      "length": 15,
-      "value": "9"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 490,
-      "length": 11,
-      "value": "10"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 511,
-      "length": 17,
-      "value": "11"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 538,
-      "length": 13,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 561,
-      "length": 23,
-      "value": "13"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 594,
-      "length": 24,
-      "value": "14"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 628,
-      "length": 26,
-      "value": "15"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 664,
-      "length": 14,
-      "value": "16"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 688,
-      "length": 10,
-      "value": "17"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 708,
-      "length": 16,
-      "value": "18"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 734,
-      "length": 26,
-      "value": "19"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 770,
-      "length": 23,
-      "value": "20"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 803,
-      "length": 20,
-      "value": "21"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 833,
-      "length": 17,
-      "value": "22"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 860,
-      "length": 20,
-      "value": "23"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 890,
-      "length": 15,
-      "value": "24"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 915,
-      "length": 14,
-      "value": "25"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 939,
-      "length": 21,
-      "value": "26"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 970,
-      "length": 23,
-      "value": "27"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1003,
-      "length": 17,
-      "value": "28"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1030,
-      "length": 18,
-      "value": "29"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1058,
-      "length": 13,
-      "value": "30"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1081,
-      "length": 13,
-      "value": "31"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1104,
-      "length": 13,
-      "value": "32"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1127,
-      "length": 20,
-      "value": "33"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1157,
-      "length": 16,
-      "value": "34"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1183,
-      "length": 16,
-      "value": "35"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1209,
-      "length": 20,
-      "value": "36"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1239,
-      "length": 16,
-      "value": "37"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1265,
-      "length": 15,
-      "value": "38"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1290,
-      "length": 7,
-      "value": "39"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1307,
-      "length": 17,
-      "value": "40"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1334,
-      "length": 21,
-      "value": "41"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1365,
-      "length": 36,
-      "value": "42"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1411,
-      "length": 19,
-      "value": "43"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1440,
-      "length": 22,
-      "value": "44"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1472,
-      "length": 21,
-      "value": "45"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1503,
-      "length": 28,
-      "value": "46"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1541,
-      "length": 25,
-      "value": "47"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1576,
-      "length": 34,
-      "value": "48"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1620,
-      "length": 33,
-      "value": "49"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1663,
-      "length": 40,
-      "value": "50"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1713,
-      "length": 43,
-      "value": "51"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1766,
-      "length": 29,
-      "value": "52"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1805,
-      "length": 14,
-      "value": "53"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1829,
-      "length": 22,
-      "value": "54"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1861,
-      "length": 16,
-      "value": "55"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1887,
-      "length": 20,
-      "value": "56"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1917,
-      "length": 16,
-      "value": "57"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1943,
-      "length": 16,
-      "value": "58"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1969,
-      "length": 14,
-      "value": "59"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1993,
-      "length": 16,
-      "value": "60"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Enums\/EncryptionError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2019,
-      "length": 19,
-      "value": "61"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 150,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 201,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 252,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 305,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 353,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 401,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 460,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 514,
       "length": 1,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/SDKVersion.swift",
       "kind": "IntegerLiteral",
       "offset": 568,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/SessionToken.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/SessionToken.swift",
       "kind": "StringLiteral",
       "offset": 337,
       "length": 11,
       "value": "\"timestamp\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/SessionToken.swift",
-      "kind": "StringLiteral",
-      "offset": 337,
-      "length": 11,
-      "value": "\"timestamp\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 158,
       "length": 22,
       "value": "\"pbGj77p7C0hRBjTtwL4n\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 216,
       "length": 22,
       "value": "\"rJcPAV3ymA7F7LRFVEQm\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 273,
       "length": 22,
       "value": "\"OfFRr4YH4rKo9jRbVbnu\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 329,
       "length": 22,
       "value": "\"8Ik9KcCovQsHR0AeCj8v\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 391,
       "length": 22,
       "value": "\"4nKBozzAfarUd7BLCPHW\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 451,
       "length": 22,
       "value": "\"u5wH9ETfLBAx5Tu2Fmse\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 516,
       "length": 22,
       "value": "\"he17vnSmdAKV8hPpluUL\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 575,
       "length": 22,
       "value": "\"5tMiZEkBEibbltiSbuFt\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 641,
       "length": 22,
       "value": "\"dk9RigOCs8nZWMEioNjV\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "StringLiteral",
       "offset": 147,
       "length": 14,
       "value": "\"Bridgefy.SDK\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "IntegerLiteral",
       "offset": 228,
       "length": 4,
       "value": "1024"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "IntegerLiteral",
       "offset": 235,
       "length": 3,
       "value": "140"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "BooleanLiteral",
       "offset": 266,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "BooleanLiteral",
       "offset": 432,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "BooleanLiteral",
       "offset": 502,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/BridgefyManager.swift",
       "kind": "BooleanLiteral",
       "offset": 6159,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 133,
       "length": 22,
       "value": "\"Jm6OmGAbN835HEfBtZAV\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 174,
       "length": 22,
       "value": "\"dbnBohV5hzfViiLxlI2r\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 216,
       "length": 22,
       "value": "\"6LcnHdTT4CE5Z6lI5lJf\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
-      "kind": "StringLiteral",
-      "offset": 133,
-      "length": 22,
-      "value": "\"Jm6OmGAbN835HEfBtZAV\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
-      "kind": "StringLiteral",
-      "offset": 174,
-      "length": 22,
-      "value": "\"dbnBohV5hzfViiLxlI2r\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
-      "kind": "StringLiteral",
-      "offset": 216,
-      "length": 22,
-      "value": "\"6LcnHdTT4CE5Z6lI5lJf\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/KeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 785,
       "length": 22,
       "value": "\"JjdQWYIAy5pcmgpmJ75E\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 191,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 254,
       "length": 18,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 326,
       "length": 13,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 405,
       "length": 14,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 476,
       "length": 15,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 547,
       "length": 29,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
       "kind": "IntegerLiteral",
       "offset": 644,
       "length": 23,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 191,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 254,
-      "length": 18,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 326,
-      "length": 13,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 405,
-      "length": 14,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 476,
-      "length": 15,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 547,
-      "length": 29,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 644,
-      "length": 23,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 191,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 254,
-      "length": 18,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 326,
-      "length": 13,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 405,
-      "length": 14,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 476,
-      "length": 15,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 547,
-      "length": 29,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLEError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 644,
-      "length": 23,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Extensions\/DispatchQueueExtensions.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Extensions\/DispatchQueueExtensions.swift",
       "kind": "StringLiteral",
       "offset": 161,
       "length": 14,
       "value": "\"BLEProcesses\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
       "kind": "IntegerLiteral",
       "offset": 152,
       "length": 13,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
       "kind": "IntegerLiteral",
       "offset": 175,
       "length": 11,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
       "kind": "IntegerLiteral",
       "offset": 196,
       "length": 16,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
       "kind": "IntegerLiteral",
       "offset": 222,
       "length": 12,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 13,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 175,
-      "length": 11,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 196,
-      "length": 16,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 222,
-      "length": 12,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 13,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 175,
-      "length": 11,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 196,
-      "length": 16,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/EncodingError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 222,
-      "length": 12,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "IntegerLiteral",
       "offset": 226,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "BooleanLiteral",
       "offset": 395,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEMessageOperator.swift",
       "kind": "StringLiteral",
       "offset": 519,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
       "kind": "IntegerLiteral",
       "offset": 141,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
       "kind": "IntegerLiteral",
       "offset": 152,
       "length": 6,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
       "kind": "IntegerLiteral",
       "offset": 168,
       "length": 4,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
       "kind": "IntegerLiteral",
       "offset": 182,
       "length": 9,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
       "kind": "IntegerLiteral",
       "offset": 201,
       "length": 5,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 141,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 6,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 168,
-      "length": 4,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 182,
-      "length": 9,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 201,
-      "length": 5,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 141,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 6,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 168,
-      "length": 4,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 182,
-      "length": 9,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/Enums\/BFMetadataType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 201,
-      "length": 5,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Environment.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Environment.swift",
       "kind": "StringLiteral",
       "offset": 501,
       "length": 16,
       "value": "\"sandboxReceipt\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
       "offset": 746,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
       "offset": 781,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
       "offset": 1452,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "Array",
       "offset": 1551,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
       "offset": 1592,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "BooleanLiteral",
       "offset": 3259,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "StringLiteral",
-      "offset": 683,
-      "length": 10,
-      "value": "\"BridgefySDK.BLEManager\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 32521,
+      "offset": 33005,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 32532,
+      "offset": 33016,
       "length": 10,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 32552,
+      "offset": 33036,
       "length": 6,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 32568,
+      "offset": 33052,
       "length": 10,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32521,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32532,
-      "length": 10,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32552,
-      "length": 6,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32568,
-      "length": 10,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32521,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32532,
-      "length": 10,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32552,
-      "length": 6,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/BLEManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 32568,
-      "length": 10,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
       "kind": "IntegerLiteral",
       "offset": 144,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
       "kind": "IntegerLiteral",
       "offset": 155,
       "length": 24,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
       "kind": "IntegerLiteral",
       "offset": 189,
       "length": 16,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
       "kind": "IntegerLiteral",
       "offset": 215,
       "length": 15,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
       "kind": "IntegerLiteral",
       "offset": 240,
       "length": 22,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 144,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 155,
-      "length": 24,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 189,
-      "length": 16,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 215,
-      "length": 15,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 240,
-      "length": 22,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 144,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 155,
-      "length": 24,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 189,
-      "length": 16,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 215,
-      "length": 15,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Enums\/LicenseError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 240,
-      "length": 22,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
       "kind": "StringLiteral",
       "offset": 278,
       "length": 5,
       "value": "\"aes\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
       "kind": "StringLiteral",
       "offset": 307,
       "length": 6,
       "value": "\"data\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
-      "kind": "StringLiteral",
-      "offset": 278,
-      "length": 5,
-      "value": "\"aes\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationData.swift",
-      "kind": "StringLiteral",
-      "offset": 307,
-      "length": 6,
-      "value": "\"data\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationResponse.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationResponse.swift",
       "kind": "StringLiteral",
       "offset": 298,
       "length": 6,
       "value": "\"data\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/ValidationResponse.swift",
-      "kind": "StringLiteral",
-      "offset": 298,
-      "length": 6,
-      "value": "\"data\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/LicenseValidator.swift",
       "kind": "BooleanLiteral",
       "offset": 675,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
       "kind": "StringLiteral",
       "offset": 354,
       "length": 8,
       "value": "\"userId\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
       "kind": "StringLiteral",
       "offset": 387,
       "length": 10,
       "value": "\"bundleId\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
-      "kind": "StringLiteral",
-      "offset": 354,
-      "length": 8,
-      "value": "\"userId\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/License\/Models\/LoginParameters.swift",
-      "kind": "StringLiteral",
-      "offset": 387,
-      "length": 10,
-      "value": "\"bundleId\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5745,
       "length": 2,
       "value": "24"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5750,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5755,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5822,
       "length": 2,
       "value": "40"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5827,
       "length": 2,
       "value": "24"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5832,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "IntegerLiteral",
       "offset": 5837,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 6242,
       "length": 32,
       "value": "\"yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/Constants.swift",
       "kind": "StringLiteral",
       "offset": 6344,
       "length": 12,
       "value": "\"User-Agent\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 141,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 152,
       "length": 10,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 172,
       "length": 12,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 194,
       "length": 10,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 214,
       "length": 12,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 236,
       "length": 13,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 259,
       "length": 11,
       "value": "6"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
       "kind": "IntegerLiteral",
       "offset": 280,
       "length": 13,
       "value": "7"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 141,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 10,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 172,
-      "length": 12,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 194,
-      "length": 10,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 214,
-      "length": 12,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 236,
-      "length": 13,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 259,
-      "length": 11,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 280,
-      "length": 13,
-      "value": "7"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 141,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 152,
-      "length": 10,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 172,
-      "length": 12,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 194,
-      "length": 10,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 214,
-      "length": 12,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 236,
-      "length": 13,
-      "value": "5"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 259,
-      "length": 11,
-      "value": "6"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Repositories\/KeychainRepository\/Enums\/StorageError.swift",
-      "kind": "IntegerLiteral",
-      "offset": 280,
-      "length": 13,
-      "value": "7"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLEHandshakeMessage.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLEHandshakeMessage.swift",
       "kind": "StringLiteral",
       "offset": 494,
       "length": 4,
       "value": "\"id\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLEHandshakeMessage.swift",
-      "kind": "StringLiteral",
-      "offset": 494,
-      "length": 4,
-      "value": "\"id\""
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
       "kind": "IntegerLiteral",
       "offset": 134,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
       "kind": "IntegerLiteral",
       "offset": 145,
       "length": 10,
       "value": "2"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
       "kind": "IntegerLiteral",
       "offset": 165,
       "length": 11,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
       "kind": "IntegerLiteral",
       "offset": 186,
       "length": 15,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 134,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 145,
-      "length": 10,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 165,
-      "length": 11,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 186,
-      "length": 15,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 134,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 145,
-      "length": 10,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 165,
-      "length": 11,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Enums\/BLECommand.swift",
-      "kind": "IntegerLiteral",
-      "offset": 186,
-      "length": 15,
-      "value": "4"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
       "kind": "IntegerLiteral",
       "offset": 184,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
       "kind": "IntegerLiteral",
       "offset": 195,
       "length": 3,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 184,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 195,
-      "length": 3,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 184,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/BridgefyManager\/Enums\/DeviceType.swift",
-      "kind": "IntegerLiteral",
-      "offset": 195,
-      "length": 3,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLETransaction.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLETransaction.swift",
       "kind": "IntegerLiteral",
       "offset": 168,
       "length": 4,
       "value": "1024"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLETransaction.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageOperators\/BLE\/Models\/BLETransaction.swift",
       "kind": "IntegerLiteral",
       "offset": 175,
       "length": 3,
       "value": "140"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
       "kind": "IntegerLiteral",
       "offset": 136,
       "length": 1,
       "value": "4"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
       "kind": "IntegerLiteral",
       "offset": 180,
       "length": 1,
       "value": "5"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
       "kind": "IntegerLiteral",
       "offset": 233,
       "length": 2,
       "value": "35"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
       "kind": "IntegerLiteral",
       "offset": 273,
       "length": 3,
       "value": "122"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/ASCII85.swift",
       "kind": "IntegerLiteral",
       "offset": 323,
       "length": 2,
       "value": "85"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/DataBuilder.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Utils\/DataBuilder.swift",
       "kind": "IntegerLiteral",
       "offset": 140,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 160,
       "length": 22,
       "value": "\"bbGj11a7C0hRBjTtwL2a\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 220,
       "length": 22,
       "value": "\"bb27vnSmdAVK1hPpluUb\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/MessageManager\/MessageKeychainRepository.swift",
       "kind": "StringLiteral",
       "offset": 284,
       "length": 22,
       "value": "\"eh22vnSmdAKV1hpplUuP\""
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Models\/Queue.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/Models\/Queue.swift",
       "kind": "Array",
       "offset": 134,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/francisco\/Desktop\/SDK\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeyHelper.swift",
+      "filePath": "\/Users\/francisco\/Desktop\/bridgefy-sdk-ios\/BridgefySDK\/Sources\/Modules\/EncryptionManager\/Signal\/BFSignalKeyHelper.swift",
       "kind": "IntegerLiteral",
       "offset": 312,
       "length": 1,

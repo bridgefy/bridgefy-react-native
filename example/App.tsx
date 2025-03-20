@@ -2,14 +2,15 @@
 import {PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {HomeScreen} from './src/presentation/screens';
-const IonIcon = require('react-native-vector-icons/IonIcons')
-  .default as React.ElementType;
+import {IonIcon} from './src/presentation/components/IonIcon';
+
+const IconComponent = (props: any) => <IonIcon {...props} />;
 
 export const App = () => {
   return (
     <PaperProvider
       settings={{
-        icon: props => <IonIcon {...props} />,
+        icon: IconComponent,
       }}>
       <NavigationContainer>
         <HomeScreen />
