@@ -8,7 +8,10 @@
     "lint": "eslint .",
     "start": "react-native start",
     "pods": "pod-install --quiet",
-    "test": "jest"
+    "test": "jest",
+    "clean": "rm -Rf node_modules yarn.lock",
+    "clean:android": "rm -Rf android/build android/.gradle android/build",
+    "clean:ios": "rm -Rf ios/build ios/*.xcworkspace ios/Podfile.lock ios/Pods"
   },
   "dependencies": {
     "@react-navigation/material-top-tabs": "^6.6.13",
