@@ -158,7 +158,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
       promise.resolve(null)
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
-      promise.reject(map.getString("code"), map.getString("message"), error)
+      promise.reject(map.getString("code") ?: "INIT_UNKNOWN_ERROR", map.getString("message") ?: "Unknown error occurred", error)
     } catch (e: Exception) {
       promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
     }
@@ -197,7 +197,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
       )
     } catch (error: BridgefyException) {
       val map = mapFromBridgefyException(error)
-      promise.reject(map.getString("code"), map.getString("message"), error)
+      promise.reject(map.getString("code") ?: "SEND_MESSAGE_UNKNOWN_ERROR", map.getString("message") ?: "Unknown error occurred", error)
     } catch (e: Exception) {
       promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
     }
