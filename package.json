@@ -153,7 +153,7 @@
     "type": "modules",
     "jsSrcsDir": "src",
     "android": {
-      "javaPackageName": "me.bridyefy.plugin.react_native"
+      "javaPackageName": "me.bridgefy.plugin.react_native"
     },
     "ios": {
       "moduleName": "BridgefyReactNative"

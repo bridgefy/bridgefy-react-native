@@ -5,7 +5,7 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import me.bridyefy.plugin.react_native.NativeBridgefySpec
+import me.bridgefy.plugin.react_native.NativeBridgefySpec
 import java.util.HashMap
 
 class BridgefyReactNativePackage : BaseReactPackage() {

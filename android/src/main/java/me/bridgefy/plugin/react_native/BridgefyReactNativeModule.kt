@@ -15,7 +15,7 @@ import me.bridgefy.commons.exception.BridgefyException
 import me.bridgefy.commons.listener.BridgefyDelegate
 import me.bridgefy.commons.propagation.PropagationProfile
 import me.bridgefy.logger.enums.LogType
-import me.bridyefy.plugin.react_native.NativeBridgefySpec
+import me.bridgefy.plugin.react_native.NativeBridgefySpec
 import java.util.UUID
 
 @ReactModule(name = NativeBridgefySpec.NAME)
@@ -123,7 +123,7 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
 
   override fun currentUserId(promise: Promise) {
     runCatching {
-      bridgefy.currentUserId().toString()
+      bridgefy.currentUserId().getOrThrow().toString()
     }.fold(
       onSuccess = { promise.resolve(it) },
       onFailure = {
