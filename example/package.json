@@ -33,6 +33,9 @@
     "@react-native/metro-config": "0.81.1",
     "@react-native/typescript-config": "0.81.1",
     "@types/react": "^19.1.0",
+    "@types/react-native-vector-icons": "^6.4.18",
+    "metro": "latest",
+    "metro-config": "latest",
     "react-native-builder-bob": "^0.40.13",
     "react-native-monorepo-config": "^0.1.9"
   },
