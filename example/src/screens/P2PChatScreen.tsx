@@ -78,7 +78,7 @@ export default function P2PChatScreen({ route, navigation }: P2PChatScreenProps)
       const userId = await Bridgefy.currentUserId();
       setCurrentUserId(userId);
     } catch (error) {
-      console.log('Not initialized yet');
+      console.log('Not initialized yet', error);
     }
   };
 
