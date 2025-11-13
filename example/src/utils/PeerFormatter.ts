@@ -1,4 +1,3 @@
-// presentation/utils/PeerFormatter.ts
 export class PeerFormatter {
   static formatConnectionTime(timestamp?: number): string {
     if (!timestamp) return 'Unknown';
