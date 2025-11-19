@@ -7,7 +7,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { chatStyles } from '../styles';
 import { useChat } from '../hooks';
-import { MessageInput, MessagesList } from '../components';
+import { MessageInput } from '../components/MessageInput';
+import { MessagesList } from '../components/MessagesList';
 
 export default function ChatScreen() {
   const {

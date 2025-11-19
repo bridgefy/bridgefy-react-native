@@ -2,7 +2,10 @@ import { FlatList, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { usePeerList } from '../hooks';
-import { EmptyPeersList, PeerCard, PeerListHeader, PeerListLoading } from '../components';
+import { EmptyPeersList } from '../components/EmptyPeersList';
+import { PeerCard } from '../components/PeerCard';
+import { PeerListHeader } from '../components/PeerListHeader';
+import { PeerListLoading } from '../components/PeerListLoading';
 import { nearbyStyles } from '../styles';
 import type { Peer } from '../entities';
 

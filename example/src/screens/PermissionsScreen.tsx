@@ -1,11 +1,9 @@
 import { View, Text, Platform, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { permissionStyles } from '../styles';
 import { usePermissions } from '../hooks';
-import {
-  AndroidPermissionsContent,
-  IOSPermissionsContent
-} from '../components';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AndroidPermissionsContent } from '../components/AndroidPermissionsContent';
+import { IOSPermissionsContent } from '../components/IOSPermissionsContent';
 
 export default function PermissionsScreen() {
   const {
