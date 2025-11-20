@@ -1,0 +1,207 @@
+import { useState, useEffect, useRef } from 'react';
+import { BridgefyPropagationProfile } from 'bridgefy-react-native';
+import type { SDKStatusSnapshot } from '../entities';
+import { SDKRepository, type SDKEventHandlers } from '../repositories';
+import {
+  CheckSDKStatusUseCase,
+  DestroySessionUseCase,
+  InitializeSDKUseCase,
+  StartSDKUseCase,
+  StopSDKUseCase
+} from '../usecases';
+import {EnvironmentConfig} from '../config';
+
+export const useSDKStatus = () => {
+  const [status, setStatus] = useState<SDKStatusSnapshot>({
+    isInitialized: false,
+    isStarted: false,
+    userId: '',
+    connectedPeers: [],
+    propagationProfile: BridgefyPropagationProfile.STANDARD,
+    loading: false,
+  });
+
+  const [error, setError] = useState<Error | null>(null);
+  const repositoryRef = useRef(new SDKRepository());
+  const repository = repositoryRef.current;
+
+  // Inicializar use cases
+  const checkStatusUseCase = new CheckSDKStatusUseCase(repository);
+  const initializeUseCase = new InitializeSDKUseCase(repository);
+  const startUseCase = new StartSDKUseCase(repository);
+  const stopUseCase = new StopSDKUseCase(repository);
+  const destroyUseCase = new DestroySessionUseCase(repository);
+
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        await checkStatusUseCase.execute().then((result) => {
+          setStatus(result);
+        });
+
+        // Suscribirse a eventos
+        const eventHandlers: SDKEventHandlers = {
+          onStart: (userId) => {
+            setStatus((prev) => ({
+              ...prev,
+              isStarted: true,
+              userId,
+            }));
+          },
+          onStop: () => {
+            setStatus((prev) => ({
+              ...prev,
+              isStarted: false,
+              userId: '',
+              connectedPeers: [],
+            }));
+          },
+          onPeerConnect: (userId) => {
+            // Se actualiza a través de onPeersUpdated
+          },
+          onPeerDisconnect: (userId) => {
+            // Se actualiza a través de onPeersUpdated
+          },
+          onPeersUpdated: (peers) => {
+            setStatus((prev) => ({
+              ...prev,
+              connectedPeers: peers,
+            }));
+          },
+          onStartFailed: (err) => {
+            setError(err);
+            setStatus((prev) => ({
+              ...prev,
+              loading: false,
+            }));
+          },
+        };
+
+        repository.subscribeToEvents(eventHandlers);
+      } catch (err) {
+        console.error('Hook initialization error:', err);
+        setError(err instanceof Error ? err : new Error('Unknown error'));
+      }
+    };
+
+    initialize();
+
+    return () => {
+      repository.unsubscribeFromEvents();
+    };
+  }, []);
+
+  const checkStatus = async () => {
+    try {
+      setError(null);
+      const result = await checkStatusUseCase.execute();
+      setStatus(result);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Check status failed');
+      setError(error);
+    }
+  };
+
+  const initialize = async () => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await initializeUseCase.execute(EnvironmentConfig.apikey, true);
+
+      if (result.success) {
+        setStatus((prev) => ({
+          ...prev,
+          isInitialized: true,
+          loading: false,
+        }));
+      } else {
+        throw result.error || new Error('Failed to initialize');
+      }
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Initialize failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  const start = async () => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await startUseCase.execute(BridgefyPropagationProfile.STANDARD);
+
+      if (result.success) {
+        setStatus((prev) => ({
+          ...prev,
+          isStarted: true,
+          loading: false,
+        }));
+      } else {
+        throw result.error || new Error('Failed to start');
+      }
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Start failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  const stop = async () => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await stopUseCase.execute();
+
+      if (result.success) {
+        setStatus((prev) => ({
+          ...prev,
+          isStarted: false,
+          userId: '',
+          connectedPeers: [],
+          loading: false,
+        }));
+      } else {
+        throw result.error || new Error('Failed to stop');
+      }
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Stop failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  const destroySession = async () => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await destroyUseCase.execute();
+
+      if (result.success) {
+        setStatus({
+          isInitialized: false,
+          isStarted: false,
+          userId: '',
+          connectedPeers: [],
+          propagationProfile: BridgefyPropagationProfile.STANDARD,
+          loading: false,
+        });
+      } else {
+        throw result.error || new Error('Failed to destroy session');
+      }
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Destroy session failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  return {
+    status,
+    error,
+    checkStatus,
+    initialize,
+    start,
+    stop,
+    destroySession,
+  };
+};
