@@ -17,7 +17,7 @@ import me.bridgefy.commons.propagation.PropagationProfile
 import me.bridgefy.logger.enums.LogType
 import me.bridyefy.plugin.react_native.NativeBridgefySpec
 import java.util.UUID
-
+/**
 @ReactModule(name = NativeBridgefySpec.NAME)
 class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
   NativeBridgefySpec(reactContext), BridgefyDelegate {
@@ -392,3 +392,4 @@ class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
     }
   }
 }
+*/
