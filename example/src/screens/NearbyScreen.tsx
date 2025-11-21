@@ -1,5 +1,4 @@
-import { FlatList, RefreshControl } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { usePeerList } from '../hooks';
 import { EmptyPeersList } from '../components/EmptyPeersList';
@@ -41,14 +40,14 @@ export default function NearbyScreen() {
 
   if (loading && peers.length === 0) {
     return (
-      <SafeAreaView style={nearbyStyles.loadingContainer}>
+      <View style={nearbyStyles.loadingContainer}>
         <PeerListLoading />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={nearbyStyles.container}>
+    <View style={nearbyStyles.container}>
       <PeerListHeader connectedCount={getConnectedPeersCount()} onRefresh={loadPeers} />
 
       <FlatList
@@ -68,6 +67,6 @@ export default function NearbyScreen() {
           />
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }

@@ -4,7 +4,6 @@ export const chatStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    marginBottom: -10,
   },
   messagesList: {
     padding: 16,

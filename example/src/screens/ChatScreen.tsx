@@ -3,8 +3,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   FlatList,
+  View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { chatStyles } from '../styles';
 import { useChat } from '../hooks';
 import { MessageInput } from '../components/MessageInput';
@@ -42,7 +42,7 @@ export default function ChatScreen() {
   };
 
   return (
-    <SafeAreaView style={chatStyles.container}>
+    <View style={chatStyles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
@@ -57,6 +57,6 @@ export default function ChatScreen() {
           disabled={loading || !currentUserId}
         />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
