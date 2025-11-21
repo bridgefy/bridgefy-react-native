@@ -50,7 +50,7 @@ export default function StatusScreen() {
   }, [error]);
 
   return (
-    <SafeAreaView style={statusStyles.container}>
+    <View style={statusStyles.container}>
       <ScrollView style={statusStyles.content}>
 
         <Text style={statusStyles.sectionTitle}>Status</Text>
@@ -139,6 +139,6 @@ export default function StatusScreen() {
 
         <View style={{ height: 40 }} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
