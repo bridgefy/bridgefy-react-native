@@ -1,4 +1,4 @@
-import Bridgefy, { BridgefyPropagationProfile } from 'bridgefy-react-native';
+import Bridgefy, { BridgefyPropagationProfile, BridgefyOperationMode } from 'bridgefy-react-native';
 import type { ISDKRepository, SDKEventHandlers } from './SDKRepository';
 import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
 
@@ -31,7 +31,7 @@ export class SDKRepository implements ISDKRepository {
     }
   }
 
-  async initialize(apiKey: string, logging: boolean): Promise<SDKControlResult> {
+  async initialize(apiKey: string, logging: boolean, operationMode: null | BridgefyOperationMode): Promise<SDKControlResult> {
     try {
       const isAlreadyInitialized = await Bridgefy.isInitialized();
       if (isAlreadyInitialized) {
@@ -41,7 +41,7 @@ export class SDKRepository implements ISDKRepository {
         };
       }
 
-      await Bridgefy.initialize(apiKey, logging);
+      await Bridgefy.initialize(apiKey, logging, operationMode);
       return {
         success: true,
         message: 'Bridgefy SDK initialized successfully',

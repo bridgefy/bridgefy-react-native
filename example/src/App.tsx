@@ -69,7 +69,7 @@ export default function App() {
           tabBarActiveTintColor: '#2196F3',
           tabBarInactiveTintColor: '#757575',
           tabBarStyle: {
-            height: 60,
+            height: 100,
             paddingBottom: 8,
             paddingTop: 8,
           },

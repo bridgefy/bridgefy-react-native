@@ -63,9 +63,10 @@ export class Bridgefy {
    */
   async initialize(
     apiKey: string,
-    verboseLogging: boolean = false
+    verboseLogging: boolean = false,
+    operationMode?: BridgefyOperationMode
   ): Promise<void> {
-    const config: BridgefyInitConfig = { apiKey, verboseLogging };
+    const config: BridgefyInitConfig = { apiKey, verboseLogging, operationMode };
     return BridgefyReactNative.initialize(config);
   }
 

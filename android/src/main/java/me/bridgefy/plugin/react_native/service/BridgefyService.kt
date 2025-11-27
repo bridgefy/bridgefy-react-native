@@ -1,6 +1,9 @@
 /**
- * BridgefyService.kt
+ * BridgefyService
  *
+ * Android Service for Bridgefy SDK
+ * Runs Bridgefy in the background with persistent notification
+ * Communicates with React Native via Broadcast/Intent
  */
 
 package me.bridgefy.plugin.react_native.service
@@ -12,16 +15,13 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
-import android.os.Binder
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
-import androidx.core.content.ContextCompat
 import me.bridgefy.Bridgefy
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
@@ -34,8 +34,9 @@ import me.bridgefy.plugin.react_native.util.Utils.bundleFromTransmissionMode
 import me.bridgefy.plugin.react_native.util.Utils.transmissionModeFromBundle
 import java.util.UUID
 
-class BridgefyService : Service(), BridgefyDelegate {
-
+class BridgefyService :
+  Service(),
+  BridgefyDelegate {
   companion object {
     const val CHANNEL_ID = "BridgefyServiceChannel"
     const val NOTIFICATION_ID = 1001
@@ -85,33 +86,16 @@ class BridgefyService : Service(), BridgefyDelegate {
     const val EXTRA_ERROR_MESSAGE = "ERROR_MESSAGE"
   }
 
-  private var serviceManager: BridgefyServiceManager? = null
-  private var bridgefyClient: Bridgefy? = null
-  private var isInitialized = bridgefyClient?.isInitialized ?: false
-  private var isStarted = bridgefyClient?.isStarted ?: false
-  private var currentUserId: String = ""
+  private val serviceManager by lazy { BridgefyServiceManager.getInstance(this) }
+  private var isInitialized = serviceManager.getBridgefy()?.isInitialized ?: false
+  private var isStarted = serviceManager.getBridgefy()?.isStarted ?: false
+  private var currentUserId: String = serviceManager.getCurrentUserId() ?: ""
   private val connectedPeers = mutableListOf<String>()
-  private val binder = LocalBinder()
 
-  inner class LocalBinder : Binder() {
-    fun getService(): BridgefyService = this@BridgefyService
-  }
-
-  fun getCurrentUserId(): String = currentUserId
-  fun getConnectedPeers(): List<String> = connectedPeers.toList()
-  fun isSDKStarted(): Boolean = isStarted
-  fun isSDKInitialized(): Boolean = isInitialized
-
-  override fun onBind(intent: Intent?): IBinder {
-    return binder
-  }
+  override fun onBind(p0: Intent?): IBinder? = null
 
   override fun onCreate() {
     super.onCreate()
-
-    // Initialize ServiceManager
-    serviceManager = BridgefyServiceManager.getInstance(this)
-
     // ISSUE 1 FIX: Check FOREGROUND_SERVICE permission in manifest
     verifyForegroundServicePermission()
 
@@ -119,8 +103,11 @@ class BridgefyService : Service(), BridgefyDelegate {
     createNotificationChannel()
   }
 
-  override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
+  override fun onStartCommand(
+    intent: Intent?,
+    flags: Int,
+    startId: Int,
+  ): Int {
     when (intent?.action) {
       ACTION_START_SERVICE -> {
         startForegroundService()
@@ -253,17 +240,18 @@ class BridgefyService : Service(), BridgefyDelegate {
       try {
         println("Creating notification channel for Android 8+")
 
-        val serviceChannel = NotificationChannel(
-          CHANNEL_ID,
-          "Bridgefy Service",
-          NotificationManager.IMPORTANCE_LOW
-        ).apply {
-          description = "Bridgefy mesh networking service notifications"
-          setShowBadge(false)
-          enableLights(false)
-          enableVibration(false)
-          setSound(null, null)
-        }
+        val serviceChannel =
+          NotificationChannel(
+            CHANNEL_ID,
+            "Bridgefy Service",
+            NotificationManager.IMPORTANCE_LOW,
+          ).apply {
+            description = "Bridgefy mesh networking service notifications"
+            setShowBadge(false)
+            enableLights(false)
+            enableVibration(false)
+            setSound(null, null)
+          }
 
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
         if (manager != null) {
@@ -288,34 +276,40 @@ class BridgefyService : Service(), BridgefyDelegate {
     }
   }
 
-  private fun createNotification(title: String, content: String): Notification {
+  private fun createNotification(
+    title: String,
+    content: String,
+  ): Notification {
     try {
       val notificationIntent = packageManager.getLaunchIntentForPackage(packageName)
-      val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        PendingIntent.getActivity(
-          this,
-          0,
-          notificationIntent ?: Intent(),
-          PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-      } else {
-        @Suppress("DEPRECATION")
-        PendingIntent.getActivity(
-          this,
-          0,
-          notificationIntent ?: Intent(),
-          PendingIntent.FLAG_UPDATE_CURRENT
-        )
-      }
+      val pendingIntent =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          PendingIntent.getActivity(
+            this,
+            0,
+            notificationIntent ?: Intent(),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+          )
+        } else {
+          @Suppress("DEPRECATION")
+          PendingIntent.getActivity(
+            this,
+            0,
+            notificationIntent ?: Intent(),
+            PendingIntent.FLAG_UPDATE_CURRENT,
+          )
+        }
 
-      val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-        .setContentTitle(title)
-        .setContentText(content)
-        .setSmallIcon(android.R.drawable.ic_dialog_info)
-        .setContentIntent(pendingIntent)
-        .setOngoing(true)
-        .setPriority(NotificationCompat.PRIORITY_LOW)
-        .setCategory(NotificationCompat.CATEGORY_SERVICE)
+      val builder =
+        NotificationCompat
+          .Builder(this, CHANNEL_ID)
+          .setContentTitle(title)
+          .setContentText(content)
+          .setSmallIcon(android.R.drawable.ic_dialog_info)
+          .setContentIntent(pendingIntent)
+          .setOngoing(true)
+          .setPriority(NotificationCompat.PRIORITY_LOW)
+          .setCategory(NotificationCompat.CATEGORY_SERVICE)
 
       return builder.build()
     } catch (e: Exception) {
@@ -324,7 +318,10 @@ class BridgefyService : Service(), BridgefyDelegate {
     }
   }
 
-  private fun updateNotification(title: String, content: String) {
+  private fun updateNotification(
+    title: String,
+    content: String,
+  ) {
     try {
       val notification = createNotification(title, content)
       val manager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
@@ -336,17 +333,19 @@ class BridgefyService : Service(), BridgefyDelegate {
 
   // MARK: - Permission Check
 
-  private fun hasPermission(permission: String): Boolean {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+  private fun hasPermission(permission: String): Boolean =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       checkSelfPermission(permission) == android.content.pm.PackageManager.PERMISSION_GRANTED
     } else {
       true // Assume granted on Android < 6
     }
-  }
 
   // MARK: - Bridgefy Methods
 
-  private fun initializeBridgefy(apiKey: String, verboseLogging: Boolean) {
+  private fun initializeBridgefy(
+    apiKey: String,
+    verboseLogging: Boolean,
+  ) {
     try {
       if (isInitialized) {
         println("Bridgefy already initialized")
@@ -354,38 +353,42 @@ class BridgefyService : Service(), BridgefyDelegate {
         return
       }
 
-      val uuid = try {
-        UUID.fromString(apiKey)
-      } catch (e: IllegalArgumentException) {
-        println("Invalid API key format: ${e.localizedMessage}")
-        sendErrorBroadcast("INVALID_API_KEY", "Invalid API key format: $apiKey")
-        return
-      }
+      val uuid =
+        try {
+          UUID.fromString(apiKey)
+        } catch (e: IllegalArgumentException) {
+          println("Invalid API key format: ${e.localizedMessage}")
+          sendErrorBroadcast("INVALID_API_KEY", "Invalid API key format: $apiKey")
+          return
+        }
 
-      bridgefyClient = Bridgefy(applicationContext)
-      bridgefyClient!!.init(
+      serviceManager.setBridgefy(Bridgefy(applicationContext))
+      serviceManager.getBridgefy()!!.init(
         uuid,
         this,
-        if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None
+        if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None,
       )
 
       isInitialized = true
 
       // ✓ FIX: Persist initialization state
-      serviceManager?.setSDKInitialized(true)
+      serviceManager.setSDKInitialized(true)
 
       println("✓ Bridgefy initialized successfully")
       updateNotification("Bridgefy Initialized", "Ready to start")
     } catch (e: Exception) {
-      bridgefyClient = null
+      serviceManager.setBridgefy(null)
       println("Bridgefy initialization failed: ${e.localizedMessage}")
       // ✓ FIX: Persist initialization state
-      serviceManager?.setSDKInitialized(false)
+      serviceManager.setSDKInitialized(false)
       sendErrorBroadcast("INITIALIZATION_FAILED", e.message ?: "Unknown error")
     }
   }
 
-  private fun startBridgefy(userId: String?, propagationProfile: String) {
+  private fun startBridgefy(
+    userId: String?,
+    propagationProfile: String,
+  ) {
     try {
       if (!isInitialized) {
         println("Bridgefy not initialized")
@@ -399,23 +402,25 @@ class BridgefyService : Service(), BridgefyDelegate {
         return
       }
 
-      val profile = when (propagationProfile.lowercase()) {
-        "high_density_network" -> PropagationProfile.HighDensityEnvironment
-        "sparse_network" -> PropagationProfile.SparseEnvironment
-        "long_reach" -> PropagationProfile.LongReach
-        "short_reach" -> PropagationProfile.ShortReach
-        else -> PropagationProfile.Standard
-      }
-
-      val customUserId = userId?.let {
-        try {
-          UUID.fromString(it)
-        } catch (e: IllegalArgumentException) {
-          null
+      val profile =
+        when (propagationProfile.lowercase()) {
+          "high_density_network" -> PropagationProfile.HighDensityEnvironment
+          "sparse_network" -> PropagationProfile.SparseEnvironment
+          "long_reach" -> PropagationProfile.LongReach
+          "short_reach" -> PropagationProfile.ShortReach
+          else -> PropagationProfile.Standard
         }
-      }
 
-      bridgefyClient?.start(customUserId, profile)
+      val customUserId =
+        userId?.let {
+          try {
+            UUID.fromString(it)
+          } catch (e: IllegalArgumentException) {
+            null
+          }
+        }
+
+      serviceManager.getBridgefy()?.start(customUserId, profile)
       println("✓ Bridgefy started with profile: $propagationProfile")
     } catch (e: Exception) {
       println("Failed to start Bridgefy: ${e.localizedMessage}")
@@ -431,7 +436,7 @@ class BridgefyService : Service(), BridgefyDelegate {
         return
       }
 
-      bridgefyClient?.stop()
+      serviceManager.getBridgefy()?.stop()
       isStarted = false
       println("✓ Bridgefy stopped")
     } catch (e: Exception) {
@@ -440,16 +445,17 @@ class BridgefyService : Service(), BridgefyDelegate {
     }
   }
 
-
-  private fun sendMessage(data: ByteArray, transmissionMode: TransmissionMode) {
+  private fun sendMessage(
+    data: ByteArray,
+    transmissionMode: TransmissionMode,
+  ) {
     try {
       if (!isStarted) {
         sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not started")
         return
       }
 
-      bridgefyClient?.send(data, transmissionMode)
-
+      serviceManager.getBridgefy()?.send(data, transmissionMode)
     } catch (e: Exception) {
       sendErrorBroadcast("SEND_FAILED", e.message ?: "Unknown error")
     }
@@ -462,15 +468,15 @@ class BridgefyService : Service(), BridgefyDelegate {
         return
       }
 
-      val uuid = try {
-        UUID.fromString(userId)
-      } catch (e: IllegalArgumentException) {
-        sendErrorBroadcast("INVALID_MESSAGE", "Invalid user UUID")
-        return
-      }
+      val uuid =
+        try {
+          UUID.fromString(userId)
+        } catch (e: IllegalArgumentException) {
+          sendErrorBroadcast("INVALID_MESSAGE", "Invalid user UUID")
+          return
+        }
 
-      bridgefyClient?.establishSecureConnection(uuid)
-
+      serviceManager.getBridgefy()?.establishSecureConnection(uuid)
     } catch (e: Exception) {
       sendErrorBroadcast("CONNECTION_FAILED", e.message ?: "Unknown error")
     }
@@ -483,21 +489,23 @@ class BridgefyService : Service(), BridgefyDelegate {
     currentUserId = userId.toString()
 
     // ✓ FIX: Persist state to SharedPreferences
-    serviceManager?.setSDKStarted(true)
-    serviceManager?.setCurrentUserId(userId.toString())
+    serviceManager.setSDKStarted(true)
+    serviceManager.setCurrentUserId(userId.toString())
 
     updateNotification("Bridgefy Active", "Connected as ${userId.toString().substring(0, 8)}...")
 
-    sendBroadcast(Intent(EVENT_BRIDGEFY_DID_START).apply {
-      putExtra(EXTRA_USER_ID, userId.toString())
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_DID_START).apply {
+        putExtra(EXTRA_USER_ID, userId.toString())
+      },
+    )
   }
 
   override fun onStopped() {
     isStarted = false
 
     // ✓ FIX: Update persistent state
-    serviceManager?.setSDKStarted(false)
+    serviceManager.setSDKStarted(false)
 
     updateNotification("Bridgefy Stopped", "Service inactive")
 
@@ -505,105 +513,148 @@ class BridgefyService : Service(), BridgefyDelegate {
   }
 
   override fun onFailToStart(error: BridgefyException) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_TO_START).apply {
-      putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
-      putExtra(EXTRA_ERROR_MESSAGE, error.message)
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_TO_START).apply {
+        putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
+        putExtra(EXTRA_ERROR_MESSAGE, error.message)
+      },
+    )
   }
 
   override fun onFailToStop(error: BridgefyException) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_TO_STOP).apply {
-      putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
-      putExtra(EXTRA_ERROR_MESSAGE, error.message)
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_TO_STOP).apply {
+        putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
+        putExtra(EXTRA_ERROR_MESSAGE, error.message)
+      },
+    )
   }
 
   override fun onConnected(peerID: UUID) {
     connectedPeers.add(peerID.toString())
     updateNotification("Peer Connected", "${connectedPeers.size} peers connected")
 
-    sendBroadcast(Intent(EVENT_BRIDGEFY_DID_CONNECT).apply {
-      putExtra(EXTRA_USER_ID, peerID.toString())
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_DID_CONNECT).apply {
+        putExtra(EXTRA_USER_ID, peerID.toString())
+      },
+    )
   }
 
   override fun onConnectedPeers(connectedPeers: List<UUID>) {
     this.connectedPeers.clear()
-    this.connectedPeers.addAll(connectedPeers.map(UUID::toString))
+    this.connectedPeers.addAll(connectedPeers.map(UUID::toString).distinct())
     updateNotification("Peer Connected", "${this.connectedPeers.size} peers connected")
-    sendBroadcast(Intent(EVENT_BRIDGEFY_DID_UPDATE_CONNECTED_PEERS).apply {
-      putStringArrayListExtra(EXTRA_CONNECTED_PEERS, ArrayList(connectedPeers.map(UUID::toString)))
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_DID_UPDATE_CONNECTED_PEERS).apply {
+        putStringArrayListExtra(EXTRA_CONNECTED_PEERS, ArrayList(connectedPeers.map(UUID::toString)))
+      },
+    )
   }
 
   override fun onDisconnected(peerID: UUID) {
     connectedPeers.remove(peerID.toString())
 
-    sendBroadcast(Intent(EVENT_BRIDGEFY_DID_DISCONNECT).apply {
-      putExtra(EXTRA_USER_ID, peerID.toString())
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_DID_DISCONNECT).apply {
+        putExtra(EXTRA_USER_ID, peerID.toString())
+      },
+    )
   }
 
-  override fun onReceiveData(data: ByteArray, messageID: UUID, transmissionMode: TransmissionMode) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_RECEIVE_DATA).apply {
-      putExtra(EXTRA_MESSAGE_DATA, data)
-      putExtra(EXTRA_MESSAGE_ID, messageID.toString())
-      putExtra(EXTRA_TRANSMISSION_MODE, bundleFromTransmissionMode(transmissionMode))
-    })
+  override fun onReceiveData(
+    data: ByteArray,
+    messageID: UUID,
+    transmissionMode: TransmissionMode,
+  ) {
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_RECEIVE_DATA).apply {
+        putExtra(EXTRA_MESSAGE_DATA, data)
+        putExtra(EXTRA_MESSAGE_ID, messageID.toString())
+        putExtra(EXTRA_TRANSMISSION_MODE, bundleFromTransmissionMode(transmissionMode))
+      },
+    )
   }
 
   override fun onSend(messageID: UUID) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_SEND_MESSAGE).apply {
-      putExtra(EXTRA_MESSAGE_ID, messageID.toString())
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_SEND_MESSAGE).apply {
+        putExtra(EXTRA_MESSAGE_ID, messageID.toString())
+      },
+    )
   }
 
-  override fun onProgressOfSend(messageID: UUID, position: Int, of: Int) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_PROGRESS_OF_SEND).apply {
-      putExtra(EXTRA_MESSAGE_ID, messageID.toString())
-      putExtra(EXTRA_POSITION, position)
-      putExtra(EXTRA_OF, of)
-    })
+  override fun onProgressOfSend(
+    messageID: UUID,
+    position: Int,
+    of: Int,
+  ) {
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_PROGRESS_OF_SEND).apply {
+        putExtra(EXTRA_MESSAGE_ID, messageID.toString())
+        putExtra(EXTRA_POSITION, position)
+        putExtra(EXTRA_OF, of)
+      },
+    )
   }
 
-  override fun onFailToSend(messageID: UUID, error: BridgefyException) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_SENDING).apply {
-      putExtra(EXTRA_MESSAGE_ID, messageID.toString())
-      putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
-      putExtra(EXTRA_ERROR_MESSAGE, error.message)
-    })
+  override fun onFailToSend(
+    messageID: UUID,
+    error: BridgefyException,
+  ) {
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_SENDING).apply {
+        putExtra(EXTRA_MESSAGE_ID, messageID.toString())
+        putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
+        putExtra(EXTRA_ERROR_MESSAGE, error.message)
+      },
+    )
   }
 
   override fun onEstablishSecureConnection(userId: UUID) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_ESTABLISH_SECURE).apply {
-      putExtra(EXTRA_USER_ID, userId.toString())
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_ESTABLISH_SECURE).apply {
+        putExtra(EXTRA_USER_ID, userId.toString())
+      },
+    )
   }
 
-  override fun onFailToEstablishSecureConnection(userId: UUID, error: BridgefyException) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_SECURE).apply {
-      putExtra(EXTRA_USER_ID, userId.toString())
-      putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
-      putExtra(EXTRA_ERROR_MESSAGE, error.message)
-    })
+  override fun onFailToEstablishSecureConnection(
+    userId: UUID,
+    error: BridgefyException,
+  ) {
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_SECURE).apply {
+        putExtra(EXTRA_USER_ID, userId.toString())
+        putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
+        putExtra(EXTRA_ERROR_MESSAGE, error.message)
+      },
+    )
   }
 
   override fun onDestroySession() = sendBroadcast(Intent(EVENT_BRIDGEFY_DID_DESTROY_SESSION))
 
   override fun onFailToDestroySession(error: BridgefyException) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_TO_DESTROY_SESSION).apply {
-      putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
-      putExtra(EXTRA_ERROR_MESSAGE, error.message)
-    })
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_TO_DESTROY_SESSION).apply {
+        putExtra(EXTRA_ERROR_CODE, bundleFromBridgefyException(error))
+        putExtra(EXTRA_ERROR_MESSAGE, error.message)
+      },
+    )
   }
 
   // MARK: - Helper Methods
 
-  private fun sendErrorBroadcast(code: String, message: String) {
-    sendBroadcast(Intent(EVENT_BRIDGEFY_FAIL_TO_START).apply {
-      putExtra(EXTRA_ERROR_CODE, code)
-      putExtra(EXTRA_ERROR_MESSAGE, message)
-    })
+  private fun sendErrorBroadcast(
+    code: String,
+    message: String,
+  ) {
+    sendBroadcast(
+      Intent(EVENT_BRIDGEFY_FAIL_TO_START).apply {
+        putExtra(EXTRA_ERROR_CODE, code)
+        putExtra(EXTRA_ERROR_MESSAGE, message)
+      },
+    )
   }
 
   override fun onDestroy() {
@@ -611,9 +662,8 @@ class BridgefyService : Service(), BridgefyDelegate {
       stopBridgefy()
     }
     // Clear state when service is destroyed
-    serviceManager?.clearState()
-
-    bridgefyClient = null
+    serviceManager.clearState()
+    serviceManager.setBridgefy(null)
     super.onDestroy()
   }
 }
