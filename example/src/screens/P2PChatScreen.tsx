@@ -3,8 +3,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   FlatList,
+  View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useP2PChat } from '../hooks';
 import { MessageInput } from '../components/MessageInput';
 import { P2PConnectionBanner } from '../components/P2PConnectionBanner';
@@ -70,7 +70,7 @@ export default function P2PChatScreen({ route, navigation }: Readonly<P2PChatScr
   };
 
   return (
-    <SafeAreaView style={p2pChatStyles.container}>
+    <View style={p2pChatStyles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={p2pChatStyles.container}
@@ -92,6 +92,6 @@ export default function P2PChatScreen({ route, navigation }: Readonly<P2PChatScr
           disabled={!peerConnected}
         />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
