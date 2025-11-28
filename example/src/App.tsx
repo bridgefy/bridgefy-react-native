@@ -18,7 +18,7 @@ import LogsScreen from './screens/LogsScreen';
 import NearbyScreen from './screens/NearbyScreen';
 import P2PChatScreen from './screens/P2PChatScreen';
 
-import Bridgefy from 'bridgefy-react-native';
+import Bridgefy, {BridgefyOperationModeConfig, BridgefyOperationModeStatus} from 'bridgefy-react-native';
 import { setupBridgefyEventListeners } from './BridgefyEventStore';
 
 const Tab = createBottomTabNavigator();

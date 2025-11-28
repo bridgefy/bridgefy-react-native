@@ -35,7 +35,10 @@ export default function PermissionsScreen() {
             onOpenSettings={openSettings}
           />
         ) : (
-          <IOSPermissionsContent onOpenSettings={openSettings} />
+          <IOSPermissionsContent
+          onOpenSettings={openSettings}
+          onRequestPermissions={requestPermissions}
+          />
         )}
       </View>
     </ScrollView>

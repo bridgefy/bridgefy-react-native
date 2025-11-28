@@ -284,6 +284,42 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     resolve(isStarted)
   }
   
+  // MARK: Operation Mode Control
+  
+  @objc(setOperationMode:withResolver:withRejecter:)
+  func setOperationMode(config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    resolve(NSNull())
+  }
+  
+  @objc(getOperationMode:withRejecter:)
+  func getOperationMode(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    let operation: [String: Any] = ["mode": "foreground"]
+    resolve(operation)
+  }
+  
+  @objc(switchToForeground:withRejecter:)
+  func switchToForeground(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    resolve(NSNull())
+  }
+  
+  @objc(switchToBackground:withRejecter:)
+  func switchToBackground(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    resolve(NSNull())
+  }
+  
+  @objc(getOperationStatus:withRejecter:)
+  func getOperationStatus(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    let status: [String: Any] =
+    [
+      "operationMode": "foreground",
+      "isInitialized": isInitialized,
+      "isStarted": isStarted,
+      "shouldRunInService": false,
+      "debugInfo": "foreground",
+    ]
+    resolve(status)
+  }
+  
   // MARK: - BridgefyDelegate Methods
   
   func bridgefyDidStart(with userId: UUID) {

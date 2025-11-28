@@ -184,6 +184,12 @@ export class Bridgefy {
     return BridgefyReactNative.isStarted();
   }
 
+  async setOperationMode(config: BridgefyOperationModeConfig): Promise<BridgefyOperationModeConfig> { return BridgefyReactNative.setOperationMode(config); }
+  async getOperationMode(): Promise<BridgefyOperationModeConfig> { return BridgefyReactNative,getOperationMode(); }
+  async switchToBackground(): Promise<void> { return BridgefyReactNative.switchToBackground(); }
+  async switchToForeground(): Promise<void> { return BridgefyReactNative.switchToForeground(); }
+  async getOperationStatus(): Promise<BridgefyOperationModeStatus> { return BridgefyReactNative.getOperationStatus(); }
+
   /**
    * Add event listener
    */

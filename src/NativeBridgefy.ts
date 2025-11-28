@@ -189,7 +189,7 @@ export type BridgefyLicenseInfo = {
 
 export type BridgefyOperationModeConfig = {
   mode: BridgefyOperationMode;
-  };
+};
 
 export type BridgefyOperationModeStatus = {
   operationMode: BridgefyOperationMode;
