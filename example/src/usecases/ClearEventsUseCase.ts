@@ -1,9 +1,7 @@
-import type { ILogsRepository } from "../repositories";
+import type { ILogsRepository } from '../repositories';
 
 export class ClearEventsUseCase {
-  constructor(
-    private readonly logsRepository: ILogsRepository
-  ) {}
+  constructor(private readonly logsRepository: ILogsRepository) {}
 
   async execute(): Promise<void> {
     try {

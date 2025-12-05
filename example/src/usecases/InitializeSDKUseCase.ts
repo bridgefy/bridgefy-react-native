@@ -1,12 +1,13 @@
-import type { SDKControlResult } from "../entities";
-import type { ISDKRepository } from "../repositories";
+import type { SDKControlResult } from '../entities';
+import type { ISDKRepository } from '../repositories';
 
 export class InitializeSDKUseCase {
-  constructor(
-    private readonly sdkRepository: ISDKRepository
-  ) {}
+  constructor(private readonly sdkRepository: ISDKRepository) {}
 
-  async execute(apiKey: string, logging: boolean = true): Promise<SDKControlResult> {
+  async execute(
+    apiKey: string,
+    logging: boolean = true
+  ): Promise<SDKControlResult> {
     try {
       return await this.sdkRepository.initialize(apiKey, logging);
     } catch (error) {

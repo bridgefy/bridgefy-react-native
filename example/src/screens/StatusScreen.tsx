@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Alert,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { useSDKStatus } from '../hooks/useSDKStatus';
 import { StatusCard } from '../components/StatusCard';
 import { InfoCard } from '../components/InfoCard';
@@ -52,10 +46,8 @@ export default function StatusScreen() {
   return (
     <View style={statusStyles.container}>
       <ScrollView style={statusStyles.content}>
-
         <Text style={statusStyles.sectionTitle}>Status</Text>
         <View style={statusStyles.statusCard}>
-
           {/* Status Cards */}
           <StatusCard title="Initialized" isActive={status.isInitialized} />
           <StatusCard title="Started" isActive={status.isStarted} />
@@ -69,16 +61,16 @@ export default function StatusScreen() {
             />
           )}
 
-            <InfoCard
-              label="Connected Peers"
-              value={status.connectedPeers.length.toString()}
-              icon="lan-connect"
-            />
-            <InfoCard
-              label="Propagation Profile"
-              value={status.propagationProfile}
-              icon="sync"
-            />
+          <InfoCard
+            label="Connected Peers"
+            value={status.connectedPeers.length.toString()}
+            icon="lan-connect"
+          />
+          <InfoCard
+            label="Propagation Profile"
+            value={status.propagationProfile}
+            icon="sync"
+          />
         </View>
 
         {/* Control Buttons */}
@@ -137,6 +129,7 @@ export default function StatusScreen() {
         {/* Peers List */}
         <PeersList peers={status.connectedPeers} />
 
+        {/* eslint-disable-next-line react-native/no-inline-styles */}
         <View style={{ height: 40 }} />
       </ScrollView>
     </View>

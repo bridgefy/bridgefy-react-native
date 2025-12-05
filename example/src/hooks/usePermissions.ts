@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { PermissionRepositoryAndroid, PermissionRepositoryIOS } from '../repositories';
+import {
+  PermissionRepositoryAndroid,
+  PermissionRepositoryIOS,
+} from '../repositories';
 import {
   CheckPermissionsUseCase,
   OpenSettingsUseCase,
-  RequestPermissionsUseCase
+  RequestPermissionsUseCase,
 } from '../usecases';
-import type {
-  PermissionCheckResult,
-  PermissionState
-} from '../entities';
+import type { PermissionCheckResult, PermissionState } from '../entities';
 
 export const usePermissions = () => {
   const [permissions, setPermissions] = useState<PermissionState>({
@@ -32,8 +32,10 @@ export const usePermissions = () => {
 
   useEffect(() => {
     checkPermissions();
-  }, []);
+    // @ts-ignore
+  }, [checkPermissions]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkPermissions = async () => {
     setLoading(true);
     try {

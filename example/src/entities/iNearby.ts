@@ -49,7 +49,8 @@ export class PeerEntity {
     return new PeerEntity({
       ...this.peer,
       status,
-      connectionTime: status === 'connected' ? Date.now() : this.peer.connectionTime,
+      connectionTime:
+        status === 'connected' ? Date.now() : this.peer.connectionTime,
     });
   }
 }

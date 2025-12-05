@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { EventStats, FilterType, SDKEvent } from '../entities/iSDKEvent';
 import { LogsRepository } from '../repositories/implLogsRepository';
 import { EventFilterService } from '../services';
@@ -21,6 +21,7 @@ export const useLogs = () => {
   const repository = repositoryRef.current;
   const filterService = filterServiceRef.current;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getEventsUseCase = new GetEventsUseCase(repository);
   const clearEventsUseCase = new ClearEventsUseCase(repository);
 
@@ -47,8 +48,10 @@ export const useLogs = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, []);
+    // @ts-ignore
+  }, [getEventsUseCase, repository, updateStats]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStats = (eventList: SDKEvent[]) => {
     const newStats = filterService.calculateStats(eventList);
     setStats(newStats);

@@ -37,7 +37,8 @@ export class ChatRepository implements IChatRepository {
         senderId: event.transmissionMode?.uuid || 'unknown',
         timestamp: Date.now(),
         isMine: false,
-        transmissionMode: (event.transmissionMode?.type || 'broadcast') as TransmissionMode,
+        transmissionMode: (event.transmissionMode?.type ||
+          'broadcast') as TransmissionMode,
       };
 
       this.eventHandlers.onMessageReceived?.(message);

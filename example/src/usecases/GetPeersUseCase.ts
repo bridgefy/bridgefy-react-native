@@ -1,10 +1,8 @@
-import type { Peer } from "../entities";
-import type { IPeerRepository } from "../repositories";
+import type { Peer } from '../entities';
+import type { IPeerRepository } from '../repositories';
 
 export class GetPeersUseCase {
-  constructor(
-    private readonly peerRepository: IPeerRepository
-  ) {}
+  constructor(private readonly peerRepository: IPeerRepository) {}
 
   async execute(): Promise<Peer[]> {
     try {

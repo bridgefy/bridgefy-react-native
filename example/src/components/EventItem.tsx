@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SDKEventEntity, type SDKEvent } from '../entities/iSDKEvent';
+import { type SDKEvent, SDKEventEntity } from '../entities/iSDKEvent';
 import { EventDisplayService } from '../services';
 import { logsStyles } from '../styles';
 

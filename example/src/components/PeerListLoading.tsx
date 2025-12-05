@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { nearbyStyles } from '../styles';
 
 export const PeerListLoading: React.FC = () => {

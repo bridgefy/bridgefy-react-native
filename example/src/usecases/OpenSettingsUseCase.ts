@@ -1,9 +1,7 @@
-import type { IPermissionRepository } from "../repositories";
+import type { IPermissionRepository } from '../repositories';
 
 export class OpenSettingsUseCase {
-  constructor(
-    private readonly permissionRepository: IPermissionRepository
-  ) {}
+  constructor(private readonly permissionRepository: IPermissionRepository) {}
 
   async execute(): Promise<void> {
     try {

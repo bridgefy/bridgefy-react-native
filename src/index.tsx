@@ -4,6 +4,7 @@ import BridgefyReactNative, {
   BridgefyTransmissionModeType,
   BridgefyEvents,
   BridgefyErrorCode,
+  BridgefyOperationMode,
   type BridgefyInitConfig,
   type BridgefyTransmissionMode,
   type BridgefyError,
@@ -17,6 +18,8 @@ import BridgefyReactNative, {
   type BridgefyLicenseInfo,
   type BridgefyUpdatedConnectedEvent,
   type BridgefyDidSendDataProgress,
+  type BridgefyOperationModeConfig,
+  type BridgefyOperationModeStatus,
 } from './NativeBridgefy';
 
 /**
@@ -32,6 +35,7 @@ export {
   BridgefyTransmissionModeType,
   BridgefyEvents,
   BridgefyErrorCode,
+  BridgefyOperationMode,
   type BridgefyInitConfig,
   type BridgefyTransmissionMode,
   type BridgefyError,
@@ -43,6 +47,10 @@ export {
   type BridgefyReceiveDataEvent,
   type BridgefySecureConnectionEvent,
   type BridgefyLicenseInfo,
+  type BridgefyUpdatedConnectedEvent,
+  type BridgefyDidSendDataProgress,
+  type BridgefyOperationModeConfig,
+  type BridgefyOperationModeStatus,
 };
 
 /**
@@ -66,7 +74,11 @@ export class Bridgefy {
     verboseLogging: boolean = false,
     operationMode?: BridgefyOperationMode
   ): Promise<void> {
-    const config: BridgefyInitConfig = { apiKey, verboseLogging, operationMode };
+    const config: BridgefyInitConfig = {
+      apiKey,
+      verboseLogging,
+      operationMode,
+    };
     return BridgefyReactNative.initialize(config);
   }
 
@@ -184,11 +196,23 @@ export class Bridgefy {
     return BridgefyReactNative.isStarted();
   }
 
-  async setOperationMode(config: BridgefyOperationModeConfig): Promise<BridgefyOperationModeConfig> { return BridgefyReactNative.setOperationMode(config); }
-  async getOperationMode(): Promise<BridgefyOperationModeConfig> { return BridgefyReactNative,getOperationMode(); }
-  async switchToBackground(): Promise<void> { return BridgefyReactNative.switchToBackground(); }
-  async switchToForeground(): Promise<void> { return BridgefyReactNative.switchToForeground(); }
-  async getOperationStatus(): Promise<BridgefyOperationModeStatus> { return BridgefyReactNative.getOperationStatus(); }
+  async setOperationMode(
+    config: BridgefyOperationModeConfig
+  ): Promise<BridgefyOperationModeConfig> {
+    return BridgefyReactNative.setOperationMode(config);
+  }
+  async getOperationMode(): Promise<BridgefyOperationModeConfig> {
+    return BridgefyReactNative.getOperationMode();
+  }
+  async switchToBackground(): Promise<void> {
+    return BridgefyReactNative.switchToBackground();
+  }
+  async switchToForeground(): Promise<void> {
+    return BridgefyReactNative.switchToForeground();
+  }
+  async getOperationStatus(): Promise<BridgefyOperationModeStatus> {
+    return BridgefyReactNative.getOperationStatus();
+  }
 
   /**
    * Add event listener

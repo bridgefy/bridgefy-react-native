@@ -1,6 +1,6 @@
 // import { P2PMessage, MessageStatus } from '../../domain/types/P2PMessage';
 
-import type { MessageStatus, P2PMessage } from "../entities";
+import type { MessageStatus, P2PMessage } from '../entities';
 
 export class P2PMessageService {
   private readonly messages: Map<string, P2PMessage> = new Map();
@@ -18,7 +18,11 @@ export class P2PMessageService {
     return this.getMessagesSorted();
   }
 
-  updateMessageId(oldId: string, newId: string, status: MessageStatus = 'sent'): P2PMessage[] {
+  updateMessageId(
+    oldId: string,
+    newId: string,
+    status: MessageStatus = 'sent'
+  ): P2PMessage[] {
     const message = this.messages.get(oldId);
     if (message) {
       this.messages.delete(oldId);

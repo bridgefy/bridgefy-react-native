@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import type { Message } from '../entities';
-import { ChatRepository, type ChatEventHandlers } from '../repositories';
+import { type ChatEventHandlers, ChatRepository } from '../repositories';
 import { ChatService } from '../services';
 import { GetCurrentUserIdUseCase, SendMessageUseCase } from '../usecases';
 
@@ -16,6 +16,7 @@ export const useChat = () => {
   const repository = repositoryRef.current;
   const chatService = chatServiceRef.current;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCurrentUserIdUseCase = new GetCurrentUserIdUseCase(repository);
   const sendMessageUseCase = new SendMessageUseCase(repository);
 
@@ -36,6 +37,7 @@ export const useChat = () => {
             chatService.addMessage(message);
             setMessages(chatService.getMessagesSorted());
           },
+          // eslint-disable-next-line @typescript-eslint/no-shadow
           onUserIdChanged: (userId) => {
             console.log('User ID changed:', userId);
             setCurrentUserId(userId);
@@ -48,7 +50,9 @@ export const useChat = () => {
 
         repository.subscribeToMessages(eventHandlers);
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to initialize chat');
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const error =
+          err instanceof Error ? err : new Error('Failed to initialize chat');
         setError(error);
         console.error('Hook initialization error:', error);
       } finally {
@@ -62,7 +66,7 @@ export const useChat = () => {
       repository.unsubscribeFromMessages();
       chatService.clearMessages();
     };
-  }, []);
+  }, [chatService, getCurrentUserIdUseCase, repository]);
 
   const sendMessage = async (text: string): Promise<void> => {
     try {
@@ -84,7 +88,9 @@ export const useChat = () => {
       chatService.addMessage(newMessage);
       setMessages(chatService.getMessagesSorted());
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to send message');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Failed to send message');
       setError(error);
       Alert.alert('Error', error.message);
       console.error('Send message error:', error);

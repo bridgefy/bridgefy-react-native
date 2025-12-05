@@ -1,4 +1,4 @@
-import type { SDKControlResult, SDKStatusSnapshot } from "../entities";
+import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
 
 export interface ISDKRepository {
   checkStatus(): Promise<SDKStatusSnapshot>;

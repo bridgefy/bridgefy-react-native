@@ -1,4 +1,9 @@
-import { TouchableOpacity, Text, ActivityIndicator, type ViewStyle } from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  type ViewStyle,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { statusStyles } from '../styles';
 
@@ -30,7 +35,9 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
   };
 
   const textStyle =
-    variant === 'refresh' ? statusStyles.refreshButtonText : statusStyles.buttonText;
+    variant === 'refresh'
+      ? statusStyles.refreshButtonText
+      : statusStyles.buttonText;
 
   return (
     <TouchableOpacity
@@ -42,7 +49,11 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
       {loading ? (
         <ActivityIndicator color={variant === 'refresh' ? '#2196F3' : '#fff'} />
       ) : (
-        <Icon name={icon} size={20} color={variant === 'refresh' ? '#2196F3' : '#fff'} />
+        <Icon
+          name={icon}
+          size={20}
+          color={variant === 'refresh' ? '#2196F3' : '#fff'}
+        />
       )}
       <Text style={textStyle}>{loading ? 'Loading...' : title}</Text>
     </TouchableOpacity>

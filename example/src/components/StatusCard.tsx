@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { statusStyles } from '../styles';
 
@@ -13,9 +13,9 @@ export const StatusCard: React.FC<StatusCardProps> = ({ title, isActive }) => {
 
   return (
     <View style={statusStyles.statusRow}>
-        <Icon name="information" size={24} color={color} />
-        <Text style={statusStyles.statusLabel}>{title}</Text>
-        <Text style={[statusStyles.statusValue, { color }]}>{statusText}</Text>
+      <Icon name="information" size={24} color={color} />
+      <Text style={statusStyles.statusLabel}>{title}</Text>
+      <Text style={[statusStyles.statusValue, { color }]}>{statusText}</Text>
     </View>
   );
 };

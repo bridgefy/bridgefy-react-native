@@ -1,4 +1,4 @@
-import { View, Text, Platform, ScrollView } from 'react-native';
+import { Platform, ScrollView, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { permissionStyles } from '../styles';
 import { usePermissions } from '../hooks';
@@ -21,8 +21,8 @@ export default function PermissionsScreen() {
           <Icon name="shield-check" size={64} color="#2196F3" />
           <Text style={permissionStyles.title}>Permissions Required</Text>
           <Text style={permissionStyles.subtitle}>
-            Bridgefy needs Bluetooth {Platform.OS === 'android' && 'and Location'}{' '}
-            permissions
+            Bridgefy needs Bluetooth{' '}
+            {Platform.OS === 'android' && 'and Location'} permissions
           </Text>
         </View>
 
@@ -36,8 +36,8 @@ export default function PermissionsScreen() {
           />
         ) : (
           <IOSPermissionsContent
-          onOpenSettings={openSettings}
-          onRequestPermissions={requestPermissions}
+            onOpenSettings={openSettings}
+            onRequestPermissions={requestPermissions}
           />
         )}
       </View>

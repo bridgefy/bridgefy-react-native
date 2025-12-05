@@ -197,7 +197,7 @@ export type BridgefyOperationModeStatus = {
   isStarted: boolean;
   shouldRunInService: boolean;
   debugInfo: string;
-  };
+};
 // ==================== TURBOMODULE SPEC ====================
 
 export interface Spec extends TurboModule {
@@ -308,7 +308,9 @@ export interface Spec extends TurboModule {
    */
   removeListeners(count: number): void;
 
-  setOperationMode(config: BridgefyOperationModeConfig): Promise<BridgefyOperationModeConfig>;
+  setOperationMode(
+    config: BridgefyOperationModeConfig
+  ): Promise<BridgefyOperationModeConfig>;
   getOperationMode(): Promise<BridgefyOperationModeConfig>;
   switchToBackground(): Promise<void>;
   switchToForeground(): Promise<void>;

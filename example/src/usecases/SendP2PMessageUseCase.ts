@@ -1,9 +1,7 @@
-import type { IP2PChatRepository } from "../repositories";
+import type { IP2PChatRepository } from '../repositories';
 
 export class SendP2PMessageUseCase {
-  constructor(
-    private readonly p2pChatRepository: IP2PChatRepository
-  ) {}
+  constructor(private readonly p2pChatRepository: IP2PChatRepository) {}
 
   async execute(text: string, peerId: string): Promise<string> {
     if (!text || text.trim().length === 0) {

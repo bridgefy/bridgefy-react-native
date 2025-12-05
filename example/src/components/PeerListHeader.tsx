@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { nearbyStyles } from '../styles';
 
@@ -7,7 +7,10 @@ interface PeerListHeaderProps {
   onRefresh: () => void;
 }
 
-export const PeerListHeader: React.FC<PeerListHeaderProps> = ({ connectedCount, onRefresh }) => {
+export const PeerListHeader: React.FC<PeerListHeaderProps> = ({
+  connectedCount,
+  onRefresh,
+}) => {
   return (
     <View style={nearbyStyles.header}>
       <View style={nearbyStyles.headerContent}>
@@ -19,9 +22,9 @@ export const PeerListHeader: React.FC<PeerListHeaderProps> = ({ connectedCount, 
           </Text>
         </View>
       </View>
-        <TouchableOpacity style={nearbyStyles.refreshIcon} onPress={onRefresh}>
-          <Icon name="refresh" size={24} color="#2196F3" />
-        </TouchableOpacity>
+      <TouchableOpacity style={nearbyStyles.refreshIcon} onPress={onRefresh}>
+        <Icon name="refresh" size={24} color="#2196F3" />
+      </TouchableOpacity>
     </View>
   );
 };

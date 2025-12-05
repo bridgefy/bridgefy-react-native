@@ -5,14 +5,14 @@
  * Displays all events from the global event store
  */
 
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useBridgefyEventStore } from '../BridgefyEventStore';

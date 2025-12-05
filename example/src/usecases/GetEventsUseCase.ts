@@ -1,10 +1,8 @@
-import type { SDKEvent } from "../entities/iSDKEvent";
-import type { ILogsRepository } from "../repositories";
+import type { SDKEvent } from '../entities/iSDKEvent';
+import type { ILogsRepository } from '../repositories';
 
 export class GetEventsUseCase {
-  constructor(
-    private readonly logsRepository: ILogsRepository
-  ) {}
+  constructor(private readonly logsRepository: ILogsRepository) {}
 
   async execute(): Promise<SDKEvent[]> {
     try {

@@ -6,21 +6,20 @@
  */
 
 import { create } from 'zustand';
-import {
-  BridgefyEvents,
-  BridgefyErrorCode,
-  type BridgefyReceiveDataEvent,
-  type BridgefyConnectEvent,
-  type BridgefyStartEvent,
-  type BridgefyError,
-  type BridgefyDisconnectEvent,
-  type BridgefySecureConnectionEvent,
-  type BridgefySendMessageEvent,
-} from 'bridgefy-react-native';
 import type {
   BridgefyDidSendDataProgress,
   BridgefyUpdatedConnectedEvent,
-} from '../../src/BridgefyReactNative';
+} from 'bridgefy-react-native';
+import {
+  type BridgefyConnectEvent,
+  type BridgefyDisconnectEvent,
+  type BridgefyError,
+  BridgefyEvents,
+  type BridgefyReceiveDataEvent,
+  type BridgefySecureConnectionEvent,
+  type BridgefySendMessageEvent,
+  type BridgefyStartEvent,
+} from 'bridgefy-react-native';
 
 export interface SDKEvent {
   id: string;
@@ -74,7 +73,6 @@ export const useBridgefyEventStore = create<BridgefyEventStoreState>(
     events: [],
 
     addEvent: (event: Omit<SDKEvent, 'id' | 'timestamp'>) => {
-      const state = get();
       const newEvent: SDKEvent = {
         ...event,
         id: `${Date.now()}-${Math.random()}`,

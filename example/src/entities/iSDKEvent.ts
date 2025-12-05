@@ -30,9 +30,7 @@ export interface LogsSnapshot {
 }
 
 export class SDKEventEntity {
-  constructor(
-    private readonly event: SDKEvent
-  ) {}
+  constructor(private readonly event: SDKEvent) {}
 
   getId(): string {
     return this.event.id;
@@ -92,4 +90,3 @@ export class SDKEventEntity {
     return this.event;
   }
 }
-

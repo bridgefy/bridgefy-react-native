@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import type { Peer } from '../entities';
-import { PeerRepository, type PeerEventHandlers } from '../repositories';
+import { type PeerEventHandlers, PeerRepository } from '../repositories';
 import { EstablishSecureConnectionUseCase, GetPeersUseCase } from '../usecases';
 
 export const usePeerList = () => {
@@ -13,8 +13,11 @@ export const usePeerList = () => {
   const repositoryRef = useRef(new PeerRepository());
   const repository = repositoryRef.current;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getPeersUseCase = new GetPeersUseCase(repository);
-  const establishSecureConnectionUseCase = new EstablishSecureConnectionUseCase(repository);
+  const establishSecureConnectionUseCase = new EstablishSecureConnectionUseCase(
+    repository
+  );
 
   useEffect(() => {
     const initialize = async () => {
@@ -48,7 +51,9 @@ export const usePeerList = () => {
 
         repository.subscribeToEvents(eventHandlers);
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to load peers');
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const error =
+          err instanceof Error ? err : new Error('Failed to load peers');
         setError(error);
         console.error('Hook initialization error:', error);
       } finally {
@@ -61,7 +66,7 @@ export const usePeerList = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, []);
+  }, [getPeersUseCase, repository]);
 
   const loadPeers = async () => {
     try {
@@ -70,7 +75,9 @@ export const usePeerList = () => {
       const updatedPeers = await getPeersUseCase.execute();
       setPeers(updatedPeers);
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to refresh peers');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Failed to refresh peers');
       setError(error);
       Alert.alert('Error', 'Failed to load peers. Please try again.');
     } finally {
@@ -85,14 +92,20 @@ export const usePeerList = () => {
       console.log('Successfully initiated secure connection with ***', peerId);
       Alert.alert('Success', 'Establishing secure connection with peer');
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to establish secure connection');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error
+          ? err
+          : new Error('Failed to establish secure connection');
       setError(error);
       Alert.alert('Error', error.message);
     }
   };
 
   const getConnectedPeersCount = (): number => {
-    return peers.filter((p) => p.status === 'connected' || p.status === 'secure').length;
+    return peers.filter(
+      (p) => p.status === 'connected' || p.status === 'secure'
+    ).length;
   };
 
   return {

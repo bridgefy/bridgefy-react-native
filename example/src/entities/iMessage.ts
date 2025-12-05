@@ -17,9 +17,7 @@ export interface ChatSnapshot {
 }
 
 export class MessageEntity {
-  constructor(
-    private readonly message: Message
-  ) {}
+  constructor(private readonly message: Message) {}
 
   getId(): string {
     return this.message.id;

@@ -1,10 +1,8 @@
-import type { SDKControlResult } from "../entities";
-import type { ISDKRepository } from "../repositories";
+import type { SDKControlResult } from '../entities';
+import type { ISDKRepository } from '../repositories';
 
 export class DestroySessionUseCase {
-  constructor(
-    private readonly sdkRepository: ISDKRepository
-  ) {}
+  constructor(private readonly sdkRepository: ISDKRepository) {}
 
   async execute(): Promise<SDKControlResult> {
     try {

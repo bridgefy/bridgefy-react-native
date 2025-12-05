@@ -1,10 +1,5 @@
-import React, { useRef, useLayoutEffect } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  FlatList,
-  View,
-} from 'react-native';
+import React, { useLayoutEffect, useRef } from 'react';
+import { FlatList, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { useP2PChat } from '../hooks';
 import { MessageInput } from '../components/MessageInput';
 import { P2PConnectionBanner } from '../components/P2PConnectionBanner';
@@ -22,16 +17,14 @@ interface P2PChatScreenProps {
   navigation: any;
 }
 
-export default function P2PChatScreen({ route, navigation }: Readonly<P2PChatScreenProps>) {
+export default function P2PChatScreen({
+  route,
+  navigation,
+}: Readonly<P2PChatScreenProps>) {
   const { peerId, peerName } = route.params;
 
-  const {
-    messages,
-    peerConnected,
-    sending,
-    sendMessage,
-    retryMessage,
-  } = useP2PChat({ peerId, peerName });
+  const { messages, peerConnected, sending, sendMessage, retryMessage } =
+    useP2PChat({ peerId, peerName });
 
   const flatListRef = useRef<FlatList>(null);
   const [inputText, setInputText] = React.useState('');
@@ -39,6 +32,7 @@ export default function P2PChatScreen({ route, navigation }: Readonly<P2PChatScr
   // Configurar header con estado de conexión
   useLayoutEffect(() => {
     navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <P2PHeaderRight peerConnected={peerConnected} />,
     });
   }, [navigation, peerConnected]);

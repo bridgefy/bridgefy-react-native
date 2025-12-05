@@ -1,11 +1,12 @@
-import type { IChatRepository } from "../repositories";
+import type { IChatRepository } from '../repositories';
 
 export class SendMessageUseCase {
-  constructor(
-    private readonly chatRepository: IChatRepository
-  ) {}
+  constructor(private readonly chatRepository: IChatRepository) {}
 
-  async execute(text: string, mode: 'broadcast' | 'direct' = 'broadcast'): Promise<string> {
+  async execute(
+    text: string,
+    mode: 'broadcast' | 'direct' = 'broadcast'
+  ): Promise<string> {
     if (!text || text.trim().length === 0) {
       throw new Error('Message text cannot be empty');
     }

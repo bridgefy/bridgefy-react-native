@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BridgefyPropagationProfile } from 'bridgefy-react-native';
 import type { SDKStatusSnapshot } from '../entities';
-import { SDKRepository, type SDKEventHandlers } from '../repositories';
+import { type SDKEventHandlers, SDKRepository } from '../repositories';
 import {
   CheckSDKStatusUseCase,
   DestroySessionUseCase,
   InitializeSDKUseCase,
   StartSDKUseCase,
-  StopSDKUseCase
+  StopSDKUseCase,
 } from '../usecases';
-import {EnvironmentConfig} from '../config';
+import { EnvironmentConfig } from '../config';
 
 export const useSDKStatus = () => {
   const [status, setStatus] = useState<SDKStatusSnapshot>({
@@ -26,6 +26,7 @@ export const useSDKStatus = () => {
   const repository = repositoryRef.current;
 
   // Inicializar use cases
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkStatusUseCase = new CheckSDKStatusUseCase(repository);
   const initializeUseCase = new InitializeSDKUseCase(repository);
   const startUseCase = new StartSDKUseCase(repository);
@@ -56,10 +57,10 @@ export const useSDKStatus = () => {
               connectedPeers: [],
             }));
           },
-          onPeerConnect: (userId) => {
+          onPeerConnect: () => {
             // Se actualiza a través de onPeersUpdated
           },
-          onPeerDisconnect: (userId) => {
+          onPeerDisconnect: () => {
             // Se actualiza a través de onPeersUpdated
           },
           onPeersUpdated: (peers) => {
@@ -89,7 +90,7 @@ export const useSDKStatus = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, []);
+  }, [checkStatusUseCase, repository]);
 
   const checkStatus = async () => {
     try {
@@ -97,7 +98,9 @@ export const useSDKStatus = () => {
       const result = await checkStatusUseCase.execute();
       setStatus(result);
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Check status failed');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Check status failed');
       setError(error);
     }
   };
@@ -106,7 +109,10 @@ export const useSDKStatus = () => {
     try {
       setError(null);
       setStatus((prev) => ({ ...prev, loading: true }));
-      const result = await initializeUseCase.execute(EnvironmentConfig.apikey, true);
+      const result = await initializeUseCase.execute(
+        EnvironmentConfig.apikey,
+        true
+      );
 
       if (result.success) {
         setStatus((prev) => ({
@@ -118,6 +124,7 @@ export const useSDKStatus = () => {
         throw result.error || new Error('Failed to initialize');
       }
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const error = err instanceof Error ? err : new Error('Initialize failed');
       setError(error);
       setStatus((prev) => ({ ...prev, loading: false }));
@@ -128,7 +135,9 @@ export const useSDKStatus = () => {
     try {
       setError(null);
       setStatus((prev) => ({ ...prev, loading: true }));
-      const result = await startUseCase.execute(BridgefyPropagationProfile.STANDARD);
+      const result = await startUseCase.execute(
+        BridgefyPropagationProfile.STANDARD
+      );
 
       if (result.success) {
         setStatus((prev) => ({
@@ -140,6 +149,7 @@ export const useSDKStatus = () => {
         throw result.error || new Error('Failed to start');
       }
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const error = err instanceof Error ? err : new Error('Start failed');
       setError(error);
       setStatus((prev) => ({ ...prev, loading: false }));
@@ -164,6 +174,7 @@ export const useSDKStatus = () => {
         throw result.error || new Error('Failed to stop');
       }
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       const error = err instanceof Error ? err : new Error('Stop failed');
       setError(error);
       setStatus((prev) => ({ ...prev, loading: false }));
@@ -189,7 +200,9 @@ export const useSDKStatus = () => {
         throw result.error || new Error('Failed to destroy session');
       }
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Destroy session failed');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Destroy session failed');
       setError(error);
       setStatus((prev) => ({ ...prev, loading: false }));
     }

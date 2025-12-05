@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import type { Peer } from '../entities';
 import { PeerFormatter } from '../utils';
@@ -20,10 +20,7 @@ export const PeerCard: React.FC<PeerCardProps> = ({
 
   return (
     <TouchableOpacity
-      style={[
-        nearbyStyles.peerCard,
-        !canChat && nearbyStyles.peerCardDisabled,
-      ]}
+      style={[nearbyStyles.peerCard, !canChat && nearbyStyles.peerCardDisabled]}
       onPress={() => onChat(peer)}
       disabled={!canChat}
       activeOpacity={0.7}
@@ -44,7 +41,8 @@ export const PeerCard: React.FC<PeerCardProps> = ({
               {PeerFormatter.formatUserId(peer.userId)}
             </Text>
             <Text style={nearbyStyles.peerSubtext}>
-              Connected {PeerFormatter.formatConnectionTime(peer.connectionTime)}
+              Connected{' '}
+              {PeerFormatter.formatConnectionTime(peer.connectionTime)}
             </Text>
             {peer.status === 'secure' && (
               <Text style={nearbyStyles.peerSubtext}>🔒 Secure Connection</Text>

@@ -1,4 +1,7 @@
-import Bridgefy, { BridgefyPropagationProfile, BridgefyOperationMode } from 'bridgefy-react-native';
+import Bridgefy, {
+  BridgefyOperationMode,
+  BridgefyPropagationProfile,
+} from 'bridgefy-react-native';
 import type { ISDKRepository, SDKEventHandlers } from './SDKRepository';
 import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
 
@@ -31,7 +34,12 @@ export class SDKRepository implements ISDKRepository {
     }
   }
 
-  async initialize(apiKey: string, logging: boolean, operationMode: null | BridgefyOperationMode): Promise<SDKControlResult> {
+  // @ts-ignore
+  async initialize(
+    apiKey: string,
+    logging: boolean,
+    operationMode?: BridgefyOperationMode
+  ): Promise<SDKControlResult> {
     try {
       const isAlreadyInitialized = await Bridgefy.isInitialized();
       if (isAlreadyInitialized) {
@@ -73,7 +81,10 @@ export class SDKRepository implements ISDKRepository {
         };
       }
 
-      await Bridgefy.start(undefined, propagationProfile as BridgefyPropagationProfile);
+      await Bridgefy.start(
+        undefined,
+        propagationProfile as BridgefyPropagationProfile
+      );
       return {
         success: true,
         message: 'Bridgefy SDK started successfully',
@@ -114,8 +125,7 @@ export class SDKRepository implements ISDKRepository {
   async destroySession(): Promise<SDKControlResult> {
     try {
       const isInitialized = await Bridgefy.isInitialized();
-      if (isInitialized)
-        await Bridgefy.destroySession();
+      if (isInitialized) await Bridgefy.destroySession();
 
       return {
         success: true,
@@ -172,7 +182,9 @@ export class SDKRepository implements ISDKRepository {
 
     Bridgefy.onFailToStart((error) => {
       console.error('Failed to start Bridgefy:', error);
-      const err = new Error((error as any)?.message ?? 'Bridgefy failed to start');
+      const err = new Error(
+        (error as any)?.message ?? 'Bridgefy failed to start'
+      );
       err.name = (error as any)?.name ?? 'BridgefyError';
       (err as any).code = (error as any)?.code;
       (err as any).original = error;

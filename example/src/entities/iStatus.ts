@@ -1,4 +1,12 @@
-export type SDKState = 'uninitialized' | 'initializing' | 'initialized' | 'starting' | 'started' | 'stopping' | 'stopped' | 'error';
+export type SDKState =
+  | 'uninitialized'
+  | 'initializing'
+  | 'initialized'
+  | 'starting'
+  | 'started'
+  | 'stopping'
+  | 'stopped'
+  | 'error';
 
 export interface SDKStatusSnapshot {
   isInitialized: boolean;
@@ -20,7 +28,7 @@ export class SDKLifecycle {
   constructor(
     private readonly state: SDKState,
     private readonly userId: string = '',
-    private readonly connectedPeers: string[] = [],
+    private readonly connectedPeers: string[] = []
   ) {}
 
   canInitialize(): boolean {

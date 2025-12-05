@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import type { P2PMessage } from '../entities';
 import { P2PChatRepository, type P2PEventHandlers } from '../repositories';
@@ -23,6 +23,7 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
   const messageService = messageServiceRef.current;
 
   const sendP2PMessageUseCase = new SendP2PMessageUseCase(repository);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getP2PUserIdUseCase = new GetP2PUserIdUseCase(repository);
 
   useEffect(() => {
@@ -65,7 +66,11 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
 
         repository.subscribeToP2PEvents(peerId, eventHandlers);
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to initialize P2P chat');
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const error =
+          err instanceof Error
+            ? err
+            : new Error('Failed to initialize P2P chat');
         setError(error);
         console.error('Hook initialization error:', error);
       }
@@ -77,7 +82,7 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
       repository.unsubscribeFromP2PEvents();
       messageService.clearMessages();
     };
-  }, [peerId]);
+  }, [getP2PUserIdUseCase, messageService, peerId, peerName, repository]);
 
   const sendMessage = async (text: string): Promise<void> => {
     if (!text.trim()) {
@@ -106,7 +111,9 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
       messageService.updateMessageId(tempId, messageId, 'sent');
       setMessages(messageService.getMessagesSorted());
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to send message');
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Failed to send message');
       setError(error);
 
       // Marcar mensaje como fallido
@@ -131,7 +138,10 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
     setMessages(messageService.getMessagesSorted());
 
     try {
-      const newMessageId = await sendP2PMessageUseCase.execute(message.text, peerId);
+      const newMessageId = await sendP2PMessageUseCase.execute(
+        message.text,
+        peerId
+      );
       messageService.updateMessageId(messageId, newMessageId, 'sent');
       setMessages(messageService.getMessagesSorted());
     } catch (err) {

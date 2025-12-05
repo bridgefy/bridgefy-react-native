@@ -1,10 +1,8 @@
-import type { PermissionState } from "../entities";
-import type { IPermissionRepository } from "../repositories";
+import type { PermissionState } from '../entities';
+import type { IPermissionRepository } from '../repositories';
 
 export class CheckPermissionsUseCase {
-  constructor(
-    private readonly permissionRepository: IPermissionRepository
-  ) {}
+  constructor(private readonly permissionRepository: IPermissionRepository) {}
 
   async execute(): Promise<PermissionState> {
     try {

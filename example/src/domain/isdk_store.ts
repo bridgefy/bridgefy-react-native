@@ -1,11 +1,11 @@
 import {
-  BridgefyErrorType,
+  BridgefyErrorCode,
   BridgefyPropagationProfile,
   type BridgefyTransmissionMode,
 } from 'bridgefy-react-native';
 
 interface IBridgefyError {
-  code: BridgefyErrorType;
+  code: BridgefyErrorCode;
   details?: number;
   message?: string;
 }

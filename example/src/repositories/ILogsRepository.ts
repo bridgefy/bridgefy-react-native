@@ -1,4 +1,4 @@
-import type { SDKEvent } from "../entities/iSDKEvent";
+import type { SDKEvent } from '../entities/iSDKEvent';
 
 export interface ILogsRepository {
   getEvents(): Promise<SDKEvent[]>;

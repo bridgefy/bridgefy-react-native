@@ -497,10 +497,10 @@ class BridgefyReactNativeModule(
           else -> OperationMode.HYBRID
         }
 
-      val success = modeManager.setOperationMode(opMode) ?: false
+      val success = modeManager.setOperationMode(opMode)
 
       if (success) {
-        promise.resolve(mapOf("mode" to mode.lowercase()))
+        promise.resolve(Arguments.createMap().apply { putString("mode", mode.lowercase()) })
       } else {
         promise.reject("MODE_CHANGE_FAILED", "Could not change operation mode")
       }
@@ -512,9 +512,9 @@ class BridgefyReactNativeModule(
 
   override fun getOperationMode(promise: Promise) {
     try {
-      val mode = modeManager.getOperationMode()?.name?.lowercase() ?: "hybrid"
+      val mode = modeManager.getOperationMode().name.lowercase()
       println("getOperationMode: $mode")
-      promise.resolve(mapOf("mode" to mode))
+      promise.resolve(Arguments.createMap().apply { putString("mode", mode) })
     } catch (e: Exception) {
       println("getOperationMode() failed: ${e.localizedMessage}")
       promise.reject("ERROR", e.message, e)
@@ -530,7 +530,7 @@ class BridgefyReactNativeModule(
         return
       }
 
-      val success = modeManager.switchToBackgroundMode() ?: false
+      val success = modeManager.switchToBackgroundMode()
       if (success) {
         promise.resolve(null)
       } else {
@@ -551,7 +551,7 @@ class BridgefyReactNativeModule(
         return
       }
 
-      val success = modeManager.switchToForegroundMode() ?: false
+      val success = modeManager.switchToForegroundMode()
       if (success) {
         promise.resolve(null)
       } else {
@@ -570,13 +570,13 @@ class BridgefyReactNativeModule(
       val isStart = serviceManager.getBridgefy()?.isStarted ?: false
 
       promise.resolve(
-        mapOf(
-          "operationMode" to mode,
-          "isInitialized" to isInit,
-          "isStarted" to isStart,
-          "shouldRunInService" to (modeManager.shouldRunInService()),
-          "debugInfo" to modeManager.getDebugInfo(),
-        ),
+        Arguments.createMap().apply {
+          putString("operationMode", mode)
+          putBoolean("isInitialized", isInit)
+          putBoolean("isStarted", isStart)
+          putBoolean("shouldRunInService", (modeManager.shouldRunInService()))
+          putString("debugInfo", modeManager.getDebugInfo())
+        }
       )
     } catch (e: Exception) {
       println("getOperationStatus() failed: ${e.localizedMessage}")
