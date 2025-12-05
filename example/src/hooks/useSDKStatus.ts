@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BridgefyPropagationProfile } from 'bridgefy-react-native';
+import { BridgefyOperationMode, BridgefyPropagationProfile } from 'bridgefy-react-native';
 import type { SDKStatusSnapshot } from '../entities';
 import { type SDKEventHandlers, SDKRepository } from '../repositories';
 import {
@@ -18,6 +18,7 @@ export const useSDKStatus = () => {
     userId: '',
     connectedPeers: [],
     propagationProfile: BridgefyPropagationProfile.STANDARD,
+    operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
     loading: false,
   });
 
@@ -194,6 +195,7 @@ export const useSDKStatus = () => {
           userId: '',
           connectedPeers: [],
           propagationProfile: BridgefyPropagationProfile.STANDARD,
+          operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
           loading: false,
         });
       } else {
@@ -208,6 +210,30 @@ export const useSDKStatus = () => {
     }
   };
 
+  const changeOperationMode = async (mode: BridgefyOperationMode): Promise<void> => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await repository.changeOperationMode({mode});
+
+      if (result.success) {
+        setStatus((prev) => ({
+          ...prev,
+          operationStatus: mode,
+          loading: false,
+        }));
+      } else {
+        throw result.error || new Error('Failed to change operation mode');
+      }
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Change operation mode failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  }
+
   return {
     status,
     error,
@@ -216,5 +242,6 @@ export const useSDKStatus = () => {
     start,
     stop,
     destroySession,
+    changeOperationMode,
   };
 };

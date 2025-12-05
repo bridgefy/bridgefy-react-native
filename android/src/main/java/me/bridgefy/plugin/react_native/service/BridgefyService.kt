@@ -347,6 +347,7 @@ class BridgefyService :
     verboseLogging: Boolean,
   ) {
     try {
+      isInitialized = serviceManager.getBridgefy()?.isInitialized ?: false
       if (isInitialized) {
         println("Bridgefy already initialized")
         sendErrorBroadcast("SERVICE_ALREADY_STARTED", "Bridgefy already initialized")

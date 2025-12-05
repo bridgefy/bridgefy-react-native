@@ -1,3 +1,4 @@
+import type { BridgefyOperationModeConfig } from 'bridgefy-react-native';
 import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
 
 export interface ISDKRepository {
@@ -9,6 +10,7 @@ export interface ISDKRepository {
   getConnectedPeers(): Promise<string[]>;
   subscribeToEvents(handlers: SDKEventHandlers): void;
   unsubscribeFromEvents(): void;
+  changeOperationMode(mode: BridgefyOperationModeConfig): Promise<SDKControlResult>;
 }
 
 export interface SDKEventHandlers {
