@@ -1,6 +1,7 @@
 import Bridgefy, {
   BridgefyOperationMode,
   BridgefyPropagationProfile,
+  type BridgefyOperationModeConfig,
 } from 'bridgefy-react-native';
 import type { ISDKRepository, SDKEventHandlers } from './SDKRepository';
 import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
@@ -14,10 +15,12 @@ export class SDKRepository implements ISDKRepository {
       const isStarted = await Bridgefy.isStarted();
       let userId = '';
       let connectedPeers: string[] = [];
+      let operationStatus: BridgefyOperationMode = BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode;
 
       if (isStarted) {
         userId = await Bridgefy.currentUserId();
         connectedPeers = (await Bridgefy.connectedPeers()) || [];
+        operationStatus = (await Bridgefy.getOperationMode()).mode.toUpperCase() as BridgefyOperationMode;
       }
 
       return {
@@ -26,6 +29,7 @@ export class SDKRepository implements ISDKRepository {
         userId,
         connectedPeers,
         propagationProfile: BridgefyPropagationProfile.STANDARD,
+        operationStatus,
         loading: false,
       };
     } catch (error) {
@@ -146,6 +150,30 @@ export class SDKRepository implements ISDKRepository {
     } catch (error) {
       console.error('Failed to get connected peers:', error);
       throw error;
+    }
+  }
+
+  async changeOperationMode(mode: BridgefyOperationModeConfig): Promise<SDKControlResult> {
+    try {
+      const isStarted = await Bridgefy.isStarted();
+      if (!isStarted) {
+        return {
+          success: false,
+          error: new Error('SDK must be started to change operation mode'),
+        };
+      }
+
+      await Bridgefy.setOperationMode(mode);
+      return {
+        success: true,
+        message: `Operation mode changed to ${mode} successfully`,
+      };
+    } catch (error: any) {
+      console.error('Failed to change operation mode:', error);
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
