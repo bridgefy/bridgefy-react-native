@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { BridgefyOperationMode, BridgefyPropagationProfile } from 'bridgefy-react-native';
 import type { SDKStatusSnapshot } from '../entities';
-import { type SDKEventHandlers, SDKRepository } from '../repositories';
+import { type SDKEventHandlers, SDKRepository, OperationRepository } from '../repositories';
 import {
+  ChangeOperationUseCase,
   CheckSDKStatusUseCase,
   DestroySessionUseCase,
   InitializeSDKUseCase,
@@ -25,6 +26,8 @@ export const useSDKStatus = () => {
   const [error, setError] = useState<Error | null>(null);
   const repositoryRef = useRef(new SDKRepository());
   const repository = repositoryRef.current;
+  const repositoryOperRef = useRef(new OperationRepository());
+  const repositoryOper = repositoryOperRef.current;
 
   // Inicializar use cases
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,6 +36,7 @@ export const useSDKStatus = () => {
   const startUseCase = new StartSDKUseCase(repository);
   const stopUseCase = new StopSDKUseCase(repository);
   const destroyUseCase = new DestroySessionUseCase(repository);
+  const changeOperationUseCase = new ChangeOperationUseCase(repositoryOper);
 
   useEffect(() => {
     const initialize = async () => {
@@ -97,7 +101,11 @@ export const useSDKStatus = () => {
     try {
       setError(null);
       const result = await checkStatusUseCase.execute();
-      setStatus(result);
+      const operationStatus = await repositoryOper.getOperationMode();
+      setStatus({
+        ...result,
+        operationStatus,
+      });
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const error =
@@ -214,7 +222,7 @@ export const useSDKStatus = () => {
     try {
       setError(null);
       setStatus((prev) => ({ ...prev, loading: true }));
-      const result = await repository.changeOperationMode({mode});
+      const result = await changeOperationUseCase.execute({mode});
 
       if (result.success) {
         setStatus((prev) => ({

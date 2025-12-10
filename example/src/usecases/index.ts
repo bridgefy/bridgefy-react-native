@@ -1,3 +1,4 @@
+export * from './ChangeOperationUseCase';
 export * from './CheckPermissionsUseCase';
 export * from './CheckSDKStatusUseCase';
 export * from './ClearEventsUseCase';
@@ -5,6 +6,7 @@ export * from './DestroySessionUseCase';
 export * from './EstablishSecureConnectionUseCase';
 export * from './GetCurrentUserIdUseCase';
 export * from './GetEventsUseCase';
+export * from './GetOperationUseCase';
 export * from './GetP2PUserIdUseCase';
 export * from './GetPeersUseCase';
 export * from './InitializeSDKUseCase';
