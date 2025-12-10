@@ -66,7 +66,7 @@ export const usePeerList = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, [getPeersUseCase, repository]);
+  }, []);
 
   const loadPeers = async () => {
     try {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { Alert, Platform, ScrollView, Text, View } from 'react-native';
 import { useSDKStatus } from '../hooks/useSDKStatus';
 import { StatusCard } from '../components/StatusCard';
 import { InfoCard } from '../components/InfoCard';
@@ -124,7 +124,7 @@ export default function StatusScreen() {
             />
           )}
 
-          {status.isStarted && status.operationStatus !== BridgefyOperationMode.BACKGROUND.toUpperCase() && (
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.BACKGROUND.toUpperCase() && (
             <ControlButton
               title="Set background mode"
               icon="arrange-send-to-back"
@@ -134,7 +134,7 @@ export default function StatusScreen() {
             />
           )}
 
-          {status.isStarted && status.operationStatus !== BridgefyOperationMode.FOREGROUND.toUpperCase() && (
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.FOREGROUND.toUpperCase() && (
             <ControlButton
               title="Set foreground mode"
               icon="arrange-send-backward"
