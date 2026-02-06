@@ -12,7 +12,7 @@ interface ControlButtonProps {
   icon: string;
   onPress: () => void;
   loading?: boolean;
-  variant: 'init' | 'start' | 'stop' | 'destroy' | 'refresh';
+  variant: 'init' | 'start' | 'stop' | 'destroy' | 'refresh' | 'background' | 'foreground';
   disabled?: boolean;
 }
 
@@ -31,6 +31,8 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
     ...(variant === 'stop' && statusStyles.stopButton),
     ...(variant === 'destroy' && statusStyles.destroyButton),
     ...(variant === 'refresh' && statusStyles.refreshButton),
+    ...(variant === 'background' && statusStyles.backGroundButton),
+    ...(variant === 'foreground' && statusStyles.foreGroundButton),
     opacity: disabled ? 0.5 : 1,
   };
 

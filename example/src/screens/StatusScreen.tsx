@@ -1,11 +1,12 @@
 import React from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { Alert, Platform, ScrollView, Text, View } from 'react-native';
 import { useSDKStatus } from '../hooks/useSDKStatus';
 import { StatusCard } from '../components/StatusCard';
 import { InfoCard } from '../components/InfoCard';
 import { ControlButton } from '../components/ControlButton';
 import { PeersList } from '../components/PeersList';
 import { statusStyles } from '../styles';
+import { BridgefyOperationMode } from 'bridgefy-react-native';
 
 export default function StatusScreen() {
   const {
@@ -16,6 +17,7 @@ export default function StatusScreen() {
     start,
     stop,
     destroySession,
+    changeOperationMode,
   } = useSDKStatus();
 
   const handleDestroySession = () => {
@@ -71,6 +73,11 @@ export default function StatusScreen() {
             value={status.propagationProfile}
             icon="sync"
           />
+          <InfoCard
+            label="Operation mode"
+            value={status.operationStatus}
+            icon="arrange-send-backward"
+          />
         </View>
 
         {/* Control Buttons */}
@@ -114,6 +121,26 @@ export default function StatusScreen() {
               onPress={handleDestroySession}
               loading={status.loading}
               variant="destroy"
+            />
+          )}
+
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.BACKGROUND.toUpperCase() && (
+            <ControlButton
+              title="Set background mode"
+              icon="arrange-send-to-back"
+              onPress={changeOperationMode.bind(null, BridgefyOperationMode.BACKGROUND)}
+              loading={status.loading}
+              variant="background"
+            />
+          )}
+
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.FOREGROUND.toUpperCase() && (
+            <ControlButton
+              title="Set foreground mode"
+              icon="arrange-send-backward"
+              onPress={changeOperationMode.bind(null, BridgefyOperationMode.FOREGROUND)}
+              loading={status.loading}
+              variant="foreground"
             />
           )}
 

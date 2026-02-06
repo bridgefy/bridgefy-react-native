@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+<<<<<<< HEAD
 import {
   BridgefyOperationMode,
   BridgefyPropagationProfile,
 } from 'bridgefy-react-native';
+=======
+import { BridgefyOperationMode, BridgefyPropagationProfile } from 'bridgefy-react-native';
+>>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
 import type { SDKStatusSnapshot } from '../entities';
-import { type SDKEventHandlers, SDKRepository } from '../repositories';
+import { type SDKEventHandlers, SDKRepository, OperationRepository } from '../repositories';
 import {
+  ChangeOperationUseCase,
   CheckSDKStatusUseCase,
   DestroySessionUseCase,
   InitializeSDKUseCase,
@@ -20,13 +25,20 @@ export const useSDKStatus = () => {
     isStarted: false,
     userId: '',
     connectedPeers: [],
+<<<<<<< HEAD
     propagationProfile: BridgefyPropagationProfile.REALTIME,
+=======
+    propagationProfile: BridgefyPropagationProfile.STANDARD,
+    operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
+>>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
     loading: false,
   });
 
   const [error, setError] = useState<Error | null>(null);
   const repositoryRef = useRef(new SDKRepository());
   const repository = repositoryRef.current;
+  const repositoryOperRef = useRef(new OperationRepository());
+  const repositoryOper = repositoryOperRef.current;
 
   // Inicializar use cases
 
@@ -35,6 +47,7 @@ export const useSDKStatus = () => {
   const startUseCase = new StartSDKUseCase(repository);
   const stopUseCase = new StopSDKUseCase(repository);
   const destroyUseCase = new DestroySessionUseCase(repository);
+  const changeOperationUseCase = new ChangeOperationUseCase(repositoryOper);
 
   useEffect(() => {
     const initialize = async () => {
@@ -99,7 +112,11 @@ export const useSDKStatus = () => {
     try {
       setError(null);
       const result = await checkStatusUseCase.execute();
-      setStatus(result);
+      const operationStatus = await repositoryOper.getOperationMode();
+      setStatus({
+        ...result,
+        operationStatus,
+      });
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const error =
@@ -197,7 +214,12 @@ export const useSDKStatus = () => {
           isStarted: false,
           userId: '',
           connectedPeers: [],
+<<<<<<< HEAD
           propagationProfile: BridgefyPropagationProfile.REALTIME,
+=======
+          propagationProfile: BridgefyPropagationProfile.STANDARD,
+          operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
+>>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
           loading: false,
         });
       } else {
@@ -212,6 +234,30 @@ export const useSDKStatus = () => {
     }
   };
 
+  const changeOperationMode = async (mode: BridgefyOperationMode): Promise<void> => {
+    try {
+      setError(null);
+      setStatus((prev) => ({ ...prev, loading: true }));
+      const result = await changeOperationUseCase.execute({mode});
+
+      if (result.success) {
+        setStatus((prev) => ({
+          ...prev,
+          operationStatus: mode,
+          loading: false,
+        }));
+      } else {
+        throw result.error || new Error('Failed to change operation mode');
+      }
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const error =
+        err instanceof Error ? err : new Error('Change operation mode failed');
+      setError(error);
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  }
+
   return {
     status,
     error,
@@ -220,5 +266,6 @@ export const useSDKStatus = () => {
     start,
     stop,
     destroySession,
+    changeOperationMode,
   };
 };

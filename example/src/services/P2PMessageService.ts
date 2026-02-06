@@ -1,5 +1,3 @@
-// import { P2PMessage, MessageStatus } from '../../domain/types/P2PMessage';
-
 import type { MessageStatus, P2PMessage } from '../entities';
 
 export class P2PMessageService {
