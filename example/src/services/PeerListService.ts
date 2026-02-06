@@ -1,4 +1,4 @@
-import type { Peer, PeerStatus } from "../entities";
+import type { Peer, PeerStatus } from '../entities';
 
 export class PeerListService {
   private readonly peers: Map<string, Peer> = new Map();
@@ -14,7 +14,8 @@ export class PeerListService {
       const updated = {
         ...existing,
         status,
-        connectionTime: status === 'connected' ? Date.now() : existing.connectionTime,
+        connectionTime:
+          status === 'connected' ? Date.now() : existing.connectionTime,
       };
       this.peers.set(userId, updated);
     }

@@ -8,14 +8,8 @@ import { LogsHeader } from '../components/LogsHeader';
 import { logsStyles } from '../styles';
 
 export default function LogsScreen() {
-  const {
-    events,
-    filter,
-    stats,
-    filteredEvents,
-    setFilter,
-    clearEvents,
-  } = useLogs();
+  const { events, filter, stats, filteredEvents, setFilter, clearEvents } =
+    useLogs();
 
   const flatListRef = useRef<FlatList>(null);
 
@@ -26,10 +20,7 @@ export default function LogsScreen() {
   return (
     <View style={logsStyles.container}>
       {/* Header */}
-      <LogsHeader
-        totalEvents={stats.all}
-        stats={stats}
-      />
+      <LogsHeader totalEvents={stats.all} stats={stats} />
 
       {/* Filter Tabs */}
       <FilterTabs

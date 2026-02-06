@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MessageFormatter } from '../utils';
 import { chatStyles } from '../styles';
@@ -17,9 +17,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
     <View
       style={[
         chatStyles.messageContainer,
-        message.isMine
-          ? chatStyles.myMessage
-          : chatStyles.theirMessage,
+        message.isMine ? chatStyles.myMessage : chatStyles.theirMessage,
       ]}
     >
       <View

@@ -62,6 +62,22 @@ RCT_EXTERN_METHOD(isInitialized:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(isStarted:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 
+// Operation Mode Control
+RCT_EXTERN_METHOD(setOperationMode:(NSDictionary *) config
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getOperationMode:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(switchToBackground:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(switchToForeground:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getOperationStatus:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
 // TurboModule setup
 /*
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

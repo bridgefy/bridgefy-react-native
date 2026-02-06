@@ -1,4 +1,4 @@
-import type { Message } from "../entities";
+import type { Message } from '../entities';
 
 export class ChatService {
   private readonly messages: Map<string, Message> = new Map();

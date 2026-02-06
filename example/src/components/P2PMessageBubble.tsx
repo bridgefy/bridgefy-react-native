@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { P2PFormatter } from '../utils';
 import type { P2PMessage } from '../entities';
@@ -21,9 +21,7 @@ export const P2PMessageBubble: React.FC<P2PMessageBubbleProps> = ({
     <TouchableOpacity
       style={[
         p2pChatStyles.messageContainer,
-        message.isMine
-          ? p2pChatStyles.myMessage
-          : p2pChatStyles.theirMessage,
+        message.isMine ? p2pChatStyles.myMessage : p2pChatStyles.theirMessage,
       ]}
       onPress={canRetry ? () => onRetry?.(message.id) : undefined}
       disabled={!canRetry}
@@ -69,9 +67,7 @@ export const P2PMessageBubble: React.FC<P2PMessageBubbleProps> = ({
         </View>
       </View>
 
-      {canRetry && (
-        <Text style={p2pChatStyles.retryHint}>Tap to retry</Text>
-      )}
+      {canRetry && <Text style={p2pChatStyles.retryHint}>Tap to retry</Text>}
     </TouchableOpacity>
   );
 };

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const statusStyles = StyleSheet.create({
   container: {
@@ -97,6 +97,14 @@ export const statusStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: 8,
+  },
+  foreGroundButton: {
+    backgroundColor: '#007bff',
+    borderWidth: 2,
+  },
+  backGroundButton: {
+    backgroundColor: '#607D8B',
+    borderWidth: 2,
   },
   peersSection: {
     backgroundColor: '#fff',

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { statusStyles } from '../styles';
 
@@ -8,7 +8,11 @@ interface InfoCardProps {
   icon?: string;
 }
 
-export const InfoCard: React.FC<InfoCardProps> = ({ label, value, icon = 'information' }) => {
+export const InfoCard: React.FC<InfoCardProps> = ({
+  label,
+  value,
+  icon = 'information',
+}) => {
   return (
     <View style={statusStyles.infoCard}>
       <View style={statusStyles.statusRow}>

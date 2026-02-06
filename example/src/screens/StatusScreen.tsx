@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Alert,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Alert, Platform, ScrollView, Text, View } from 'react-native';
 import { useSDKStatus } from '../hooks/useSDKStatus';
 import { StatusCard } from '../components/StatusCard';
 import { InfoCard } from '../components/InfoCard';
 import { ControlButton } from '../components/ControlButton';
 import { PeersList } from '../components/PeersList';
 import { statusStyles } from '../styles';
+import { BridgefyOperationMode } from 'bridgefy-react-native';
 
 export default function StatusScreen() {
   const {
@@ -22,6 +17,7 @@ export default function StatusScreen() {
     start,
     stop,
     destroySession,
+    changeOperationMode,
   } = useSDKStatus();
 
   const handleDestroySession = () => {
@@ -47,15 +43,13 @@ export default function StatusScreen() {
     if (error) {
       Alert.alert('Error', error.message);
     }
-  }, [error]);
+  }, []);
 
   return (
     <View style={statusStyles.container}>
       <ScrollView style={statusStyles.content}>
-
         <Text style={statusStyles.sectionTitle}>Status</Text>
         <View style={statusStyles.statusCard}>
-
           {/* Status Cards */}
           <StatusCard title="Initialized" isActive={status.isInitialized} />
           <StatusCard title="Started" isActive={status.isStarted} />
@@ -69,16 +63,21 @@ export default function StatusScreen() {
             />
           )}
 
-            <InfoCard
-              label="Connected Peers"
-              value={status.connectedPeers.length.toString()}
-              icon="lan-connect"
-            />
-            <InfoCard
-              label="Propagation Profile"
-              value={status.propagationProfile}
-              icon="sync"
-            />
+          <InfoCard
+            label="Connected Peers"
+            value={status.connectedPeers.length.toString()}
+            icon="lan-connect"
+          />
+          <InfoCard
+            label="Propagation Profile"
+            value={status.propagationProfile}
+            icon="sync"
+          />
+          <InfoCard
+            label="Operation mode"
+            value={status.operationStatus}
+            icon="arrange-send-backward"
+          />
         </View>
 
         {/* Control Buttons */}
@@ -125,6 +124,26 @@ export default function StatusScreen() {
             />
           )}
 
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.BACKGROUND.toUpperCase() && (
+            <ControlButton
+              title="Set background mode"
+              icon="arrange-send-to-back"
+              onPress={changeOperationMode.bind(null, BridgefyOperationMode.BACKGROUND)}
+              loading={status.loading}
+              variant="background"
+            />
+          )}
+
+          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.FOREGROUND.toUpperCase() && (
+            <ControlButton
+              title="Set foreground mode"
+              icon="arrange-send-backward"
+              onPress={changeOperationMode.bind(null, BridgefyOperationMode.FOREGROUND)}
+              loading={status.loading}
+              variant="foreground"
+            />
+          )}
+
           <ControlButton
             title="Refresh Status"
             icon="refresh"
@@ -137,6 +156,7 @@ export default function StatusScreen() {
         {/* Peers List */}
         <PeersList peers={status.connectedPeers} />
 
+        {/* eslint-disable-next-line react-native/no-inline-styles */}
         <View style={{ height: 40 }} />
       </ScrollView>
     </View>

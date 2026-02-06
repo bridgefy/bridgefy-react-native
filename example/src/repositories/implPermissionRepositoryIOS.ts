@@ -1,9 +1,6 @@
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import type { IPermissionRepository } from './PermissionRepository';
-import type {
-  PermissionCheckResult,
-  PermissionState
-} from '../entities';
+import type { PermissionCheckResult, PermissionState } from '../entities';
 
 export class PermissionRepositoryIOS implements IPermissionRepository {
   async checkPermissions(): Promise<PermissionState> {
@@ -34,6 +31,6 @@ export class PermissionRepositoryIOS implements IPermissionRepository {
   }
 
   async openAppSettings(): Promise<void> {
-    // iOS requires native implementation through Linking
+    Linking.openSettings();
   }
 }

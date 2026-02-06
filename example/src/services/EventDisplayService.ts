@@ -1,4 +1,4 @@
-import type { EventType } from "../entities/iSDKEvent";
+import type { EventType } from '../entities/iSDKEvent';
 
 export interface IconConfig {
   name: string;

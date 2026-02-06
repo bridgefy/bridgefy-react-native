@@ -1,4 +1,4 @@
-import type { PermissionCheckResult, PermissionState } from "../entities";
+import type { PermissionCheckResult, PermissionState } from '../entities';
 
 export interface IPermissionRepository {
   checkPermissions(): Promise<PermissionState>;

@@ -1,4 +1,9 @@
-import { SDKEventEntity, type EventStats, type FilterType, type SDKEvent } from "../entities/iSDKEvent";
+import {
+  type EventStats,
+  type FilterType,
+  type SDKEvent,
+  SDKEventEntity,
+} from '../entities/iSDKEvent';
 
 export class EventFilterService {
   filterByType(events: SDKEvent[], type: FilterType): SDKEvent[] {

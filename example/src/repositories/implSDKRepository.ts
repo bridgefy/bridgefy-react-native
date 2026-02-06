@@ -1,4 +1,7 @@
-import Bridgefy, { BridgefyPropagationProfile } from 'bridgefy-react-native';
+import Bridgefy, {
+  BridgefyOperationMode,
+  BridgefyPropagationProfile,
+} from 'bridgefy-react-native';
 import type { ISDKRepository, SDKEventHandlers } from './SDKRepository';
 import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
 
@@ -11,10 +14,12 @@ export class SDKRepository implements ISDKRepository {
       const isStarted = await Bridgefy.isStarted();
       let userId = '';
       let connectedPeers: string[] = [];
+      let operationStatus: BridgefyOperationMode = BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode;
 
       if (isStarted) {
         userId = await Bridgefy.currentUserId();
         connectedPeers = (await Bridgefy.connectedPeers()) || [];
+        operationStatus = (await Bridgefy.getOperationMode()).mode.toUpperCase() as BridgefyOperationMode;
       }
 
       return {
@@ -22,7 +27,12 @@ export class SDKRepository implements ISDKRepository {
         isStarted,
         userId,
         connectedPeers,
+<<<<<<< HEAD
+        propagationProfile: BridgefyPropagationProfile.REALTIME,
+=======
         propagationProfile: BridgefyPropagationProfile.STANDARD,
+        operationStatus,
+>>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
         loading: false,
       };
     } catch (error) {
@@ -31,7 +41,12 @@ export class SDKRepository implements ISDKRepository {
     }
   }
 
-  async initialize(apiKey: string, logging: boolean): Promise<SDKControlResult> {
+  // @ts-ignore
+  async initialize(
+    apiKey: string,
+    logging: boolean,
+    operationMode?: BridgefyOperationMode
+  ): Promise<SDKControlResult> {
     try {
       const isAlreadyInitialized = await Bridgefy.isInitialized();
       if (isAlreadyInitialized) {
@@ -41,7 +56,7 @@ export class SDKRepository implements ISDKRepository {
         };
       }
 
-      await Bridgefy.initialize(apiKey, logging);
+      await Bridgefy.initialize(apiKey, logging, operationMode);
       return {
         success: true,
         message: 'Bridgefy SDK initialized successfully',
@@ -73,7 +88,10 @@ export class SDKRepository implements ISDKRepository {
         };
       }
 
-      await Bridgefy.start(undefined, propagationProfile as BridgefyPropagationProfile);
+      await Bridgefy.start(
+        undefined,
+        propagationProfile as BridgefyPropagationProfile
+      );
       return {
         success: true,
         message: 'Bridgefy SDK started successfully',
@@ -114,8 +132,7 @@ export class SDKRepository implements ISDKRepository {
   async destroySession(): Promise<SDKControlResult> {
     try {
       const isInitialized = await Bridgefy.isInitialized();
-      if (isInitialized)
-        await Bridgefy.destroySession();
+      if (isInitialized) await Bridgefy.destroySession();
 
       return {
         success: true,
@@ -172,7 +189,9 @@ export class SDKRepository implements ISDKRepository {
 
     Bridgefy.onFailToStart((error) => {
       console.error('Failed to start Bridgefy:', error);
-      const err = new Error((error as any)?.message ?? 'Bridgefy failed to start');
+      const err = new Error(
+        (error as any)?.message ?? 'Bridgefy failed to start'
+      );
       err.name = (error as any)?.name ?? 'BridgefyError';
       (err as any).code = (error as any)?.code;
       (err as any).original = error;

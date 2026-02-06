@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { p2pChatStyles } from '../styles';
 
 interface P2PHeaderRightProps {

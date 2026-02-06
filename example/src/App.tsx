@@ -5,7 +5,7 @@
  * Collects all SDK events regardless of which screen is active
  */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -46,6 +46,7 @@ function NearbyStackNavigator() {
       />
       <NearbyStack.Screen
         name="P2PChat"
+        // @ts-ignore
         component={P2PChatScreen}
         options={({ route }: any) => ({
           title: `Chat with ${route.params.peerName.substring(0, 12)}...`,
@@ -69,7 +70,7 @@ export default function App() {
           tabBarActiveTintColor: '#2196F3',
           tabBarInactiveTintColor: '#757575',
           tabBarStyle: {
-            height: 60,
+            height: 100,
             paddingBottom: 8,
             paddingTop: 8,
           },
@@ -91,6 +92,7 @@ export default function App() {
           component={PermissionsScreen}
           options={{
             title: 'Permissions',
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ color, size }) => (
               <Icon name="shield-check" size={size} color={color} />
             ),
@@ -101,6 +103,7 @@ export default function App() {
           component={StatusScreen}
           options={{
             title: 'SDK Status',
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ color, size }) => (
               <Icon name="chart-donut" size={size} color={color} />
             ),
@@ -112,6 +115,7 @@ export default function App() {
           options={{
             title: 'Nearby',
             headerShown: false,
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ color, size }) => (
               <Icon name="bluetooth-connect" size={size} color={color} />
             ),
@@ -122,6 +126,7 @@ export default function App() {
           component={ChatScreen}
           options={{
             title: 'Broadcast',
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ color, size }) => (
               <Icon name="message-text" size={size} color={color} />
             ),
@@ -132,6 +137,7 @@ export default function App() {
           component={LogsScreen}
           options={{
             title: 'Events',
+            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ color, size }) => (
               <Icon name="text-box-multiple" size={size} color={color} />
             ),

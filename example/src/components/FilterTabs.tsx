@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import type { EventStats, FilterType } from '../entities/iSDKEvent';
 import { logsStyles } from '../styles';
 
@@ -8,7 +8,13 @@ interface FilterTabsProps {
   onFilterChange: (filter: FilterType) => void;
 }
 
-const FILTER_TYPES: FilterType[] = ['all', 'info', 'success', 'warning', 'error'];
+const FILTER_TYPES: FilterType[] = [
+  'all',
+  'info',
+  'success',
+  'warning',
+  'error',
+];
 
 export const FilterTabs: React.FC<FilterTabsProps> = ({
   activeFilter,

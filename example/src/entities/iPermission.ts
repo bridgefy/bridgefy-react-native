@@ -1,4 +1,9 @@
-export type PermissionStatus = 'granted' | 'denied' | 'blocked' | 'unavailable' | 'unknown';
+export type PermissionStatus =
+  | 'granted'
+  | 'denied'
+  | 'blocked'
+  | 'unavailable'
+  | 'unknown';
 
 export interface PermissionState {
   bluetooth: PermissionStatus;

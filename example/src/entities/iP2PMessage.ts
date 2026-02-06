@@ -27,9 +27,7 @@ export interface PeerInfo {
 }
 
 export class P2PMessageEntity {
-  constructor(
-    private readonly message: P2PMessage
-  ) {}
+  constructor(private readonly message: P2PMessage) {}
 
   getId(): string {
     return this.message.id;
@@ -91,4 +89,3 @@ export class P2PMessageEntity {
     });
   }
 }
-

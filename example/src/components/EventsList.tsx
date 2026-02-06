@@ -24,9 +24,7 @@ export const EventsList: React.FC<EventsListProps> = ({ events, listRef }) => {
         logsStyles.eventsList,
         events.length === 0 && logsStyles.emptyList,
       ]}
-      ListEmptyComponent={
-        <EmptyEventsList hasEvents={false} />
-      }
+      ListEmptyComponent={<EmptyEventsList hasEvents={false} />}
       scrollEnabled
       showsVerticalScrollIndicator={true}
       onContentSizeChange={() => {

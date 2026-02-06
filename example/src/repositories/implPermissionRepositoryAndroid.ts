@@ -1,13 +1,5 @@
-import {
-  Platform,
-  PermissionsAndroid,
-  Alert,
-  Linking,
-} from 'react-native';
-import type {
-  PermissionCheckResult,
-  PermissionState
-} from '../entities';
+import { Alert, Linking, PermissionsAndroid, Platform } from 'react-native';
+import type { PermissionCheckResult, PermissionState } from '../entities';
 import type { IPermissionRepository } from './PermissionRepository';
 
 export class PermissionRepositoryAndroid implements IPermissionRepository {
@@ -25,9 +17,18 @@ export class PermissionRepositoryAndroid implements IPermissionRepository {
     const [bluetoothScan, bluetoothConnect, bluetoothAdvertise, location] =
       await Promise.all([
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN),
-        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT),
-        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADVERTISE),
-        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION),
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT
+        ),
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADVERTISE
+        ),
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        ),
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+        ),
       ]);
 
     return {
@@ -69,6 +70,7 @@ export class PermissionRepositoryAndroid implements IPermissionRepository {
       PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
       PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADVERTISE,
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     ]);
 
     const allGranted = Object.values(results).every(
@@ -123,7 +125,10 @@ export class PermissionRepositoryAndroid implements IPermissionRepository {
       );
       denied.push('ACCESS_FINE_LOCATION');
     } else {
-      Alert.alert('Denied', 'Location permission is required for Bluetooth scanning');
+      Alert.alert(
+        'Denied',
+        'Location permission is required for Bluetooth scanning'
+      );
       denied.push('ACCESS_FINE_LOCATION');
     }
 

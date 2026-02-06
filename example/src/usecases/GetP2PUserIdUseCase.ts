@@ -1,9 +1,7 @@
-import type { IP2PChatRepository } from "../repositories";
+import type { IP2PChatRepository } from '../repositories';
 
 export class GetP2PUserIdUseCase {
-  constructor(
-    private readonly p2pChatRepository: IP2PChatRepository
-  ) {}
+  constructor(private readonly p2pChatRepository: IP2PChatRepository) {}
 
   async execute(): Promise<string> {
     try {

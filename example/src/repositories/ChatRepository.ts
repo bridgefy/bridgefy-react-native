@@ -1,4 +1,4 @@
-import type { Message } from "../entities";
+import type { Message } from '../entities';
 
 export interface IChatRepository {
   getCurrentUserId(): Promise<string>;

@@ -1,4 +1,4 @@
-import type { Peer } from "../entities";
+import type { Peer } from '../entities';
 
 export interface IPeerRepository {
   getPeers(): Promise<Peer[]>;

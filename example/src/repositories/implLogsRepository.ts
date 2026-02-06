@@ -1,6 +1,6 @@
-import { useBridgefyEventStore } from "../BridgefyEventStore";
-import type { SDKEvent } from "../entities/iSDKEvent";
-import type { ILogsRepository } from "./ILogsRepository";
+import { useBridgefyEventStore } from '../BridgefyEventStore';
+import type { SDKEvent } from '../entities/iSDKEvent';
+import type { ILogsRepository } from './ILogsRepository';
 
 export class LogsRepository implements ILogsRepository {
   private listeners: ((events: SDKEvent[]) => void)[] = [];
@@ -37,7 +37,7 @@ export class LogsRepository implements ILogsRepository {
 
   subscribeToEvents(handler: (events: SDKEvent[]) => void): void {
     this.listeners.push(handler);
-    
+
     // Suscribirse al store global
     const store = useBridgefyEventStore;
     store.subscribe((state) => {

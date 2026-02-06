@@ -1,20 +1,49 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- ============================================
+           FOREGROUND SERVICE PERMISSIONS
+           ============================================ -->
 
-  <!-- All Android versions -->
-  <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="30"
-                          tools:node="replace"/>
-  <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="replace"/>
-  <!-- Android 12+ (API 31+) -->
+  <!-- Core foreground service permission (Android 5.0+) -->
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+  <!-- Foreground service type for Bluetooth (Android 12+) -->
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+  <!-- Notification permission (Android 13+) -->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+  <!-- ============================================
+       BLUETOOTH PERMISSIONS
+       ============================================ -->
+
+  <!-- Android 12+ (API 31+) Bluetooth permissions -->
   <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
   <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
 
-  <!-- Legacy Android < 12 -->
-  <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
-  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+  <!-- All Android versions - Location (required for Bluetooth scanning) -->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-  <uses-permission android:name="android.permission.INTERNET"/>
+  <!-- Android < 12 (API < 31) - Legacy Bluetooth permissions -->
+  <uses-permission
+    android:name="android.permission.BLUETOOTH"
+    android:maxSdkVersion="30" />
+  <uses-permission
+    android:name="android.permission.BLUETOOTH_ADMIN"
+    android:maxSdkVersion="30" />
+
+  <!-- ============================================
+       NETWORK & BACKGROUND PERMISSIONS
+       ============================================ -->
+
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+  <!-- ============================================
+       APPLICATION CONFIGURATION
+       ============================================ -->
 
   <application
     android:name=".MainApplication"
@@ -24,6 +53,10 @@
     android:allowBackup="false"
     android:theme="@style/AppTheme"
     android:supportsRtl="true">
+    <!-- ============================================
+             MAIN ACTIVITY
+         ============================================ -->
+
     <activity
       android:name=".MainActivity"
       android:label="@string/app_name"
@@ -36,8 +69,37 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+
+    <!-- ============================================
+             FOREGROUND SERVICE DECLARATION
+         ============================================ -->
+    <!-- Bridgefy Foreground Service -->
+    <service
+      android:name="me.bridgefy.plugin.react_native.service.BridgefyService"
+      android:enabled="true"
+      android:exported="false"
+      android:foregroundServiceType="connectedDevice"/>
+
+    <!-- ============================================
+             BROADCAST RECEIVERS
+         ============================================ -->
+
+    <!-- Boot receiver for service auto-start
+    <receiver
+      android:name=".BootReceiver"
+      android:enabled="true"
+      android:exported="tr">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    -->
+
+    <!-- ============================================
+             META TAGS
+         ============================================ -->
     <meta-data
       android:name="com.bridgefy.sdk.API_KEY"
-      android:value="20ef12d5-9b06-4762-a581-3f2348fa1f0b"/>
+      android:value="YOUR_API_KEY_HERE"/>
   </application>
 </manifest>

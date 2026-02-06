@@ -1,4 +1,4 @@
-import type { P2PMessage } from "../entities";
+import type { P2PMessage } from '../entities';
 
 export interface IP2PChatRepository {
   getCurrentUserId(): Promise<string>;

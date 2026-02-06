@@ -17,6 +17,7 @@ export enum BridgefyPropagationProfile {
   SPARSE_NETWORK = 'sparseNetwork',
   LONG_REACH = 'longReach',
   SHORT_REACH = 'shortReach',
+  REALTIME = 'realTime',
 }
 
 export enum BridgefyTransmissionModeType {
@@ -88,11 +89,41 @@ export enum BridgefyErrorCode {
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
 }
 
+export enum BridgefyOperationMode {
+  /**
+   * FOREGROUND: SDK runs only when app is in foreground
+   * - Lower battery usage
+   * - No background service
+   * - Simpler lifecycle
+   * - Good for testing/development
+   */
+  FOREGROUND = 'foreground',
+
+  /**
+   * BACKGROUND: SDK runs in background service
+   * - Continuous mesh networking
+   * - Higher battery usage
+   * - Foreground service with notification
+   * - Survives app backgrounding
+   */
+  BACKGROUND = 'background',
+
+  /**
+   * HYBRID: Foreground in app, background in service
+   * - Starts in foreground when app is active
+   * - Switches to background service when app backgrounded
+   * - Automatic mode switching
+   * - Best of both worlds
+   */
+  HYBRID = 'hybrid',
+}
+
 // ==================== TYPES ====================
 
 export type BridgefyInitConfig = {
   apiKey: string;
   verboseLogging?: boolean;
+  operationMode?: BridgefyOperationMode;
 };
 
 export type BridgefyTransmissionMode = {
@@ -140,7 +171,7 @@ export type BridgefyDidSendDataProgress = {
   messageId: string;
   position: number;
   of: number;
-}
+};
 
 export type BridgefyReceiveDataEvent = {
   data: string;
@@ -157,6 +188,17 @@ export type BridgefyLicenseInfo = {
   isValid: boolean;
 };
 
+export type BridgefyOperationModeConfig = {
+  mode: BridgefyOperationMode;
+};
+
+export type BridgefyOperationModeStatus = {
+  operationMode: BridgefyOperationMode;
+  isInitialized: boolean;
+  isStarted: boolean;
+  shouldRunInService: boolean;
+  debugInfo: string;
+};
 // ==================== TURBOMODULE SPEC ====================
 
 export interface Spec extends TurboModule {
@@ -266,6 +308,14 @@ export interface Spec extends TurboModule {
    * @param count Number of listeners to remove
    */
   removeListeners(count: number): void;
+
+  setOperationMode(
+    config: BridgefyOperationModeConfig
+  ): Promise<BridgefyOperationModeConfig>;
+  getOperationMode(): Promise<BridgefyOperationModeConfig>;
+  switchToBackground(): Promise<void>;
+  switchToForeground(): Promise<void>;
+  getOperationStatus(): Promise<BridgefyOperationModeStatus>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('BridgefyReactNative');

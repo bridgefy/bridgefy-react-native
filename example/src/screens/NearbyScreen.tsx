@@ -48,7 +48,10 @@ export default function NearbyScreen() {
 
   return (
     <View style={nearbyStyles.container}>
-      <PeerListHeader connectedCount={getConnectedPeersCount()} onRefresh={loadPeers} />
+      <PeerListHeader
+        connectedCount={getConnectedPeersCount()}
+        onRefresh={loadPeers}
+      />
 
       <FlatList
         data={peers}

@@ -1,4 +1,9 @@
-import { View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  ActivityIndicator,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { chatStyles } from '../styles';
 
@@ -44,11 +49,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         {loading ? (
           <ActivityIndicator size="small" color="#fff" />
         ) : (
-          <Icon
-            name="send"
-            size={24}
-            color={canSend ? '#fff' : '#9E9E9E'}
-          />
+          <Icon name="send" size={24} color={canSend ? '#fff' : '#9E9E9E'} />
         )}
       </TouchableOpacity>
     </View>

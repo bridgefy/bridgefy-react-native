@@ -1,8 +1,13 @@
-import type { SDKControlResult, SDKStatusSnapshot } from "../entities";
+import type { SDKControlResult, SDKStatusSnapshot } from '../entities';
+import { BridgefyOperationMode } from 'bridgefy-react-native';
 
 export interface ISDKRepository {
   checkStatus(): Promise<SDKStatusSnapshot>;
-  initialize(apiKey: string, logging: boolean): Promise<SDKControlResult>;
+  initialize(
+    apiKey: string,
+    logging: boolean,
+    operationMode: BridgefyOperationMode | null
+  ): Promise<SDKControlResult>;
   start(propagationProfile: string): Promise<SDKControlResult>;
   stop(): Promise<SDKControlResult>;
   destroySession(): Promise<SDKControlResult>;

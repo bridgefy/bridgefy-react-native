@@ -1,7 +1,7 @@
 import Bridgefy from 'bridgefy-react-native';
-import type { Peer } from "../entities";
-import { PeerListService } from "../services";
-import type { IPeerRepository, PeerEventHandlers } from "./PeerRepository";
+import type { Peer } from '../entities';
+import { PeerListService } from '../services';
+import type { IPeerRepository, PeerEventHandlers } from './PeerRepository';
 
 export class PeerRepository implements IPeerRepository {
   private eventHandlers: PeerEventHandlers = {};

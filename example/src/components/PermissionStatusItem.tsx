@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import type { PermissionStatus } from '../entities';
 import { permissionStyles } from '../styles';
@@ -16,6 +16,7 @@ export const PermissionStatusItem: React.FC<PermissionStatusItemProps> = ({
   icon,
   status,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const getIcon = (status: PermissionStatus) => {
     switch (status) {
       case 'granted':
@@ -30,6 +31,7 @@ export const PermissionStatusItem: React.FC<PermissionStatusItemProps> = ({
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const getStatusText = (status: PermissionStatus): string => {
     const statusMap: Record<PermissionStatus, string> = {
       granted: 'Granted',

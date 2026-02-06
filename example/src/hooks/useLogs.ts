@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { EventStats, FilterType, SDKEvent } from '../entities/iSDKEvent';
 import { LogsRepository } from '../repositories/implLogsRepository';
 import { EventFilterService } from '../services';
@@ -47,6 +47,7 @@ export const useLogs = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
+    // @ts-ignore
   }, []);
 
   const updateStats = (eventList: SDKEvent[]) => {
