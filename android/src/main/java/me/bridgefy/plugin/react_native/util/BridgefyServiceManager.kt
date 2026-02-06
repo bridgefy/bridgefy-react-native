@@ -14,15 +14,19 @@ import android.util.Log
 import me.bridgefy.Bridgefy
 
 class BridgefyServiceManager private constructor(
-  context: Context,
+  val context: Context,
 ) {
   private var bridgefy: Bridgefy? = null
+
+  private val prefs: SharedPreferences by lazy { context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
+
+  init {
+    bridgefy = Bridgefy(context)
+  }
 
   companion object {
     private const val TAG = "BridgefyServiceManager"
     private const val PREFS_NAME = "BridgefyServicePrefs"
-    private const val KEY_SDK_INITIALIZED = "sdk_initialized"
-    private const val KEY_SDK_STARTED = "sdk_started"
     private const val KEY_CURRENT_USER_ID = "current_user_id"
     private const val KEY_SERVICE_STATUS = "service_status"
 
@@ -34,17 +38,9 @@ class BridgefyServiceManager private constructor(
       }
   }
 
-  fun setBridgefy(bridgefy: Bridgefy?) {
-    this.bridgefy = bridgefy
-  }
-
   fun getBridgefy(): Bridgefy? = bridgefy
 
-  private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
   // In-memory cache for quick access
-  private var cachedIsInitialized: Boolean? = null
-  private var cachedIsStarted: Boolean? = null
   private var cachedUserId: String? = null
 
   // MARK: - Public Methods
@@ -53,21 +49,13 @@ class BridgefyServiceManager private constructor(
    * Check if SDK is initialized in the background service
    * Returns cached value from SharedPreferences
    */
-  fun isSDKInitialized(): Boolean =
-    cachedIsInitialized ?: prefs.getBoolean(KEY_SDK_INITIALIZED, false).also {
-      cachedIsInitialized = it
-      Log.d(TAG, "isSDKInitialized: $it")
-    }
+  fun isSDKInitialized(): Boolean = bridgefy?.isInitialized ?: false
 
   /**
    * Check if SDK is started in the background service
    * Returns cached value from SharedPreferences
    */
-  fun isSDKStarted(): Boolean =
-    cachedIsStarted ?: prefs.getBoolean(KEY_SDK_STARTED, false).also {
-      cachedIsStarted = it
-      Log.d(TAG, "isSDKStarted: $it")
-    }
+  fun isSDKStarted(): Boolean = bridgefy?.isStarted ?: false
 
   /**
    * Get current user ID from background service
@@ -84,17 +72,9 @@ class BridgefyServiceManager private constructor(
    * Call this when app comes to foreground
    */
   fun refreshFromService() {
-    Log.d(TAG, "Refreshing state from service")
-    cachedIsInitialized = null
-    cachedIsStarted = null
     cachedUserId = null
-
     // Force reload from SharedPreferences
-    val isInit = prefs.getBoolean(KEY_SDK_INITIALIZED, false)
-    val isStart = prefs.getBoolean(KEY_SDK_STARTED, false)
     val userId = prefs.getString(KEY_CURRENT_USER_ID, null)
-
-    Log.d(TAG, "Refreshed - Initialized: $isInit, Started: $isStart, UserId: $userId")
   }
 
   /**
@@ -103,34 +83,6 @@ class BridgefyServiceManager private constructor(
   fun getServiceStatus(): String = prefs.getString(KEY_SERVICE_STATUS, "unknown") ?: "unknown"
 
   // MARK: - Internal Methods (called by BridgefyService)
-
-  /**
-   * Set SDK initialized state
-   * Called by BridgefyService after initialization
-   */
-  internal fun setSDKInitialized(initialized: Boolean) {
-    prefs.edit().apply {
-      putBoolean(KEY_SDK_INITIALIZED, initialized)
-      putString(KEY_SERVICE_STATUS, if (initialized) "INITIALIZED" else "NOT_INITIALIZED")
-      apply()
-    }
-    cachedIsInitialized = initialized
-    Log.d(TAG, "Set SDK initialized: $initialized")
-  }
-
-  /**
-   * Set SDK started state
-   * Called by BridgefyService after starting
-   */
-  internal fun setSDKStarted(started: Boolean) {
-    prefs.edit().apply {
-      putBoolean(KEY_SDK_STARTED, started)
-      putString(KEY_SERVICE_STATUS, if (started) "STARTED" else "STOPPED")
-      apply()
-    }
-    cachedIsStarted = started
-    Log.d(TAG, "Set SDK started: $started")
-  }
 
   /**
    * Set current user ID
@@ -154,26 +106,18 @@ class BridgefyServiceManager private constructor(
    */
   internal fun clearState() {
     prefs.edit().apply {
-      remove(KEY_SDK_INITIALIZED)
-      remove(KEY_SDK_STARTED)
       remove(KEY_CURRENT_USER_ID)
       putString(KEY_SERVICE_STATUS, "DESTROYED")
       apply()
     }
-    cachedIsInitialized = false
-    cachedIsStarted = false
     cachedUserId = null
     Log.d(TAG, "State cleared")
   }
 
-  /**
-   * Get debug info
-   */
-  fun getDebugInfo(): String =
-    """
-    SDK Initialized: ${isSDKInitialized()}
-    SDK Started: ${isSDKStarted()}
-    User ID: ${getCurrentUserId()}
-    Service Status: ${getServiceStatus()}
-    """.trimIndent()
+  internal fun refreshBridgefy() {
+    synchronized(this) {
+      bridgefy = null
+      bridgefy = Bridgefy(context)
+    }
+  }
 }

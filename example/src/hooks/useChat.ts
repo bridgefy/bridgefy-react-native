@@ -16,7 +16,6 @@ export const useChat = () => {
   const repository = repositoryRef.current;
   const chatService = chatServiceRef.current;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCurrentUserIdUseCase = new GetCurrentUserIdUseCase(repository);
   const sendMessageUseCase = new SendMessageUseCase(repository);
 
@@ -66,7 +65,7 @@ export const useChat = () => {
       repository.unsubscribeFromMessages();
       chatService.clearMessages();
     };
-  }, [chatService, getCurrentUserIdUseCase, repository]);
+  }, []);
 
   const sendMessage = async (text: string): Promise<void> => {
     try {

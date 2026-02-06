@@ -33,9 +33,8 @@ export const usePermissions = () => {
   useEffect(() => {
     checkPermissions();
     // @ts-ignore
-  }, [checkPermissions]);
+  }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkPermissions = async () => {
     setLoading(true);
     try {

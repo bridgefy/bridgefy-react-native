@@ -41,7 +41,7 @@ export default function StatusScreen() {
     if (error) {
       Alert.alert('Error', error.message);
     }
-  }, [error]);
+  }, []);
 
   return (
     <View style={statusStyles.container}>

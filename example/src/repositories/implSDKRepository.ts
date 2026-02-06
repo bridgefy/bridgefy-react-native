@@ -25,7 +25,7 @@ export class SDKRepository implements ISDKRepository {
         isStarted,
         userId,
         connectedPeers,
-        propagationProfile: BridgefyPropagationProfile.STANDARD,
+        propagationProfile: BridgefyPropagationProfile.REALTIME,
         loading: false,
       };
     } catch (error) {

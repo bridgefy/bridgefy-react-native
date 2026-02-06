@@ -21,7 +21,6 @@ export const useLogs = () => {
   const repository = repositoryRef.current;
   const filterService = filterServiceRef.current;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getEventsUseCase = new GetEventsUseCase(repository);
   const clearEventsUseCase = new ClearEventsUseCase(repository);
 
@@ -49,9 +48,8 @@ export const useLogs = () => {
       repository.unsubscribeFromEvents();
     };
     // @ts-ignore
-  }, [getEventsUseCase, repository, updateStats]);
+  }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStats = (eventList: SDKEvent[]) => {
     const newStats = filterService.calculateStats(eventList);
     setStats(newStats);

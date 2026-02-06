@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <!-- ============================================
            FOREGROUND SERVICE PERMISSIONS
            ============================================ -->
@@ -8,7 +7,7 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
   <!-- Foreground service type for Bluetooth (Android 12+) -->
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
   <!-- Notification permission (Android 13+) -->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -55,27 +54,6 @@
     android:theme="@style/AppTheme"
     android:supportsRtl="true">
     <!-- ============================================
-             FOREGROUND SERVICE DECLARATION
-         ============================================ -->
-
-    <!-- Bridgefy Foreground Service -->
-    <service
-      android:name="me.bridgefy.plugin.react_native.service.BridgefyService"
-      android:enabled="true"
-      android:exported="false"
-      android:foregroundServiceType="connectedDevice"
-      android:permission="android.permission.FOREGROUND_SERVICE">
-      <intent-filter>
-        <action android:name="com.bridgefy.START_SERVICE" />
-        <action android:name="com.bridgefy.STOP_SERVICE" />
-        <action android:name="com.bridgefy.INITIALIZE" />
-        <action android:name="com.bridgefy.START_SDK" />
-        <action android:name="com.bridgefy.STOP_SDK" />
-        <action android:name="com.bridgefy.SEND_MESSAGE" />
-        <action android:name="com.bridgefy.ESTABLISH_SECURE" />
-      </intent-filter>
-    </service>
-    <!-- ============================================
              MAIN ACTIVITY
          ============================================ -->
 
@@ -93,6 +71,16 @@
     </activity>
 
     <!-- ============================================
+             FOREGROUND SERVICE DECLARATION
+         ============================================ -->
+    <!-- Bridgefy Foreground Service -->
+    <service
+      android:name="me.bridgefy.plugin.react_native.service.BridgefyService"
+      android:enabled="true"
+      android:exported="false"
+      android:foregroundServiceType="connectedDevice"/>
+
+    <!-- ============================================
              BROADCAST RECEIVERS
          ============================================ -->
 
@@ -100,7 +88,7 @@
     <receiver
       android:name=".BootReceiver"
       android:enabled="true"
-      android:exported="true">
+      android:exported="tr">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />
       </intent-filter>

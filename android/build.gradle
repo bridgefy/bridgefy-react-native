@@ -80,7 +80,7 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
-  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.4", ext: "aar") {
+  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.5", ext: "aar") {
     transitive = true
   }
   implementation "com.facebook.react:react-android"

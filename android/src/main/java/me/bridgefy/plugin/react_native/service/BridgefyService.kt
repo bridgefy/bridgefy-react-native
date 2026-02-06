@@ -16,12 +16,15 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import androidx.core.graphics.drawable.IconCompat
+import androidx.core.graphics.drawable.toBitmap
 import me.bridgefy.Bridgefy
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
@@ -80,22 +83,19 @@ class BridgefyService :
     const val EXTRA_MESSAGE_ID = "MESSAGE_ID"
     const val EXTRA_POSITION = "POSITION"
     const val EXTRA_OF = "OF"
-    const val EXTRA_SENDER_ID = "SENDER_ID"
-    const val EXTRA_TIMESTAMP = "TIMESTAMP"
     const val EXTRA_ERROR_CODE = "ERROR_CODE"
     const val EXTRA_ERROR_MESSAGE = "ERROR_MESSAGE"
   }
 
   private val serviceManager by lazy { BridgefyServiceManager.getInstance(this) }
-  private var isInitialized = serviceManager.getBridgefy()?.isInitialized ?: false
-  private var isStarted = serviceManager.getBridgefy()?.isStarted ?: false
-  private var currentUserId: String = serviceManager.getCurrentUserId() ?: ""
+  private var currentUserId: String = ""
   private val connectedPeers = mutableListOf<String>()
 
   override fun onBind(p0: Intent?): IBinder? = null
 
   override fun onCreate() {
     super.onCreate()
+    currentUserId = serviceManager.getCurrentUserId() ?: ""
     // ISSUE 1 FIX: Check FOREGROUND_SERVICE permission in manifest
     verifyForegroundServicePermission()
 
@@ -115,7 +115,7 @@ class BridgefyService :
 
       ACTION_STOP_SERVICE -> {
         stopForegroundService()
-        // ISSUE 4 FIX: Return START_STICKY so service restarts if killed
+        // Return START_STICKY so service restarts if killed
         return START_STICKY
       }
 
@@ -127,7 +127,7 @@ class BridgefyService :
 
       ACTION_START_SDK -> {
         val userId = intent.getStringExtra(EXTRA_USER_ID)
-        val profile = intent.getStringExtra(EXTRA_PROPAGATION_PROFILE) ?: "standard"
+        val profile = intent.getStringExtra(EXTRA_PROPAGATION_PROFILE) ?: "realTime"
         startBridgefy(userId, profile)
       }
 
@@ -147,7 +147,7 @@ class BridgefyService :
       }
     }
 
-    // FIX 5: Return START_STICKY to ensure service restarts if killed
+    // Return START_STICKY to ensure service restarts if killed
     return START_STICKY
   }
 
@@ -160,9 +160,7 @@ class BridgefyService :
       val packageInfo = packageManager.getPackageInfo(packageName, android.content.pm.PackageManager.GET_PERMISSIONS)
       val requestedPermissions = packageInfo.requestedPermissions ?: arrayOf()
 
-      if (requestedPermissions.contains(permission)) {
-        println("✓ FOREGROUND_SERVICE permission found in manifest")
-      } else {
+      if (!requestedPermissions.contains(permission)) {
         println("✗ FOREGROUND_SERVICE permission missing from manifest!")
         println("  Add to AndroidManifest.xml: <uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\" />")
       }
@@ -171,7 +169,6 @@ class BridgefyService :
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val connectedDevicePermission = "android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"
         if (requestedPermissions.contains(connectedDevicePermission)) {
-          println("✓ FOREGROUND_SERVICE_CONNECTED_DEVICE permission found in manifest")
         } else {
           println("⚠ FOREGROUND_SERVICE_CONNECTED_DEVICE permission missing (optional)")
         }
@@ -186,22 +183,13 @@ class BridgefyService :
    */
   private fun startForegroundService() {
     try {
-      val notification = createNotification("Bridgefy Initializing", "Starting mesh networking...")
+      val notification = createNotification("${getHostAppName()}", "")
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         // Android 8+: Use startForegroundService()
-        println("Android 8+: Using startForegroundService()")
-
-        // Verify FOREGROUND_SERVICE permission at runtime
-        if (hasPermission("android.permission.FOREGROUND_SERVICE")) {
-          ServiceCompat.startForeground(this, NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE)
-          println("✓ startForegroundService() called successfully")
-        } else {
-          println("✗ FOREGROUND_SERVICE permission not granted!")
-        }
+        ServiceCompat.startForeground(this, NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
       } else {
         // Android 7-: Use legacy startForeground()
-        println("Android < 8: Using legacy startForeground()")
         startForeground(NOTIFICATION_ID, notification)
       }
     } catch (e: Exception) {
@@ -211,21 +199,19 @@ class BridgefyService :
 
   private fun stopForegroundService() {
     try {
-      println("Stopping foreground service")
-      if (isStarted) {
+      if (serviceManager.isSDKStarted()) {
         stopBridgefy()
       }
 
       // Stop foreground and remove notification
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        stopForeground(Service.STOP_FOREGROUND_REMOVE)
+        stopForeground(STOP_FOREGROUND_REMOVE)
       } else {
         @Suppress("DEPRECATION")
         stopForeground(true)
       }
 
       stopSelf()
-      println("✓ Foreground service stopped")
     } catch (e: Exception) {
       println("Error stopping foreground service: ${e.localizedMessage}")
     }
@@ -238,30 +224,25 @@ class BridgefyService :
     // Only create channel on Android 8+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       try {
-        println("Creating notification channel for Android 8+")
-
         val serviceChannel =
           NotificationChannel(
             CHANNEL_ID,
-            "Bridgefy Service",
+            getHostAppName(),
             NotificationManager.IMPORTANCE_LOW,
           ).apply {
-            description = "Bridgefy mesh networking service notifications"
             setShowBadge(false)
             enableLights(false)
             enableVibration(false)
             setSound(null, null)
           }
 
-        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+        val manager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
         if (manager != null) {
           manager.createNotificationChannel(serviceChannel)
-          println("✓ Notification channel created successfully")
 
           // Verify channel was created
           val existingChannel = manager.getNotificationChannel(CHANNEL_ID)
           if (existingChannel != null) {
-            println("✓ Verified: Notification channel exists")
           } else {
             println("✗ Error: Notification channel creation failed!")
           }
@@ -271,10 +252,10 @@ class BridgefyService :
       } catch (e: Exception) {
         println("Error creating notification channel: ${e.localizedMessage}")
       }
-    } else {
-      println("Skipping notification channel (Android < 8)")
     }
   }
+
+  private fun getHostAppName(): String = packageManager.getApplicationLabel(applicationInfo).toString()
 
   private fun createNotification(
     title: String,
@@ -305,7 +286,7 @@ class BridgefyService :
           .Builder(this, CHANNEL_ID)
           .setContentTitle(title)
           .setContentText(content)
-          .setSmallIcon(android.R.drawable.ic_dialog_info)
+          .setSmallIcon(getAppIcon())
           .setContentIntent(pendingIntent)
           .setOngoing(true)
           .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -316,6 +297,11 @@ class BridgefyService :
       println("Error creating notification${e.localizedMessage}")
       throw e
     }
+  }
+
+  private fun getAppIcon(): IconCompat {
+    val icon = applicationContext.packageManager.getApplicationIcon(applicationInfo)
+    return IconCompat.createWithAdaptiveBitmap(icon.toBitmap())
   }
 
   private fun updateNotification(
@@ -347,8 +333,7 @@ class BridgefyService :
     verboseLogging: Boolean,
   ) {
     try {
-      if (isInitialized) {
-        println("Bridgefy already initialized")
+      if (serviceManager.isSDKInitialized()) {
         sendErrorBroadcast("SERVICE_ALREADY_STARTED", "Bridgefy already initialized")
         return
       }
@@ -357,30 +342,17 @@ class BridgefyService :
         try {
           UUID.fromString(apiKey)
         } catch (e: IllegalArgumentException) {
-          println("Invalid API key format: ${e.localizedMessage}")
           sendErrorBroadcast("INVALID_API_KEY", "Invalid API key format: $apiKey")
           return
         }
 
-      serviceManager.setBridgefy(Bridgefy(applicationContext))
       serviceManager.getBridgefy()!!.init(
         uuid,
         this,
         if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None,
       )
-
-      isInitialized = true
-
-      // ✓ FIX: Persist initialization state
-      serviceManager.setSDKInitialized(true)
-
-      println("✓ Bridgefy initialized successfully")
-      updateNotification("Bridgefy Initialized", "Ready to start")
     } catch (e: Exception) {
-      serviceManager.setBridgefy(null)
-      println("Bridgefy initialization failed: ${e.localizedMessage}")
-      // ✓ FIX: Persist initialization state
-      serviceManager.setSDKInitialized(false)
+      // serviceManager.releaseBridgefy()
       sendErrorBroadcast("INITIALIZATION_FAILED", e.message ?: "Unknown error")
     }
   }
@@ -390,24 +362,23 @@ class BridgefyService :
     propagationProfile: String,
   ) {
     try {
-      if (!isInitialized) {
-        println("Bridgefy not initialized")
+      if (!serviceManager.isSDKInitialized()) {
         sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not initialized")
         return
       }
 
-      if (isStarted) {
-        println("Bridgefy already started")
+      if (serviceManager.isSDKStarted()) {
         sendErrorBroadcast("SERVICE_ALREADY_STARTED", "Bridgefy already started")
         return
       }
 
       val profile =
         when (propagationProfile.lowercase()) {
-          "high_density_network" -> PropagationProfile.HighDensityEnvironment
-          "sparse_network" -> PropagationProfile.SparseEnvironment
-          "long_reach" -> PropagationProfile.LongReach
-          "short_reach" -> PropagationProfile.ShortReach
+          "highDensityNetwork" -> PropagationProfile.HighDensityEnvironment
+          "sparseNetwork" -> PropagationProfile.SparseEnvironment
+          "longReach" -> PropagationProfile.LongReach
+          "shortReach" -> PropagationProfile.ShortReach
+          "realTime" -> PropagationProfile.Realtime
           else -> PropagationProfile.Standard
         }
 
@@ -421,26 +392,20 @@ class BridgefyService :
         }
 
       serviceManager.getBridgefy()?.start(customUserId, profile)
-      println("✓ Bridgefy started with profile: $propagationProfile")
     } catch (e: Exception) {
-      println("Failed to start Bridgefy: ${e.localizedMessage}")
       sendErrorBroadcast("START_FAILED", e.message ?: "Unknown error")
     }
   }
 
   private fun stopBridgefy() {
     try {
-      if (!isStarted) {
-        println("Bridgefy not started")
+      if (!serviceManager.isSDKStarted()) {
         sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not started")
         return
       }
 
       serviceManager.getBridgefy()?.stop()
-      isStarted = false
-      println("✓ Bridgefy stopped")
     } catch (e: Exception) {
-      println("Failed to stop Bridgefy: ${e.localizedMessage}")
       sendErrorBroadcast("STOP_FAILED", e.message ?: "Unknown error")
     }
   }
@@ -450,7 +415,7 @@ class BridgefyService :
     transmissionMode: TransmissionMode,
   ) {
     try {
-      if (!isStarted) {
+      if (!serviceManager.isSDKStarted()) {
         sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not started")
         return
       }
@@ -463,7 +428,7 @@ class BridgefyService :
 
   private fun establishSecureConnection(userId: String) {
     try {
-      if (!isStarted) {
+      if (!serviceManager.isSDKStarted()) {
         sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not started")
         return
       }
@@ -485,14 +450,11 @@ class BridgefyService :
   // MARK: - BridgefyClient Delegate Methods (SDK 1.2.4)
 
   override fun onStarted(userId: UUID) {
-    isStarted = true
     currentUserId = userId.toString()
 
-    // ✓ FIX: Persist state to SharedPreferences
-    serviceManager.setSDKStarted(true)
     serviceManager.setCurrentUserId(userId.toString())
 
-    updateNotification("Bridgefy Active", "Connected as ${userId.toString().substring(0, 8)}...")
+    updateNotification("${getHostAppName()}", "")
 
     sendBroadcast(
       Intent(EVENT_BRIDGEFY_DID_START).apply {
@@ -502,12 +464,7 @@ class BridgefyService :
   }
 
   override fun onStopped() {
-    isStarted = false
-
-    // ✓ FIX: Update persistent state
-    serviceManager.setSDKStarted(false)
-
-    updateNotification("Bridgefy Stopped", "Service inactive")
+    updateNotification("${getHostAppName()}", "")
 
     sendBroadcast(Intent(EVENT_BRIDGEFY_DID_STOP))
   }
@@ -532,7 +489,6 @@ class BridgefyService :
 
   override fun onConnected(peerID: UUID) {
     connectedPeers.add(peerID.toString())
-    updateNotification("Peer Connected", "${connectedPeers.size} peers connected")
 
     sendBroadcast(
       Intent(EVENT_BRIDGEFY_DID_CONNECT).apply {
@@ -544,7 +500,7 @@ class BridgefyService :
   override fun onConnectedPeers(connectedPeers: List<UUID>) {
     this.connectedPeers.clear()
     this.connectedPeers.addAll(connectedPeers.map(UUID::toString).distinct())
-    updateNotification("Peer Connected", "${this.connectedPeers.size} peers connected")
+
     sendBroadcast(
       Intent(EVENT_BRIDGEFY_DID_UPDATE_CONNECTED_PEERS).apply {
         putStringArrayListExtra(EXTRA_CONNECTED_PEERS, ArrayList(connectedPeers.map(UUID::toString)))
@@ -658,12 +614,12 @@ class BridgefyService :
   }
 
   override fun onDestroy() {
-    if (isStarted) {
+    if (serviceManager.isSDKStarted()) {
       stopBridgefy()
     }
     // Clear state when service is destroyed
     serviceManager.clearState()
-    serviceManager.setBridgefy(null)
+    serviceManager.refreshBridgefy()
     super.onDestroy()
   }
 }

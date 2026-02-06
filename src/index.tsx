@@ -87,7 +87,7 @@ export class Bridgefy {
    */
   async start(
     userId?: string,
-    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.STANDARD
+    propagationProfile: BridgefyPropagationProfile = BridgefyPropagationProfile.REALTIME
   ): Promise<void> {
     return BridgefyReactNative.start(userId, propagationProfile);
   }

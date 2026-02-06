@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { BridgefyPropagationProfile } from 'bridgefy-react-native';
+import {
+  BridgefyOperationMode,
+  BridgefyPropagationProfile,
+} from 'bridgefy-react-native';
 import type { SDKStatusSnapshot } from '../entities';
 import { type SDKEventHandlers, SDKRepository } from '../repositories';
 import {
@@ -17,7 +20,7 @@ export const useSDKStatus = () => {
     isStarted: false,
     userId: '',
     connectedPeers: [],
-    propagationProfile: BridgefyPropagationProfile.STANDARD,
+    propagationProfile: BridgefyPropagationProfile.REALTIME,
     loading: false,
   });
 
@@ -26,7 +29,7 @@ export const useSDKStatus = () => {
   const repository = repositoryRef.current;
 
   // Inicializar use cases
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const checkStatusUseCase = new CheckSDKStatusUseCase(repository);
   const initializeUseCase = new InitializeSDKUseCase(repository);
   const startUseCase = new StartSDKUseCase(repository);
@@ -90,7 +93,7 @@ export const useSDKStatus = () => {
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, [checkStatusUseCase, repository]);
+  }, []);
 
   const checkStatus = async () => {
     try {
@@ -111,7 +114,8 @@ export const useSDKStatus = () => {
       setStatus((prev) => ({ ...prev, loading: true }));
       const result = await initializeUseCase.execute(
         EnvironmentConfig.apikey,
-        true
+        true,
+        BridgefyOperationMode.HYBRID
       );
 
       if (result.success) {
@@ -136,7 +140,7 @@ export const useSDKStatus = () => {
       setError(null);
       setStatus((prev) => ({ ...prev, loading: true }));
       const result = await startUseCase.execute(
-        BridgefyPropagationProfile.STANDARD
+        BridgefyPropagationProfile.REALTIME
       );
 
       if (result.success) {
@@ -193,7 +197,7 @@ export const useSDKStatus = () => {
           isStarted: false,
           userId: '',
           connectedPeers: [],
-          propagationProfile: BridgefyPropagationProfile.STANDARD,
+          propagationProfile: BridgefyPropagationProfile.REALTIME,
           loading: false,
         });
       } else {

@@ -17,6 +17,7 @@ export enum BridgefyPropagationProfile {
   SPARSE_NETWORK = 'sparseNetwork',
   LONG_REACH = 'longReach',
   SHORT_REACH = 'shortReach',
+  REALTIME = 'realTime',
 }
 
 export enum BridgefyTransmissionModeType {

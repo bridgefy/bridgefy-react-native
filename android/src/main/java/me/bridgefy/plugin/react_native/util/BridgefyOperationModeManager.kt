@@ -13,187 +13,181 @@ import android.content.SharedPreferences
 import android.util.Log
 
 enum class OperationMode {
-    FOREGROUND,  // SDK runs only in app
-    BACKGROUND,  // SDK runs in service
-    HYBRID       // SDK switches between app and service
+  FOREGROUND, // SDK runs only in app
+  BACKGROUND, // SDK runs in service
+  HYBRID, // SDK switches between app and service
 }
 
-class BridgefyOperationModeManager private constructor(context: Context) {
+class BridgefyOperationModeManager private constructor(
+  context: Context,
+) {
+  companion object {
+    private const val TAG = "OperationModeManager"
+    private const val PREFS_NAME = "BridgefyOperationMode"
+    private const val KEY_OPERATION_MODE = "operation_mode"
+    private const val KEY_CURRENT_MODE = "current_mode"
 
-    companion object {
-        private const val TAG = "OperationModeManager"
-        private const val PREFS_NAME = "BridgefyOperationMode"
-        private const val KEY_OPERATION_MODE = "operation_mode"
-        private const val KEY_CURRENT_MODE = "current_mode"
+    private var instance: BridgefyOperationModeManager? = null
 
-        private var instance: BridgefyOperationModeManager? = null
+    fun getInstance(context: Context): BridgefyOperationModeManager =
+      instance ?: synchronized(this) {
+        instance ?: BridgefyOperationModeManager(context).also { instance = it }
+      }
+  }
 
-        fun getInstance(context: Context): BridgefyOperationModeManager {
-            return instance ?: synchronized(this) {
-                instance ?: BridgefyOperationModeManager(context).also { instance = it }
-            }
-        }
+  private val context: Context = context.applicationContext
+  private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+  private var currentOperationMode: OperationMode = OperationMode.HYBRID
+  private var currentActiveMode: OperationMode = OperationMode.FOREGROUND
+  private var modeChangeListener: ((OperationMode) -> Unit)? = null
+
+  init {
+    loadModeFromPreferences()
+  }
+
+  // MARK: - Public Methods
+
+  /**
+   * Set the operation mode
+   */
+  fun setOperationMode(mode: OperationMode): Boolean {
+    Log.d(TAG, "Setting operation mode to: $mode")
+
+    if (currentOperationMode == mode) {
+      Log.d(TAG, "Already in mode: $mode")
+      return true
     }
 
-    private val context: Context = context.applicationContext
-    private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    currentOperationMode = mode
+    saveModeToPreferences(mode)
 
-    private var currentOperationMode: OperationMode = OperationMode.HYBRID
-    private var currentActiveMode: OperationMode = OperationMode.FOREGROUND
-    private var modeChangeListener: ((OperationMode) -> Unit)? = null
-
-    init {
-        loadModeFromPreferences()
-    }
-
-    // MARK: - Public Methods
-
-    /**
-     * Set the operation mode
-     */
-    fun setOperationMode(mode: OperationMode): Boolean {
-        Log.d(TAG, "Setting operation mode to: $mode")
-
-        if (currentOperationMode == mode) {
-            Log.d(TAG, "Already in mode: $mode")
-            return true
-        }
-
-        currentOperationMode = mode
-        saveModeToPreferences(mode)
-
-        when (mode) {
-            OperationMode.FOREGROUND -> {
-                Log.d(TAG, "✓ Switched to FOREGROUND mode")
-                currentActiveMode = OperationMode.FOREGROUND
-            }
-            OperationMode.BACKGROUND -> {
-                Log.d(TAG, "✓ Switched to BACKGROUND mode")
-                currentActiveMode = OperationMode.BACKGROUND
-            }
-            OperationMode.HYBRID -> {
-                Log.d(TAG, "✓ Switched to HYBRID mode")
-                currentActiveMode = OperationMode.FOREGROUND  // Starts in foreground
-            }
-        }
-
-        notifyModeChanged(mode)
-        return true
-    }
-
-    /**
-     * Get current operation mode
-     */
-    fun getOperationMode(): OperationMode {
-        return currentOperationMode
-    }
-
-    /**
-     * Get currently active mode (different from operation mode in HYBRID)
-     */
-    fun getCurrentActiveMode(): OperationMode {
-        return currentActiveMode
-    }
-
-    /**
-     * Check if SDK should run in service
-     */
-    fun shouldRunInService(): Boolean {
-        return when (currentOperationMode) {
-            OperationMode.BACKGROUND -> true
-            OperationMode.HYBRID -> currentActiveMode == OperationMode.BACKGROUND
-            OperationMode.FOREGROUND -> false
-        }
-    }
-
-    /**
-     * Check if SDK should run in app
-     */
-    fun shouldRunInApp(): Boolean {
-        return !shouldRunInService() || currentOperationMode == OperationMode.HYBRID
-    }
-
-    /**
-     * Switch to background (used in HYBRID mode when app backgrounds)
-     */
-    fun switchToBackgroundMode(): Boolean {
-        if (currentOperationMode != OperationMode.HYBRID) {
-            Log.w(TAG, "Cannot switch mode outside of HYBRID mode")
-            return false
-        }
-
-        Log.d(TAG, "Switching to BACKGROUND (app backgrounded)")
-        currentActiveMode = OperationMode.BACKGROUND
-        saveModeToPreferences(currentOperationMode)
-        notifyModeChanged(currentOperationMode)
-        return true
-    }
-
-    /**
-     * Switch to foreground (used in HYBRID mode when app comes to foreground)
-     */
-    fun switchToForegroundMode(): Boolean {
-        if (currentOperationMode != OperationMode.HYBRID) {
-            Log.w(TAG, "Cannot switch mode outside of HYBRID mode")
-            return false
-        }
-
-        Log.d(TAG, "Switching to FOREGROUND (app resumed)")
+    when (mode) {
+      OperationMode.FOREGROUND -> {
+        Log.d(TAG, "✓ Switched to FOREGROUND mode")
         currentActiveMode = OperationMode.FOREGROUND
-        saveModeToPreferences(currentOperationMode)
-        notifyModeChanged(currentOperationMode)
-        return true
+      }
+      OperationMode.BACKGROUND -> {
+        Log.d(TAG, "✓ Switched to BACKGROUND mode")
+        currentActiveMode = OperationMode.BACKGROUND
+      }
+      OperationMode.HYBRID -> {
+        Log.d(TAG, "✓ Switched to HYBRID mode")
+        currentActiveMode = OperationMode.FOREGROUND // Starts in foreground
+      }
     }
 
-    /**
-     * Register listener for mode changes
-     */
-    fun setModeChangeListener(listener: (OperationMode) -> Unit) {
-        modeChangeListener = listener
+    notifyModeChanged(mode)
+    return true
+  }
+
+  /**
+   * Get current operation mode
+   */
+  fun getOperationMode(): OperationMode = currentOperationMode
+
+  /**
+   * Get currently active mode (different from operation mode in HYBRID)
+   */
+  fun getCurrentActiveMode(): OperationMode = currentActiveMode
+
+  /**
+   * Check if SDK should run in service
+   */
+  fun shouldRunInService(): Boolean =
+    when (currentOperationMode) {
+      OperationMode.BACKGROUND -> true
+      OperationMode.HYBRID -> currentActiveMode == OperationMode.BACKGROUND
+      OperationMode.FOREGROUND -> false
     }
 
-    /**
-     * Get debug info
-     */
-    fun getDebugInfo(): String {
-        return """
-            Operation Mode: $currentOperationMode
-            Current Active: $currentActiveMode
-            Should Run In Service: ${shouldRunInService()}
-            Should Run In App: ${shouldRunInApp()}
-        """.trimIndent()
+  /**
+   * Check if SDK should run in app
+   */
+  fun shouldRunInApp(): Boolean = !shouldRunInService() || currentOperationMode == OperationMode.HYBRID
+
+  /**
+   * Switch to background (used in HYBRID mode when app backgrounds)
+   */
+  fun switchToBackgroundMode(): Boolean {
+    if (currentOperationMode != OperationMode.HYBRID) {
+      Log.w(TAG, "Cannot switch mode outside of HYBRID mode")
+      return false
     }
 
-    // MARK: - Private Methods
+    Log.d(TAG, "Switching to BACKGROUND (app backgrounded)")
+    currentActiveMode = OperationMode.BACKGROUND
+    saveModeToPreferences(currentOperationMode)
+    notifyModeChanged(currentOperationMode)
+    return true
+  }
 
-    private fun saveModeToPreferences(mode: OperationMode) {
-        prefs.edit().apply {
-            putString(KEY_OPERATION_MODE, mode.name)
-            putString(KEY_CURRENT_MODE, currentActiveMode.name)
-            apply()
-        }
+  /**
+   * Switch to foreground (used in HYBRID mode when app comes to foreground)
+   */
+  fun switchToForegroundMode(): Boolean {
+    if (currentOperationMode != OperationMode.HYBRID) {
+      Log.w(TAG, "Cannot switch mode outside of HYBRID mode")
+      return false
     }
 
-    private fun loadModeFromPreferences() {
-        val modeStr = prefs.getString(KEY_OPERATION_MODE, OperationMode.HYBRID.name)
-        val activeStr = prefs.getString(KEY_CURRENT_MODE, OperationMode.FOREGROUND.name)
+    Log.d(TAG, "Switching to FOREGROUND (app resumed)")
+    currentActiveMode = OperationMode.FOREGROUND
+    saveModeToPreferences(currentOperationMode)
+    notifyModeChanged(currentOperationMode)
+    return true
+  }
 
-        currentOperationMode = try {
-            OperationMode.valueOf(modeStr ?: OperationMode.HYBRID.name)
-        } catch (e: Exception) {
-            OperationMode.HYBRID
-        }
+  /**
+   * Register listener for mode changes
+   */
+  fun setModeChangeListener(listener: (OperationMode) -> Unit) {
+    modeChangeListener = listener
+  }
 
-        currentActiveMode = try {
-            OperationMode.valueOf(activeStr ?: OperationMode.FOREGROUND.name)
-        } catch (e: Exception) {
-            OperationMode.FOREGROUND
-        }
+  /**
+   * Get debug info
+   */
+  fun getDebugInfo(): String =
+    """
+    Operation Mode: $currentOperationMode
+    Current Active: $currentActiveMode
+    Should Run In Service: ${shouldRunInService()}
+    Should Run In App: ${shouldRunInApp()}
+    """.trimIndent()
 
-        Log.d(TAG, "Loaded mode from prefs: $currentOperationMode (active: $currentActiveMode)")
+  // MARK: - Private Methods
+
+  private fun saveModeToPreferences(mode: OperationMode) {
+    prefs.edit().apply {
+      putString(KEY_OPERATION_MODE, mode.name)
+      putString(KEY_CURRENT_MODE, currentActiveMode.name)
+      apply()
     }
+  }
 
-    private fun notifyModeChanged(mode: OperationMode) {
-        modeChangeListener?.invoke(mode)
-    }
+  private fun loadModeFromPreferences() {
+    val modeStr = prefs.getString(KEY_OPERATION_MODE, OperationMode.HYBRID.name)
+    val activeStr = prefs.getString(KEY_CURRENT_MODE, OperationMode.FOREGROUND.name)
+
+    currentOperationMode =
+      try {
+        OperationMode.valueOf(modeStr ?: OperationMode.HYBRID.name)
+      } catch (e: Exception) {
+        OperationMode.HYBRID
+      }
+
+    currentActiveMode =
+      try {
+        OperationMode.valueOf(activeStr ?: OperationMode.FOREGROUND.name)
+      } catch (e: Exception) {
+        OperationMode.FOREGROUND
+      }
+
+    Log.d(TAG, "Loaded mode from prefs: $currentOperationMode (active: $currentActiveMode)")
+  }
+
+  private fun notifyModeChanged(mode: OperationMode) {
+    modeChangeListener?.invoke(mode)
+  }
 }

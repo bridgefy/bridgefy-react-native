@@ -40,8 +40,6 @@ class BridgefyReactNativeModule(
   private val eventReceiver: BridgefyEventReceiver = BridgefyEventReceiver()
   private var isReceiverRegistered = false
 
-  // Service binding
-  private var bridgefyService: BridgefyService? = null
   private val serviceManager: BridgefyServiceManager by lazy { BridgefyServiceManager.getInstance(reactContext) }
   private val modeManager: BridgefyOperationModeManager by lazy { BridgefyOperationModeManager.getInstance(reactContext) }
 
@@ -51,7 +49,6 @@ class BridgefyReactNativeModule(
 
     // Set up mode change listener
     modeManager.setModeChangeListener { mode ->
-      println("Mode changed to: $mode")
       sendEvent(
         "bridgefyModeChanged",
         Arguments.createMap().apply {
@@ -70,8 +67,6 @@ class BridgefyReactNativeModule(
   // MARK: - Lifecycle
 
   override fun onHostResume() {
-    println("App resumed - refreshing service state")
-
     if (!isReceiverRegistered) {
       registerBroadcastReceiver()
     }
@@ -81,28 +76,18 @@ class BridgefyReactNativeModule(
 
     // If HYBRID mode, switch to foreground
     if (modeManager.getOperationMode() == OperationMode.HYBRID) {
-      println("HYBRID mode - switching to FOREGROUND")
       modeManager.switchToForegroundMode()
     }
-
-    println("App resumed - State:")
-    println("  Mode: ${modeManager.getOperationMode()}")
-    println("  Initialized: ${serviceManager.getBridgefy()?.isInitialized ?: false}")
-    println("  Started: ${serviceManager.getBridgefy()?.isStarted ?: false}")
   }
 
   override fun onHostPause() {
-    println("App paused")
-
     // If HYBRID mode, switch to background
     if (modeManager.getOperationMode() == OperationMode.HYBRID) {
-      println("HYBRID mode - switching to BACKGROUND")
       modeManager.switchToBackgroundMode()
     }
   }
 
   override fun onHostDestroy() {
-    println("App destroyed")
     unregisterBroadcastReceiver()
   }
 
@@ -114,16 +99,10 @@ class BridgefyReactNativeModule(
       intent: Intent?,
     ) {
       intent ?: return
-
-      println(
-        "BridgefyEventReceiver.onReceive called with action: ${intent.action} and data: ${intent.extras} and bridgefyService: $bridgefyService",
-      )
       when (intent.action) {
         BridgefyService.EVENT_BRIDGEFY_DID_START -> {
           val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
-          println("Event: bridgefyDidStart - $userId")
 
-          serviceManager.setSDKStarted(true)
           serviceManager.setCurrentUserId(userId)
 
           sendEvent(
@@ -135,8 +114,6 @@ class BridgefyReactNativeModule(
         }
 
         BridgefyService.EVENT_BRIDGEFY_DID_STOP -> {
-          println("Event: bridgefyDidStop")
-          serviceManager.setSDKStarted(false)
           sendEvent("bridgefyDidStop", null)
         }
 
@@ -334,7 +311,6 @@ class BridgefyReactNativeModule(
       ContextCompat.RECEIVER_EXPORTED,
     )
     isReceiverRegistered = true
-    println("Broadcast receiver registered")
   }
 
   private fun unregisterBroadcastReceiver() {
@@ -394,8 +370,6 @@ class BridgefyReactNativeModule(
       val verboseLogging = config.getBoolean("verboseLogging")
       val operationModeStr = config.getString("operationMode") ?: "hybrid"
 
-      println("initialize() - mode: $operationModeStr")
-
       // Set operation mode
       val mode =
         when (operationModeStr.lowercase()) {
@@ -406,10 +380,9 @@ class BridgefyReactNativeModule(
       modeManager.setOperationMode(mode)
 
       // Start service if needed
-      if (modeManager.shouldRunInService() == true) {
-        println("Starting foreground service")
-        startService()
-      }
+      // if (modeManager.shouldRunInService()) {
+      startService()
+      // }
 
       val initIntent =
         Intent(context, BridgefyService::class.java).apply {
@@ -418,8 +391,6 @@ class BridgefyReactNativeModule(
           putExtra(BridgefyService.EXTRA_VERBOSE_LOGGING, verboseLogging)
         }
       context.startService(initIntent)
-
-      serviceManager.setSDKInitialized(true)
 
       promise.resolve(null)
     } catch (e: Exception) {
@@ -434,13 +405,11 @@ class BridgefyReactNativeModule(
     promise: Promise,
   ) {
     try {
-      println("start() - mode: ${modeManager.getOperationMode()}")
-
       val startIntent =
         Intent(context, BridgefyService::class.java).apply {
           action = BridgefyService.ACTION_START_SDK
           putExtra(BridgefyService.EXTRA_USER_ID, userId)
-          putExtra(BridgefyService.EXTRA_PROPAGATION_PROFILE, propagationProfile ?: "standard")
+          putExtra(BridgefyService.EXTRA_PROPAGATION_PROFILE, propagationProfile ?: "realTime")
         }
       context.startService(startIntent)
 
@@ -453,14 +422,12 @@ class BridgefyReactNativeModule(
 
   override fun stop(promise: Promise) {
     try {
-      println("stop() called")
       val stopIntent =
         Intent(context, BridgefyService::class.java).apply {
           action = BridgefyService.ACTION_STOP_SDK
         }
       context.startService(stopIntent)
 
-      serviceManager.setSDKStarted(false)
       promise.resolve(null)
     } catch (e: Exception) {
       println("stop() failed: ${e.localizedMessage}")
@@ -470,8 +437,9 @@ class BridgefyReactNativeModule(
 
   override fun destroySession(promise: Promise) {
     try {
-      println("destroySession() called")
       stopService()
+      serviceManager.getBridgefy()?.destroySession()
+      serviceManager.refreshBridgefy()
       serviceManager.clearState()
       promise.resolve(null)
     } catch (e: Exception) {
@@ -488,7 +456,6 @@ class BridgefyReactNativeModule(
   ) {
     try {
       val mode = config?.getString("mode") ?: ""
-      println("setOperationMode: $mode")
 
       val opMode =
         when (mode.lowercase()) {
@@ -513,7 +480,6 @@ class BridgefyReactNativeModule(
   override fun getOperationMode(promise: Promise) {
     try {
       val mode = modeManager.getOperationMode().name.lowercase()
-      println("getOperationMode: $mode")
       promise.resolve(Arguments.createMap().apply { putString("mode", mode) })
     } catch (e: Exception) {
       println("getOperationMode() failed: ${e.localizedMessage}")
@@ -523,8 +489,6 @@ class BridgefyReactNativeModule(
 
   override fun switchToBackground(promise: Promise) {
     try {
-      println("switchToBackground() called")
-
       if (modeManager.getOperationMode() != OperationMode.HYBRID) {
         promise.reject("NOT_HYBRID_MODE", "Only available in HYBRID mode")
         return
@@ -544,8 +508,6 @@ class BridgefyReactNativeModule(
 
   override fun switchToForeground(promise: Promise) {
     try {
-      println("switchToForeground() called")
-
       if (modeManager.getOperationMode() != OperationMode.HYBRID) {
         promise.reject("NOT_HYBRID_MODE", "Only available in HYBRID mode")
         return
@@ -576,7 +538,7 @@ class BridgefyReactNativeModule(
           putBoolean("isStarted", isStart)
           putBoolean("shouldRunInService", (modeManager.shouldRunInService()))
           putString("debugInfo", modeManager.getDebugInfo())
-        }
+        },
       )
     } catch (e: Exception) {
       println("getOperationStatus() failed: ${e.localizedMessage}")

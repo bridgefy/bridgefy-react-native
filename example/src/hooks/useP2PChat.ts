@@ -23,7 +23,7 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
   const messageService = messageServiceRef.current;
 
   const sendP2PMessageUseCase = new SendP2PMessageUseCase(repository);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const getP2PUserIdUseCase = new GetP2PUserIdUseCase(repository);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export const useP2PChat = ({ peerId, peerName }: UseP2PChatParams) => {
       repository.unsubscribeFromP2PEvents();
       messageService.clearMessages();
     };
-  }, [getP2PUserIdUseCase, messageService, peerId, peerName, repository]);
+  }, []);
 
   const sendMessage = async (text: string): Promise<void> => {
     if (!text.trim()) {

@@ -13,7 +13,6 @@ export const usePeerList = () => {
   const repositoryRef = useRef(new PeerRepository());
   const repository = repositoryRef.current;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getPeersUseCase = new GetPeersUseCase(repository);
   const establishSecureConnectionUseCase = new EstablishSecureConnectionUseCase(
     repository
@@ -60,13 +59,12 @@ export const usePeerList = () => {
         setLoading(false);
       }
     };
-
     initialize();
 
     return () => {
       repository.unsubscribeFromEvents();
     };
-  }, [getPeersUseCase, repository]);
+  }, []);
 
   const loadPeers = async () => {
     try {
