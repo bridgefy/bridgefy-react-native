@@ -14,12 +14,15 @@ export class SDKRepository implements ISDKRepository {
       const isStarted = await Bridgefy.isStarted();
       let userId = '';
       let connectedPeers: string[] = [];
-      let operationStatus: BridgefyOperationMode = BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode;
+      let operationStatus: BridgefyOperationMode =
+        BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode;
 
       if (isStarted) {
         userId = await Bridgefy.currentUserId();
         connectedPeers = (await Bridgefy.connectedPeers()) || [];
-        operationStatus = (await Bridgefy.getOperationMode()).mode.toUpperCase() as BridgefyOperationMode;
+        operationStatus = (
+          await Bridgefy.getOperationMode()
+        ).mode.toUpperCase() as BridgefyOperationMode;
       }
 
       return {
@@ -27,12 +30,8 @@ export class SDKRepository implements ISDKRepository {
         isStarted,
         userId,
         connectedPeers,
-<<<<<<< HEAD
-        propagationProfile: BridgefyPropagationProfile.REALTIME,
-=======
         propagationProfile: BridgefyPropagationProfile.STANDARD,
         operationStatus,
->>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
         loading: false,
       };
     } catch (error) {

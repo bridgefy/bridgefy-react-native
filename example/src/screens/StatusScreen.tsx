@@ -43,7 +43,7 @@ export default function StatusScreen() {
     if (error) {
       Alert.alert('Error', error.message);
     }
-  }, []);
+  });
 
   return (
     <View style={statusStyles.container}>
@@ -124,25 +124,37 @@ export default function StatusScreen() {
             />
           )}
 
-          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.BACKGROUND.toUpperCase() && (
-            <ControlButton
-              title="Set background mode"
-              icon="arrange-send-to-back"
-              onPress={changeOperationMode.bind(null, BridgefyOperationMode.BACKGROUND)}
-              loading={status.loading}
-              variant="background"
-            />
-          )}
+          {status.isStarted &&
+            Platform.OS === 'android' &&
+            status.operationStatus !==
+              BridgefyOperationMode.BACKGROUND.toUpperCase() && (
+              <ControlButton
+                title="Set background mode"
+                icon="arrange-send-to-back"
+                onPress={changeOperationMode.bind(
+                  null,
+                  BridgefyOperationMode.BACKGROUND
+                )}
+                loading={status.loading}
+                variant="background"
+              />
+            )}
 
-          {status.isStarted && Platform.OS === 'android' && status.operationStatus !== BridgefyOperationMode.FOREGROUND.toUpperCase() && (
-            <ControlButton
-              title="Set foreground mode"
-              icon="arrange-send-backward"
-              onPress={changeOperationMode.bind(null, BridgefyOperationMode.FOREGROUND)}
-              loading={status.loading}
-              variant="foreground"
-            />
-          )}
+          {status.isStarted &&
+            Platform.OS === 'android' &&
+            status.operationStatus !==
+              BridgefyOperationMode.FOREGROUND.toUpperCase() && (
+              <ControlButton
+                title="Set foreground mode"
+                icon="arrange-send-backward"
+                onPress={changeOperationMode.bind(
+                  null,
+                  BridgefyOperationMode.FOREGROUND
+                )}
+                loading={status.loading}
+                variant="foreground"
+              />
+            )}
 
           <ControlButton
             title="Refresh Status"
