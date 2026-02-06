@@ -1,4 +1,4 @@
-import type { BridgefyOperationMode } from "bridgefy-react-native";
+import type { BridgefyOperationMode } from 'bridgefy-react-native';
 
 export type SDKState =
   | 'uninitialized'

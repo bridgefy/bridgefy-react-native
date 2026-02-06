@@ -12,7 +12,14 @@ interface ControlButtonProps {
   icon: string;
   onPress: () => void;
   loading?: boolean;
-  variant: 'init' | 'start' | 'stop' | 'destroy' | 'refresh' | 'background' | 'foreground';
+  variant:
+    | 'init'
+    | 'start'
+    | 'stop'
+    | 'destroy'
+    | 'refresh'
+    | 'background'
+    | 'foreground';
   disabled?: boolean;
 }
 

@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-<<<<<<< HEAD
 import {
   BridgefyOperationMode,
   BridgefyPropagationProfile,
 } from 'bridgefy-react-native';
-=======
-import { BridgefyOperationMode, BridgefyPropagationProfile } from 'bridgefy-react-native';
->>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
 import type { SDKStatusSnapshot } from '../entities';
-import { type SDKEventHandlers, SDKRepository, OperationRepository } from '../repositories';
+import {
+  type SDKEventHandlers,
+  SDKRepository,
+  OperationRepository,
+  type ISDKRepository,
+} from '../repositories';
 import {
   ChangeOperationUseCase,
   CheckSDKStatusUseCase,
@@ -25,12 +26,9 @@ export const useSDKStatus = () => {
     isStarted: false,
     userId: '',
     connectedPeers: [],
-<<<<<<< HEAD
-    propagationProfile: BridgefyPropagationProfile.REALTIME,
-=======
     propagationProfile: BridgefyPropagationProfile.STANDARD,
-    operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
->>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
+    operationStatus:
+      BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
     loading: false,
   });
 
@@ -42,11 +40,17 @@ export const useSDKStatus = () => {
 
   // Inicializar use cases
 
-  const checkStatusUseCase = new CheckSDKStatusUseCase(repository);
-  const initializeUseCase = new InitializeSDKUseCase(repository);
-  const startUseCase = new StartSDKUseCase(repository);
-  const stopUseCase = new StopSDKUseCase(repository);
-  const destroyUseCase = new DestroySessionUseCase(repository);
+  const checkStatusUseCase = new CheckSDKStatusUseCase(
+    repository as ISDKRepository
+  );
+  const initializeUseCase = new InitializeSDKUseCase(
+    repository as ISDKRepository
+  );
+  const startUseCase = new StartSDKUseCase(repository as ISDKRepository);
+  const stopUseCase = new StopSDKUseCase(repository as ISDKRepository);
+  const destroyUseCase = new DestroySessionUseCase(
+    repository as ISDKRepository
+  );
   const changeOperationUseCase = new ChangeOperationUseCase(repositoryOper);
 
   useEffect(() => {
@@ -214,12 +218,9 @@ export const useSDKStatus = () => {
           isStarted: false,
           userId: '',
           connectedPeers: [],
-<<<<<<< HEAD
-          propagationProfile: BridgefyPropagationProfile.REALTIME,
-=======
           propagationProfile: BridgefyPropagationProfile.STANDARD,
-          operationStatus: BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
->>>>>>> f6e8cb8584d6cce9269b84a6857cf233dc5545e4
+          operationStatus:
+            BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
           loading: false,
         });
       } else {
@@ -234,11 +235,13 @@ export const useSDKStatus = () => {
     }
   };
 
-  const changeOperationMode = async (mode: BridgefyOperationMode): Promise<void> => {
+  const changeOperationMode = async (
+    mode: BridgefyOperationMode
+  ): Promise<void> => {
     try {
       setError(null);
       setStatus((prev) => ({ ...prev, loading: true }));
-      const result = await changeOperationUseCase.execute({mode});
+      const result = await changeOperationUseCase.execute({ mode });
 
       if (result.success) {
         setStatus((prev) => ({
@@ -256,7 +259,7 @@ export const useSDKStatus = () => {
       setError(error);
       setStatus((prev) => ({ ...prev, loading: false }));
     }
-  }
+  };
 
   return {
     status,

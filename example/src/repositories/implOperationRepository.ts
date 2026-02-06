@@ -1,9 +1,14 @@
-import Bridgefy, { BridgefyOperationMode, type BridgefyOperationModeConfig } from 'bridgefy-react-native';
+import Bridgefy, {
+  BridgefyOperationMode,
+  type BridgefyOperationModeConfig,
+} from 'bridgefy-react-native';
 import type { SDKControlResult } from '../entities';
 import type { IOperationRepository } from './OperationRepository';
 
 export class OperationRepository implements IOperationRepository {
-  async changeOperationMode(mode: BridgefyOperationModeConfig): Promise<SDKControlResult> {
+  async changeOperationMode(
+    mode: BridgefyOperationModeConfig
+  ): Promise<SDKControlResult> {
     try {
       const isStarted = await Bridgefy.isStarted();
       if (!isStarted) {
@@ -28,7 +33,9 @@ export class OperationRepository implements IOperationRepository {
   }
   async getOperationMode(): Promise<BridgefyOperationMode> {
     try {
-      return (await Bridgefy.getOperationMode()).mode.toUpperCase() as BridgefyOperationMode;
+      return (
+        await Bridgefy.getOperationMode()
+      ).mode.toUpperCase() as BridgefyOperationMode;
     } catch (error) {
       console.error('Failed to get operation mode:', error);
       throw error;
