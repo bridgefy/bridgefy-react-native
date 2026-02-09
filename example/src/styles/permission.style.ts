@@ -1,0 +1,153 @@
+import { StyleSheet } from 'react-native';
+
+export const permissionStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  content: {
+    padding: 20,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 32,
+    paddingTop: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#212121',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#757575',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+  infoCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#E3F2FD',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+    gap: 12,
+  },
+  infoText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1976D2',
+  },
+  iosInfoCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  iosInfoTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#212121',
+    marginTop: 12,
+    marginBottom: 8,
+  },
+  iosInfoText: {
+    fontSize: 13,
+    color: '#616161',
+    lineHeight: 20,
+  },
+  warningCard: {
+    flexDirection: 'row',
+    backgroundColor: '#FFF3E0',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+    gap: 12,
+  },
+  warningText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#E65100',
+    lineHeight: 18,
+  },
+  warningBold: {
+    fontWeight: 'bold',
+  },
+  permissionsList: {
+    marginBottom: 24,
+  },
+  permissionCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  permissionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  permissionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#212121',
+    marginLeft: 12,
+  },
+  permissionDescription: {
+    fontSize: 14,
+    color: '#757575',
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  statusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statusText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#212121',
+    marginLeft: 8,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    padding: 14,
+    elevation: 2,
+    marginBottom: 12,
+  },
+  primaryButton: {
+    backgroundColor: '#2196F3',
+  },
+  primaryButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  secondaryButton: {
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#2196F3',
+  },
+  secondaryButtonText: {
+    color: '#2196F3',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+});

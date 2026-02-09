@@ -1,17 +1,34 @@
 package me.bridgefy.plugin.react_native
 
-import com.facebook.react.ReactPackage
+import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.uimanager.ViewManager
+import com.facebook.react.module.model.ReactModuleInfo
+import com.facebook.react.module.model.ReactModuleInfoProvider
+import me.bridgefy.plugin.react_native.NativeBridgefySpec
+import java.util.HashMap
 
-
-class BridgefyReactNativePackage : ReactPackage {
-  override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return listOf(BridgefyReactNativeModule(reactContext))
+class BridgefyReactNativePackage : BaseReactPackage() {
+  override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
+    return if (name == NativeBridgefySpec.NAME) {
+      BridgefyReactNativeModule(reactContext)
+    } else {
+      null
+    }
   }
 
-  override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-    return emptyList()
+  override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
+    return ReactModuleInfoProvider {
+      val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
+      moduleInfos[NativeBridgefySpec.NAME] = ReactModuleInfo(
+        NativeBridgefySpec.NAME,
+        NativeBridgefySpec.NAME,
+        false,  // canOverrideExistingModule
+        false,  // needsEagerInit
+        false,  // isCxxModule
+        true // isTurboModule
+      )
+      moduleInfos
+    }
   }
 }

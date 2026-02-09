@@ -1,408 +1,665 @@
+/**
+ *
+ * Kotlin implementation for Bridgefy TurboModule on Android
+ * Implements NativeBridgefy spec methods
+ */
+
 package me.bridgefy.plugin.react_native
 
-import android.util.Log
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
+import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.modules.core.DeviceEventManagerModule
-import java.util.UUID
-import me.bridgefy.Bridgefy
-import me.bridgefy.logger.enums.LogType
 import me.bridgefy.commons.TransmissionMode
-import me.bridgefy.commons.exception.BridgefyException
-import me.bridgefy.commons.listener.BridgefyDelegate
-import me.bridgefy.commons.propagation.PropagationProfile
+import me.bridgefy.plugin.react_native.service.BridgefyService
+import me.bridgefy.plugin.react_native.util.BridgefyOperationModeManager
+import me.bridgefy.plugin.react_native.util.BridgefyServiceManager
+import me.bridgefy.plugin.react_native.util.OperationMode
+import me.bridgefy.plugin.react_native.util.Utils.bundleFromTransmissionMode
+import me.bridgefy.plugin.react_native.util.Utils.mapFromTransmissionMode
+import me.bridgefy.plugin.react_native.util.Utils.transmissionModeFromBundle
+import java.util.UUID
 
-class BridgefyReactNativeModule(reactContext: ReactApplicationContext) :
-  ReactContextBaseJavaModule(reactContext) {
+@ReactModule(name = NativeBridgefySpec.NAME)
+class BridgefyReactNativeModule(
+  reactContext: ReactApplicationContext,
+) : NativeBridgefySpec(reactContext),
+  LifecycleEventListener {
+  private val context: ReactApplicationContext = reactContext
+  private val eventReceiver: BridgefyEventReceiver = BridgefyEventReceiver()
+  private var isReceiverRegistered = false
 
-  private var bridgefy: Bridgefy
+  private val serviceManager: BridgefyServiceManager by lazy { BridgefyServiceManager.getInstance(reactContext) }
+  private val modeManager: BridgefyOperationModeManager by lazy { BridgefyOperationModeManager.getInstance(reactContext) }
 
   init {
-    bridgefy = Bridgefy(reactContext)
-  }
+    reactContext.addLifecycleEventListener(this)
+    registerBroadcastReceiver()
 
-  override fun getName(): String {
-    return NAME
-  }
-
-  @ReactMethod
-  fun initialize(
-    apiKey: String,
-    verboseLogging: Boolean = false,
-    promise: Promise
-  ) {
-    try {
-      bridgefy.init(
-        UUID.fromString(apiKey),
-        object : BridgefyDelegate {
-          override fun onConnected(peerID: UUID) {
-            val params = Arguments.createMap().apply {
-              putString("userId", peerID.toString())
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidConnect", params)
-          }
-
-          override fun onConnectedPeers(connectedPeers: List<UUID>) {
-            connectedPeers.forEach {
-              onConnected(it)
-            }
-          }
-
-          override fun onEstablishSecureConnection(userId: UUID) {
-            val params = Arguments.createMap().apply {
-              putString("userId", userId.toString())
-            }
-            sendEvent(
-              reactApplicationContext,
-              "bridgefyDidEstablishSecureConnection",
-              params
-            )
-          }
-
-          override fun onDisconnected(peerID: UUID) {
-            val params = Arguments.createMap().apply {
-              putString("userId", peerID.toString())
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidDisconnect", params)
-          }
-
-          override fun onFailToSend(messageID: UUID, error: BridgefyException) {
-            val params = Arguments.createMap().apply {
-              putString("messageId", messageID.toString())
-              putMap("error", mapFromBridgefyException(error))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidFailSendingMessage", params)
-          }
-
-          override fun onFailToStart(error: BridgefyException) {
-            val params = Arguments.createMap().apply {
-              putMap("error", mapFromBridgefyException(error))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidFailToStart", params)
-          }
-
-          override fun onFailToStop(error: BridgefyException) {
-            val params = Arguments.createMap().apply {
-              putMap("error", mapFromBridgefyException(error))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidFailToStop", params)
-          }
-
-          override fun onProgressOfSend(messageID: UUID, position: Int, of: Int) {
-            val params = Arguments.createMap().apply {
-              putString("messageId", messageID.toString())
-              putInt("position", position)
-              putInt("of", of)
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidSendDataProgress", params)
-          }
-
-          override fun onReceiveData(
-            data: ByteArray,
-            messageID: UUID,
-            transmissionMode: TransmissionMode
-          ) {
-            val params = Arguments.createMap().apply {
-              putString("data", String(data))
-              putString("messageId", messageID.toString())
-              putMap("transmissionMode", mapFromTransmissionMode(transmissionMode))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidReceiveData", params)
-          }
-
-          override fun onSend(messageID: UUID) {
-            val params = Arguments.createMap().apply {
-              putString("messageId", messageID.toString())
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidSendMessage", params)
-          }
-
-          override fun onStarted(userID: UUID) {
-            val params = Arguments.createMap().apply {
-              putString("userId", userID.toString())
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidStart", params)
-          }
-
-          override fun onFailToEstablishSecureConnection(userId: UUID, error: BridgefyException) {
-            val params = Arguments.createMap().apply {
-              putString("userId", userId.toString())
-              putMap("error", mapFromBridgefyException(error))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidFailToEstablishSecureConnection", params)
-          }
-
-          override fun onDestroySession() {
-            sendEvent(reactApplicationContext, "bridgefyDidDestroySession", null)
-          }
-
-          override fun onFailToDestroySession(error: BridgefyException) {
-            val params = Arguments.createMap().apply {
-              putMap("error", mapFromBridgefyException(error))
-            }
-            sendEvent(reactApplicationContext, "bridgefyDidFailToDestroySession", params)
-          }
-
-          override fun onStopped() {
-            sendEvent(reactApplicationContext, "bridgefyDidStop", null)
-          }
-        },
-        if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None,
-      )
-      promise.resolve(null)
-    } catch (error: BridgefyException) {
-      val map = mapFromBridgefyException(error)
-      promise.reject(map.getString("code"), map.getString("message"), error)
-    } catch (e: Exception) {
-      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
-    }
-  }
-
-  @ReactMethod
-  fun start(
-    customUserID: String?,
-    propagationProfile: String,
-    promise: Promise
-  ) {
-    try {
-      assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-      val profile = propagationProfileFromString(propagationProfile)
-      bridgefy.start(
-        customUserID?.let { UUID.fromString(it) },
-        profile ?: PropagationProfile.Standard
-      )
-      promise.resolve(null)
-    } catch (e: Exception) {
-      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
-    }
-  }
-
-  @ReactMethod
-  fun send(data: String, transmissionMode: ReadableMap, promise: Promise) {
-    try {
-      assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-      assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
-      val mode = transmissionModeFromMap(transmissionMode)!!
-      val uuid = bridgefy.send(data.toByteArray(), mode)
-      promise.resolve(
+    // Set up mode change listener
+    modeManager.setModeChangeListener { mode ->
+      sendEvent(
+        "bridgefyModeChanged",
         Arguments.createMap().apply {
-          putString("messageId", uuid.toString())
-        }
+          putString("mode", mode.name.lowercase())
+        },
       )
-    } catch (error: BridgefyException) {
-      val map = mapFromBridgefyException(error)
-      promise.reject(map.getString("code"), map.getString("message"), error)
-    } catch (e: Exception) {
-      promise.reject("sessionError", "${e.message ?: e.localizedMessage}", e)
     }
   }
 
-  @ReactMethod
-  fun stop(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
-    bridgefy.stop()
-    promise.resolve(null)
-  }
-
-  @ReactMethod
-  fun connectedPeers(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
-    val peers = bridgefy.connectedPeers().getOrNull()
-    val nodes = Arguments.createArray().apply {
-      peers?.forEach { pushString(it.toString()) }
-    }
-    promise.resolve(Arguments.createMap().apply { putArray("connectedPeers", nodes) })
-  }
-
-  @ReactMethod
-  fun destroySession(promise: Promise) {
-    bridgefy.destroySession()
-    promise.resolve(null)
-  }
-
-  @ReactMethod
-  fun updateLicense(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    bridgefy.updateLicense()
-    promise.resolve(null)
-  }
-
-  @ReactMethod
-  fun currentUserId(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
-    val userId = bridgefy.currentUserId().getOrThrow()
-    promise.resolve(
-      Arguments.createMap().apply {
-        putString("userId", userId.toString())
-      }
-    )
-  }
-
-  @ReactMethod
-  fun establishSecureConnection(userId: String, promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    assert(bridgefy.isStarted) { "Bridgefy SDK isn't started" }
-    val uuid = UUID.fromString(userId)
-    bridgefy.establishSecureConnection(uuid)
-    promise.resolve(null)
-  }
-
-  @ReactMethod
-  fun licenseExpirationDate(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    val date = bridgefy.licenseExpirationDate().getOrThrow()
-    promise.resolve(
-      Arguments.createMap().apply {
-        putString("licenseExpirationDate", date?.time.toString())
-      }
-    )
-  }
-
-  @ReactMethod
-  fun isInitialized(promise: Promise) {
-    try {
-      val isInitialized = bridgefy.isInitialized
-      promise.resolve(isInitialized)
-    } catch (e: Exception) {
-      e.printStackTrace()
-      promise.resolve(false)
-    }
-  }
-
-  @ReactMethod
-  fun isStarted(promise: Promise) {
-    assert(bridgefy.isInitialized) { "Bridgefy SDK isn't initialized" }
-    val isStarted = bridgefy.isStarted
-    promise.resolve(isStarted)
-  }
+  override fun getName(): String = NAME
 
   companion object {
-    const val NAME = "BridgefyReactNative"
+    const val NAME = NativeBridgefySpec.NAME
   }
 
-  private fun sendEvent(reactContext: ReactContext, eventName: String, params: WritableMap?) {
-    reactContext
+  // MARK: - Lifecycle
+
+  override fun onHostResume() {
+    if (!isReceiverRegistered) {
+      registerBroadcastReceiver()
+    }
+
+    // Refresh service state
+    serviceManager.refreshFromService()
+
+    // If HYBRID mode, switch to foreground
+    if (modeManager.getOperationMode() == OperationMode.HYBRID) {
+      modeManager.switchToForegroundMode()
+    }
+  }
+
+  override fun onHostPause() {
+    // If HYBRID mode, switch to background
+    if (modeManager.getOperationMode() == OperationMode.HYBRID) {
+      modeManager.switchToBackgroundMode()
+    }
+  }
+
+  override fun onHostDestroy() {
+    unregisterBroadcastReceiver()
+  }
+
+  // MARK: - BroadcastReceiver Setup
+
+  private inner class BridgefyEventReceiver : BroadcastReceiver() {
+    override fun onReceive(
+      context: Context?,
+      intent: Intent?,
+    ) {
+      intent ?: return
+      when (intent.action) {
+        BridgefyService.EVENT_BRIDGEFY_DID_START -> {
+          val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
+
+          serviceManager.setCurrentUserId(userId)
+
+          sendEvent(
+            "bridgefyDidStart",
+            Arguments.createMap().apply {
+              putString("userId", userId)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_DID_STOP -> {
+          sendEvent("bridgefyDidStop", null)
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_DID_CONNECT -> {
+          val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
+          sendEvent(
+            "bridgefyDidConnect",
+            Arguments.createMap().apply {
+              putString("userId", userId)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_DID_DISCONNECT -> {
+          val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
+          sendEvent(
+            "bridgefyDidDisconnect",
+            Arguments.createMap().apply {
+              putString("userId", userId)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_RECEIVE_DATA -> {
+          val data = intent.getByteArrayExtra(BridgefyService.EXTRA_MESSAGE_DATA) ?: return
+          val messageId = intent.getStringExtra(BridgefyService.EXTRA_MESSAGE_ID) ?: return
+          val transmissionMode =
+            intent.getBundleExtra(BridgefyService.EXTRA_TRANSMISSION_MODE) ?: Bundle()
+
+          sendEvent(
+            "bridgefyDidReceiveData",
+            Arguments.createMap().apply {
+              putString("data", String(data))
+              putString("messageId", messageId)
+              putMap(
+                "transmissionMode",
+                mapFromTransmissionMode(transmissionModeFromBundle(transmissionMode)),
+              )
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_SEND_MESSAGE -> {
+          val messageId = intent.getStringExtra(BridgefyService.EXTRA_MESSAGE_ID) ?: return
+          sendEvent(
+            "bridgefyDidSendMessage",
+            Arguments.createMap().apply {
+              putString("messageId", messageId)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_FAIL_SENDING -> {
+          val messageId = intent.getStringExtra(BridgefyService.EXTRA_MESSAGE_ID) ?: return
+          val errorCode = intent.getStringExtra(BridgefyService.EXTRA_ERROR_CODE) ?: "UNKNOWN_ERROR"
+          val errorMessage =
+            intent.getStringExtra(BridgefyService.EXTRA_ERROR_MESSAGE) ?: "Unknown error"
+
+          sendEvent(
+            "bridgefyDidFailSendingMessage",
+            Arguments.createMap().apply {
+              putString("messageId", messageId)
+              putString("code", errorCode)
+              putString("message", errorMessage)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_FAIL_TO_START -> {
+          val errorCode = intent.getStringExtra(BridgefyService.EXTRA_ERROR_CODE) ?: "UNKNOWN_ERROR"
+          val errorMessage =
+            intent.getStringExtra(BridgefyService.EXTRA_ERROR_MESSAGE) ?: "Unknown error"
+
+          sendEvent(
+            "bridgefyDidFailToStart",
+            Arguments.createMap().apply {
+              putString("code", errorCode)
+              putString("message", errorMessage)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_ESTABLISH_SECURE -> {
+          val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
+          sendEvent(
+            "bridgefyDidEstablishSecureConnection",
+            Arguments.createMap().apply {
+              putString("userId", userId)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_FAIL_SECURE -> {
+          val userId = intent.getStringExtra(BridgefyService.EXTRA_USER_ID) ?: return
+          val errorCode = intent.getStringExtra(BridgefyService.EXTRA_ERROR_CODE) ?: "UNKNOWN_ERROR"
+          val errorMessage =
+            intent.getStringExtra(BridgefyService.EXTRA_ERROR_MESSAGE) ?: "Unknown error"
+
+          sendEvent(
+            "bridgefyDidFailToEstablishSecureConnection",
+            Arguments.createMap().apply {
+              putString("userId", userId)
+              putString("code", errorCode)
+              putString("message", errorMessage)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_DID_DESTROY_SESSION -> {
+          sendEvent("bridgefyDidDestroySession", null)
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_FAIL_TO_DESTROY_SESSION -> {
+          val errorCode = intent.getStringExtra(BridgefyService.EXTRA_ERROR_CODE) ?: "UNKNOWN_ERROR"
+          val errorMessage =
+            intent.getStringExtra(BridgefyService.EXTRA_ERROR_MESSAGE) ?: "Unknown error"
+
+          sendEvent(
+            "bridgefyDidFailToDestroySession",
+            Arguments.createMap().apply {
+              putString("code", errorCode)
+              putString("message", errorMessage)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_PROGRESS_OF_SEND -> {
+          val messageId = intent.getStringExtra(BridgefyService.EXTRA_MESSAGE_ID) ?: return
+          val position = intent.getIntExtra(BridgefyService.EXTRA_POSITION, 0)
+          val of = intent.getIntExtra(BridgefyService.EXTRA_OF, 0)
+          sendEvent(
+            "bridgefyDidProgressOfSend",
+            Arguments.createMap().apply {
+              putString("messageId", messageId)
+              putInt("position", position)
+              putInt("of", of)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_FAIL_TO_STOP -> {
+          val errorCode = intent.getStringExtra(BridgefyService.EXTRA_ERROR_CODE) ?: "UNKNOWN_ERROR"
+          val errorMessage =
+            intent.getStringExtra(BridgefyService.EXTRA_ERROR_MESSAGE) ?: "Unknown error"
+          sendEvent(
+            "bridgefyDidFailToStop",
+            Arguments.createMap().apply {
+              putString("code", errorCode)
+              putString("message", errorMessage)
+            },
+          )
+        }
+
+        BridgefyService.EVENT_BRIDGEFY_DID_UPDATE_CONNECTED_PEERS -> {
+          val peers: List<String> =
+            intent.getStringArrayExtra(BridgefyService.EXTRA_CONNECTED_PEERS)?.toList() ?: return
+          sendEvent(
+            "bridgefyDidUpdateConnectedPeers",
+            Arguments.createMap().apply {
+              putArray("peers", Arguments.createArray().apply { peers })
+            },
+          )
+        }
+      }
+    }
+  }
+
+  private fun registerBroadcastReceiver() {
+    if (isReceiverRegistered) return
+
+    val filter =
+      IntentFilter().apply {
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_START)
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_STOP)
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_CONNECT)
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_DISCONNECT)
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_UPDATE_CONNECTED_PEERS)
+        addAction(BridgefyService.EVENT_BRIDGEFY_RECEIVE_DATA)
+        addAction(BridgefyService.EVENT_BRIDGEFY_SEND_MESSAGE)
+        addAction(BridgefyService.EVENT_BRIDGEFY_FAIL_SENDING)
+        addAction(BridgefyService.EVENT_BRIDGEFY_FAIL_TO_START)
+        addAction(BridgefyService.EVENT_BRIDGEFY_ESTABLISH_SECURE)
+        addAction(BridgefyService.EVENT_BRIDGEFY_FAIL_SECURE)
+
+        addAction(BridgefyService.EVENT_BRIDGEFY_DID_DESTROY_SESSION)
+        addAction(BridgefyService.EVENT_BRIDGEFY_FAIL_TO_DESTROY_SESSION)
+        addAction(BridgefyService.EVENT_BRIDGEFY_PROGRESS_OF_SEND)
+        addAction(BridgefyService.EVENT_BRIDGEFY_FAIL_TO_STOP)
+      }
+
+    ContextCompat.registerReceiver(
+      context,
+      eventReceiver,
+      filter,
+      ContextCompat.RECEIVER_EXPORTED,
+    )
+    isReceiverRegistered = true
+  }
+
+  private fun unregisterBroadcastReceiver() {
+    if (isReceiverRegistered) {
+      try {
+        context.unregisterReceiver(eventReceiver)
+        isReceiverRegistered = false
+      } catch (e: Exception) {
+        println("Error unregistering receiver ${e.localizedMessage}")
+      }
+    }
+  }
+
+  private fun sendEvent(
+    eventName: String,
+    params: WritableMap?,
+  ) {
+    context
       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
       .emit(eventName, params)
   }
 
-  private fun mapFromBridgefyException(exception: BridgefyException): ReadableMap {
-    var code: String
-    var details: Int? = null
-    var message: String? = null
-    when (exception) {
-      is BridgefyException.AlreadyStartedException -> {
-        code = "alreadyStarted"
+  // MARK: - Service Control Methods
+
+  // FIX 2: Use startForegroundService() on Android 8+
+  private fun startService() {
+    val serviceIntent =
+      Intent(context, BridgefyService::class.java).apply {
+        action = BridgefyService.ACTION_START_SERVICE
       }
-      is BridgefyException.DeviceCapabilitiesException -> {
-        code = "deviceCapabilities"
-        message = exception.error
-      }
-      is BridgefyException.ExpiredLicenseException -> {
-        code = "expiredLicense"
-        message = exception.error
-      }
-      is BridgefyException.GenericException -> {
-        code = "genericException"
-        message = exception.message
-        details = exception.code
-      }
-      is BridgefyException.InconsistentDeviceTimeException -> {
-        code = "inconsistentDeviceTimeException"
-        message = exception.error
-      }
-      is BridgefyException.InternetConnectionRequiredException -> {
-        code = "internetConnectionRequiredException"
-        message = exception.error
-      }
-      is BridgefyException.InvalidAPIKeyFormatException -> {
-        code = "invalidAPIKey"
-        message = exception.error
-      }
-      is BridgefyException.MissingApplicationIdException -> {
-        code = "missingApplicationId"
-        message = exception.error
-      }
-      is BridgefyException.PermissionException -> {
-        code = "permissionException"
-        message = exception.error
-      }
-      is BridgefyException.RegistrationException -> {
-        code = "registrationException"
-        message = exception.error
-      }
-      is BridgefyException.SessionErrorException -> {
-        code = "sessionError"
-        message = exception.error
-      }
-      is BridgefyException.SimulatorIsNotSupportedException -> {
-        code = "simulatorIsNotSupported"
-        message = exception.error.toString()
-      }
-      is BridgefyException.SizeLimitExceededException -> {
-        code = "sizeLimitExceeded"
-        message = exception.error
-      }
-      is BridgefyException.UnknownException -> {
-        code = "unknownException"
-        message = exception.error.toString()
-      } else -> {
-        code = "unknownException"
-        message = exception.toString()
-      }
-    }
-    return Arguments.createMap().apply {
-      putString("code", code)
-      putString("message", message)
-      if (details != null) putInt("details", details) else putNull("details")
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      context.startForegroundService(serviceIntent)
+    } else {
+      context.startService(serviceIntent)
     }
   }
 
-  private fun propagationProfileFromString(str: String): PropagationProfile? {
-    return when (str) {
-      "highDensityNetwork" -> PropagationProfile.HighDensityEnvironment
-      "sparseNetwork" -> PropagationProfile.SparseEnvironment
-      "longReach" -> PropagationProfile.LongReach
-      "shortReach" -> PropagationProfile.ShortReach
-      "standard" -> PropagationProfile.Standard
-      else -> null
+  private fun stopService() {
+    val serviceIntent =
+      Intent(context, BridgefyService::class.java).apply {
+        action = BridgefyService.ACTION_STOP_SERVICE
+      }
+    context.startService(serviceIntent)
+  }
+
+  // MARK: - NativeBridgefySpec Implementation
+  override fun initialize(
+    config: ReadableMap,
+    promise: Promise,
+  ) {
+    try {
+      val apiKey =
+        config.getString("apiKey")
+          ?: throw Exception("API key is required")
+
+      val verboseLogging = config.getBoolean("verboseLogging")
+      val operationModeStr = config.getString("operationMode") ?: "hybrid"
+
+      // Set operation mode
+      val mode =
+        when (operationModeStr.lowercase()) {
+          "foreground" -> OperationMode.FOREGROUND
+          "background" -> OperationMode.BACKGROUND
+          else -> OperationMode.HYBRID
+        }
+      modeManager.setOperationMode(mode)
+
+      // Start service if needed
+      // if (modeManager.shouldRunInService()) {
+      startService()
+      // }
+
+      val initIntent =
+        Intent(context, BridgefyService::class.java).apply {
+          action = BridgefyService.ACTION_INITIALIZE
+          putExtra(BridgefyService.EXTRA_API_KEY, apiKey)
+          putExtra(BridgefyService.EXTRA_VERBOSE_LOGGING, verboseLogging)
+        }
+      context.startService(initIntent)
+
+      promise.resolve(null)
+    } catch (e: Exception) {
+      println("initialize() failed: ${e.localizedMessage}")
+      promise.reject("INITIALIZATION_FAILED", e.message, e)
     }
   }
 
-  private fun mapFromTransmissionMode(mode: TransmissionMode): ReadableMap {
-    return when (mode) {
-      is TransmissionMode.Broadcast -> Arguments.createMap().apply {
-        putString("mode", "broadcast")
-        putString("uuid", mode.sender.toString())
-      }
-      is TransmissionMode.Mesh -> Arguments.createMap().apply {
-        putString("mode", "mesh")
-        putString("uuid", mode.receiver.toString())
-      }
-      is TransmissionMode.P2P -> Arguments.createMap().apply {
-        putString("mode", "p2p")
-        putString("uuid", mode.receiver.toString())
-      }
-      else -> Arguments.createMap()
+  override fun start(
+    userId: String?,
+    propagationProfile: String?,
+    promise: Promise,
+  ) {
+    try {
+      val startIntent =
+        Intent(context, BridgefyService::class.java).apply {
+          action = BridgefyService.ACTION_START_SDK
+          putExtra(BridgefyService.EXTRA_USER_ID, userId)
+          putExtra(BridgefyService.EXTRA_PROPAGATION_PROFILE, propagationProfile ?: "realTime")
+        }
+      context.startService(startIntent)
+
+      promise.resolve(null)
+    } catch (e: Exception) {
+      println("start() failed: ${e.localizedMessage}")
+      promise.reject("START_FAILED", e.message, e)
     }
   }
 
-  private fun transmissionModeFromMap(map: ReadableMap): TransmissionMode? {
-    val uuid = UUID.fromString(map.getString("uuid"))
-    return when (map.getString("type")) {
-      "p2p" -> TransmissionMode.P2P(uuid)
-      "mesh" -> TransmissionMode.Mesh(uuid)
-      "broadcast" -> TransmissionMode.Broadcast(uuid)
-      else -> null
+  override fun stop(promise: Promise) {
+    try {
+      val stopIntent =
+        Intent(context, BridgefyService::class.java).apply {
+          action = BridgefyService.ACTION_STOP_SDK
+        }
+      context.startService(stopIntent)
+
+      promise.resolve(null)
+    } catch (e: Exception) {
+      println("stop() failed: ${e.localizedMessage}")
+      promise.reject("STOP_FAILED", e.message, e)
     }
+  }
+
+  override fun destroySession(promise: Promise) {
+    try {
+      stopService()
+      serviceManager.getBridgefy()?.destroySession()
+      serviceManager.refreshBridgefy()
+      serviceManager.clearState()
+      promise.resolve(null)
+    } catch (e: Exception) {
+      println("destroySession() failed: ${e.localizedMessage}")
+      promise.reject("DESTROY_FAILED", e.message, e)
+    }
+  }
+
+  // MARK: - Operation Mode Methods
+
+  override fun setOperationMode(
+    config: ReadableMap?,
+    promise: Promise,
+  ) {
+    try {
+      val mode = config?.getString("mode") ?: ""
+
+      val opMode =
+        when (mode.lowercase()) {
+          "foreground" -> OperationMode.FOREGROUND
+          "background" -> OperationMode.BACKGROUND
+          else -> OperationMode.HYBRID
+        }
+
+      val success = modeManager.setOperationMode(opMode)
+
+      if (success) {
+        promise.resolve(Arguments.createMap().apply { putString("mode", mode.lowercase()) })
+      } else {
+        promise.reject("MODE_CHANGE_FAILED", "Could not change operation mode")
+      }
+    } catch (e: Exception) {
+      println("setOperationMode() failed: ${e.localizedMessage}")
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun getOperationMode(promise: Promise) {
+    try {
+      val mode = modeManager.getOperationMode().name.lowercase()
+      promise.resolve(Arguments.createMap().apply { putString("mode", mode) })
+    } catch (e: Exception) {
+      println("getOperationMode() failed: ${e.localizedMessage}")
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun switchToBackground(promise: Promise) {
+    try {
+      if (modeManager.getOperationMode() != OperationMode.HYBRID) {
+        promise.reject("NOT_HYBRID_MODE", "Only available in HYBRID mode")
+        return
+      }
+
+      val success = modeManager.switchToBackgroundMode()
+      if (success) {
+        promise.resolve(null)
+      } else {
+        promise.reject("SWITCH_FAILED", "Could not switch to background")
+      }
+    } catch (e: Exception) {
+      println("switchToBackground() failed: ${e.localizedMessage}")
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun switchToForeground(promise: Promise) {
+    try {
+      if (modeManager.getOperationMode() != OperationMode.HYBRID) {
+        promise.reject("NOT_HYBRID_MODE", "Only available in HYBRID mode")
+        return
+      }
+
+      val success = modeManager.switchToForegroundMode()
+      if (success) {
+        promise.resolve(null)
+      } else {
+        promise.reject("SWITCH_FAILED", "Could not switch to foreground")
+      }
+    } catch (e: Exception) {
+      println("switchToForeground() failed: ${e.localizedMessage}")
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun getOperationStatus(promise: Promise) {
+    try {
+      val mode = modeManager.getOperationMode().name.lowercase()
+      val isInit = serviceManager.getBridgefy()?.isInitialized ?: false
+      val isStart = serviceManager.getBridgefy()?.isStarted ?: false
+
+      promise.resolve(
+        Arguments.createMap().apply {
+          putString("operationMode", mode)
+          putBoolean("isInitialized", isInit)
+          putBoolean("isStarted", isStart)
+          putBoolean("shouldRunInService", (modeManager.shouldRunInService()))
+          putString("debugInfo", modeManager.getDebugInfo())
+        },
+      )
+    } catch (e: Exception) {
+      println("getOperationStatus() failed: ${e.localizedMessage}")
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun send(
+    data: String,
+    transmissionMode: ReadableMap,
+    promise: Promise,
+  ) {
+    try {
+      val type =
+        transmissionMode.getString("type")
+          ?: throw Exception("Transmission mode type is required")
+
+      val recipientId = transmissionMode.getString("uuid")
+
+      val mode =
+        when (type) {
+          "broadcast" -> TransmissionMode.Broadcast(UUID.randomUUID())
+          "p2p" -> TransmissionMode.P2P(UUID.fromString(recipientId))
+          "mesh" -> TransmissionMode.Mesh(UUID.fromString(recipientId))
+          else -> error("INVALID_MESSAGE" to "Invalid mode")
+        }
+
+      val sendIntent =
+        Intent(context, BridgefyService::class.java).apply {
+          action = BridgefyService.ACTION_SEND_MESSAGE
+          putExtra(BridgefyService.EXTRA_MESSAGE_DATA, data.toByteArray())
+          putExtra(BridgefyService.EXTRA_TRANSMISSION_MODE, bundleFromTransmissionMode(mode))
+          putExtra(BridgefyService.EXTRA_RECIPIENT_ID, recipientId)
+        }
+      context.startService(sendIntent)
+
+      // Message ID will be returned via broadcast event
+      promise.resolve("pending")
+    } catch (e: Exception) {
+      promise.reject("SEND_FAILED", e.message, e)
+    }
+  }
+
+  override fun establishSecureConnection(
+    userId: String,
+    promise: Promise,
+  ) {
+    try {
+      val secureIntent =
+        Intent(context, BridgefyService::class.java).apply {
+          action = BridgefyService.ACTION_ESTABLISH_SECURE
+          putExtra(BridgefyService.EXTRA_USER_ID, userId)
+        }
+      context.startService(secureIntent)
+      promise.resolve(null)
+    } catch (e: Exception) {
+      promise.reject("CONNECTION_FAILED", e.message, e)
+    }
+  }
+
+  override fun currentUserId(promise: Promise) {
+    try {
+      val userId = serviceManager.getCurrentUserId()
+      if (userId != null) {
+        promise.resolve(userId)
+      } else {
+        promise.reject("NOT_AVAILABLE", "User ID not initialized")
+      }
+    } catch (e: Exception) {
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun connectedPeers(promise: Promise) {
+    try {
+      val peers =
+        serviceManager
+          .getBridgefy()
+          ?.connectedPeers()
+          ?.getOrNull()
+          ?.map { it.toString() }
+          ?.distinct()
+      val array = Arguments.createArray()
+      peers?.forEach { array.pushString(it) }
+      promise.resolve(array)
+    } catch (e: Exception) {
+      promise.reject("ERROR", e.message, e)
+    }
+  }
+
+  override fun licenseExpirationDate(promise: Promise) {
+    promise.reject("NOT_IMPLEMENTED", "Use service binding")
+  }
+
+  override fun updateLicense(promise: Promise) {
+    promise.reject("NOT_IMPLEMENTED", "Not supported")
+  }
+
+  override fun isInitialized(promise: Promise) {
+    try {
+      val initialized = serviceManager.getBridgefy()?.isInitialized ?: false
+      promise.resolve(initialized)
+    } catch (e: Exception) {
+      promise.resolve(false)
+    }
+  }
+
+  override fun isStarted(promise: Promise) {
+    try {
+      val started = serviceManager.getBridgefy()?.isStarted ?: false
+      promise.resolve(started)
+    } catch (e: Exception) {
+      promise.resolve(false)
+    }
+  }
+
+  override fun addListener(eventName: String?) {
+    // Required for event emitter
+  }
+
+  override fun removeListeners(count: Double) {
+    // Required for event emitter
   }
 }
