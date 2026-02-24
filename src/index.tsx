@@ -176,7 +176,7 @@ export class Bridgefy {
   }
 
   /**
-   * Update license
+   *  @deprecated since version 2.0
    */
   async updateLicense(): Promise<void> {
     return BridgefyReactNative.updateLicense();
@@ -329,20 +329,6 @@ export class Bridgefy {
   ) {
     return this.addEventListener(
       BridgefyEvents.BRIDGEFY_DID_FAIL_TO_ESTABLISH_SECURE_CONNECTION,
-      listener
-    );
-  }
-
-  onUpdateLicense(listener: () => void) {
-    return this.addEventListener(
-      BridgefyEvents.BRIDGEFY_DID_UPDATE_LICENSE,
-      listener
-    );
-  }
-
-  onFailToUpdateLicense(listener: (error: BridgefyError) => void) {
-    return this.addEventListener(
-      BridgefyEvents.BRIDGEFY_DID_FAIL_TO_UPDATE_LICENSE,
       listener
     );
   }

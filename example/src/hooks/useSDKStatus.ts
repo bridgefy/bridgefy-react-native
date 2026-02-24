@@ -26,9 +26,10 @@ export const useSDKStatus = () => {
     isStarted: false,
     userId: '',
     connectedPeers: [],
-    propagationProfile: BridgefyPropagationProfile.STANDARD,
+    propagationProfile: BridgefyPropagationProfile.REALTIME,
+    bridgefyLicenseInfo: '',
     operationStatus:
-      BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
+      BridgefyOperationMode.HYBRID.toUpperCase() as BridgefyOperationMode,
     loading: false,
   });
 
@@ -218,7 +219,8 @@ export const useSDKStatus = () => {
           isStarted: false,
           userId: '',
           connectedPeers: [],
-          propagationProfile: BridgefyPropagationProfile.STANDARD,
+          propagationProfile: BridgefyPropagationProfile.REALTIME,
+          bridgefyLicenseInfo: '',
           operationStatus:
             BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode,
           loading: false,

@@ -289,26 +289,6 @@ export const setupBridgefyEventListeners = (Bridgefy: any) => {
     );
   });
 
-  // License Events
-  Bridgefy.onUpdateLicense(() => {
-    addBridgefyEvent(
-      'success',
-      BridgefyEvents.BRIDGEFY_DID_UPDATE_LICENSE,
-      'bridgefyDidUpdateLicense',
-      'License updated successfully'
-    );
-  });
-
-  Bridgefy.onFailToUpdateLicense((error: BridgefyError) => {
-    addBridgefyEvent(
-      'error',
-      BridgefyEvents.BRIDGEFY_DID_FAIL_TO_UPDATE_LICENSE,
-      'bridgefyDidFailToUpdateLicense',
-      `Failed to update license: ${error.message}`,
-      error
-    );
-  });
-
   // Session Events
   Bridgefy.onDestroySession?.(() => {
     addBridgefyEvent(
