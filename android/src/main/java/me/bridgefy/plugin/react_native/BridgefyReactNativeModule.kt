@@ -651,11 +651,10 @@ class BridgefyReactNativeModule(
   }
 
   override fun updateLicense(promise: Promise) {
-    /* promise.reject(
+    promise.reject(
       "LICENSE_UPDATE_FAILED",
       "The updateLicense method has been deprecated and will be removed in a future release."
     )
-    */
   }
 
   override fun isInitialized(promise: Promise) {

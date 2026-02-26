@@ -7,8 +7,8 @@
 
 # Bridgefy React Native SDK
 
-![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-react-native)
-![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-react-native?style=plastic)
+
+
 
 The **Bridgefy Software Development Kit (SDK)** is a state‑of‑the‑art plug‑and‑play solution that enables offline communication in your mobile apps by using Bluetooth mesh networks.
 
@@ -22,7 +22,7 @@ Integrate the Bridgefy SDK into your Android and iOS app to reach users who don'
 
 **Facebook:** [https://www.facebook.com/bridgefy](https://www.facebook.com/bridgefy)
 
----
+***
 
 ## Operation mode
 
@@ -32,7 +32,7 @@ This mesh allows messages to hop across multiple devices, letting nodes in the s
 <img src="https://images.saymedia-content.com/.image/t_share/MTkzOTUzODU0MDkyNjE3MjIx/particlesjs-examples.gif" width="70%">
 </p>
 
----
+***
 
 ## Platform permissions
 
@@ -41,7 +41,7 @@ Before using the SDK in a React Native app, configure the required permissions a
 - [iOS Permissions](https://github.com/bridgefy/sdk-ios#permissions)
 - [Android Permissions](https://github.com/bridgefy/sdk-android#android-permissions)
 
----
+***
 
 ## Installation
 
@@ -57,10 +57,10 @@ yarn add bridgefy-react-native
 
 2. Make sure you are using:
 
-  - Android Gradle Plugin with D8/desugaring enabled.
-  - Xcode 14+ for iOS builds.
+- Android Gradle Plugin with D8/desugaring enabled.
+- Xcode 14+ for iOS builds.
 
----
+***
 
 ## Usage
 
@@ -177,7 +177,7 @@ Bridgefy.onConnectedPeers(({ peers }) => updatePeers(peers));
 Bridgefy.onSendDataProgress(({ position, of }) => updateProgress(position / of));
 ```
 
-**New events:** `DID_UPDATE_CONNECTED_PEERS`, `SEND_DATA_PROGRESS`, license events, operation mode.
+**New events:** `DID_UPDATE_CONNECTED_PEERS`, `SEND_DATA_PROGRESS`, operation mode.
 
 **Cleanup:**
 ```typescript
@@ -237,7 +237,7 @@ const peers = await Bridgefy.connectedPeers();  // string[]
 
 </details>
 
----
+***
 
 ### Initialization
 
@@ -290,10 +290,10 @@ Bridgefy.start(
 /**
  * Stop Bridgefy SDK operations
  */
-bridgefy.stop();
+Bridgefy.stop();
 ```
 
----
+***
 
 ## Sending data
 
@@ -318,7 +318,7 @@ async function sendData() {
 
 The method returns a message UUID you can use for tracking or acknowledgement flows.
 
----
+***
 
 ## Handling SDK events
 
@@ -417,17 +417,11 @@ Track send/receive progress and failures.
 - `BRIDGEFY_MESSAGE_RECEIVED`
   - Legacy message event (use generic listener).
 
-### License Events
-Handle license validation.
+### License events (removed)
 
-- `onUpdateLicense(listener: () => void)` → `BRIDGEFY_DID_UPDATE_LICENSE`
-  - License refreshed successfully.
+License events have been removed from the latest Bridgefy React Native SDK and are no longer emitted at runtime. If you previously used `onUpdateLicense` or `onFailToUpdateLicense`, you can safely delete those listeners; license validation now runs internally.
 
-- `onFailToUpdateLicense(listener: (error: BridgefyError) => void)` → `BRIDGEFY_DID_FAIL_TO_UPDATE_LICENSE`
-  - License update failed (e.g., expired).
-
-
----
+***
 
 ## Additional functionality
 
@@ -437,8 +431,8 @@ The `Bridgefy` class exposes several helper methods to manage sessions, connecti
 - `establishSecureConnection(userId: string): Promise<void>`: Establishes an end-to-end encrypted connection with the specified peer.
 - `currentUserId(): Promise<string>`: Returns the current device's user identifier.
 - `connectedPeers(): Promise<string[]>`: Returns the list of currently connected peers.
-- `licenseExpirationDate(): Promise<Date>`: Returns the configured license expiration date.
-- `updateLicense(): Promise<void>`: Refreshes the SDK license (for renewed or upgraded plans).
+- `licenseExpirationDate(): Promise<number>`: Returns the configured license expiration timestamp (milliseconds since epoch).
+- `updateLicense(): Promise<void>`: Deprecated: License updates are handled automatically; this method is preserved only for backwards compatibility and will be removed in a future release.
 - `isInitialized(): Promise<boolean>`: Indicates whether the SDK has been initialized.
 - `isStarted(): Promise<boolean>`: Indicates whether the SDK is currently running.
 
@@ -520,7 +514,7 @@ Type: `BridgefyOperationModeConfig = { mode: BridgefyOperationMode };` `Bridgefy
 - **Android:** BACKGROUND/HYBRID need `<service android:foregroundServiceType="dataSync" />` and permissions.
 - **Recommendation:** Start with HYBRID for production; use getOperationStatus() to debug service issues.
 
----
+***
 
 ## Bridgefy propagation profiles
 
@@ -536,7 +530,7 @@ Select during `start()` to match your use case.
 - `SHORT_REACH`: Focuses on nearby devices only.
 - `REALTIME`: Prioritizes ultra-low latency for time-sensitive notifications.
 
----
+***
 
 ## Common Errors
 
@@ -637,7 +631,7 @@ Missing runtime permissions for BLE scanning.
 
 </details>
 
----
+***
 
 ## Multi-platform support
 
@@ -646,7 +640,7 @@ Bridgefy SDKs interoperate across platforms so iOS and Android devices can commu
 - [Bridgefy iOS](https://github.com/bridgefy/sdk-ios)
 - [Bridgefy Android](https://github.com/bridgefy/sdk-android)
 
----
+***
 
 ## Contact & support
 
@@ -655,6 +649,6 @@ For commercial inquiries, technical questions, or integration help, reach out us
 - Email: [contact@bridgefy.me](mailto:contact@bridgefy.me)
 - Website: [https://bridgefy.me/sdk](https://bridgefy.me/sdk)
 
----
+***
 
 © 2026 Bridgefy Inc. All rights reserved.
