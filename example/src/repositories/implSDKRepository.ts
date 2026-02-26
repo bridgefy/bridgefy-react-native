@@ -1,4 +1,5 @@
 import Bridgefy, {
+  type BridgefyLicenseInfo,
   BridgefyOperationMode,
   BridgefyPropagationProfile,
 } from 'bridgefy-react-native';
@@ -16,6 +17,17 @@ export class SDKRepository implements ISDKRepository {
       let connectedPeers: string[] = [];
       let operationStatus: BridgefyOperationMode =
         BridgefyOperationMode.FOREGROUND.toUpperCase() as BridgefyOperationMode;
+      let licenseExpirationDate: BridgefyLicenseInfo | null = null;
+      let exp: string = '';
+
+      if (isInitialized) {
+        licenseExpirationDate = await Bridgefy.licenseExpirationDate();
+        if (licenseExpirationDate.isValid) {
+          exp =
+            'Bridgefy license valid at ' +
+            new Date(licenseExpirationDate.expirationDate).toDateString();
+        }
+      }
 
       if (isStarted) {
         userId = await Bridgefy.currentUserId();
@@ -30,7 +42,8 @@ export class SDKRepository implements ISDKRepository {
         isStarted,
         userId,
         connectedPeers,
-        propagationProfile: BridgefyPropagationProfile.STANDARD,
+        bridgefyLicenseInfo: exp,
+        propagationProfile: BridgefyPropagationProfile.REALTIME,
         operationStatus,
         loading: false,
       };
@@ -159,35 +172,29 @@ export class SDKRepository implements ISDKRepository {
     this.eventHandlers = handlers;
 
     Bridgefy.onStart((event) => {
-      console.log('Bridgefy started:', event.userId);
       this.eventHandlers.onStart?.(event.userId);
     });
 
     Bridgefy.onStop(() => {
-      console.log('Bridgefy stopped');
       this.eventHandlers.onStop?.();
     });
 
     Bridgefy.onConnect((event) => {
-      console.log('Peer connected:', event.userId);
       this.eventHandlers.onPeerConnect?.(event.userId);
       this.updatePeers();
     });
 
     Bridgefy.onDisconnect((event) => {
-      console.log('Peer disconnected:', event.userId);
       this.eventHandlers.onPeerDisconnect?.(event.userId);
       this.updatePeers();
     });
 
     Bridgefy.onConnectedPeers((event) => {
       const peers = Array.isArray(event.peers) ? event.peers : [];
-      console.log('Connected peers updated:', peers.length);
       this.eventHandlers.onPeersUpdated?.(peers);
     });
 
     Bridgefy.onFailToStart((error) => {
-      console.error('Failed to start Bridgefy:', error);
       const err = new Error(
         (error as any)?.message ?? 'Bridgefy failed to start'
       );

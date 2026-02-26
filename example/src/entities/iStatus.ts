@@ -1,4 +1,6 @@
-import type { BridgefyOperationMode } from 'bridgefy-react-native';
+import type {
+  BridgefyOperationMode,
+} from 'bridgefy-react-native';
 
 export type SDKState =
   | 'uninitialized'
@@ -17,6 +19,7 @@ export interface SDKStatusSnapshot {
   connectedPeers: string[];
   propagationProfile: string;
   operationStatus: BridgefyOperationMode;
+  bridgefyLicenseInfo: string;
   loading: boolean;
   error?: string;
 }

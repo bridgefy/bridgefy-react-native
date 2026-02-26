@@ -481,7 +481,7 @@ class BridgefyReactNative: RCTEventEmitter, BridgefyDelegate {
     }
     let info: ErrorInfo
     switch bridgefyError {
-    case .licenseError(let code, let data): info = .init(type: "licenseError", details: code)
+    case .licenseError(let code, _): info = .init(type: "licenseError", details: code)
     case .storageError(let code): info = .init(type: "storageError", details: code)
     case .encodingError(let code): info = .init(type: "encodingError", details: code)
     case .encryptionError(let code): info = .init(type: "encryptionError", details: code)
