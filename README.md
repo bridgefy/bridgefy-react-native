@@ -7,7 +7,8 @@
 
 # Bridgefy React Native SDK
 
-
+![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-react-native)
+![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-react-native?style=plastic)
 
 
 The **Bridgefy Software Development Kit (SDK)** is a state‑of‑the‑art plug‑and‑play solution that enables offline communication in your mobile apps by using Bluetooth mesh networks.
