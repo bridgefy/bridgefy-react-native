@@ -97,7 +97,7 @@ class BridgefyOperationModeManager private constructor(
   fun shouldRunInService(): Boolean =
     when (currentOperationMode) {
       OperationMode.BACKGROUND -> true
-      OperationMode.HYBRID -> currentActiveMode == OperationMode.BACKGROUND
+      OperationMode.HYBRID -> currentActiveMode == OperationMode.FOREGROUND
       OperationMode.FOREGROUND -> false
     }
 

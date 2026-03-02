@@ -29,6 +29,7 @@ import me.bridgefy.plugin.react_native.util.OperationMode
 import me.bridgefy.plugin.react_native.util.Utils.bundleFromTransmissionMode
 import me.bridgefy.plugin.react_native.util.Utils.mapFromTransmissionMode
 import me.bridgefy.plugin.react_native.util.Utils.transmissionModeFromBundle
+import java.util.Date
 import java.util.UUID
 
 @ReactModule(name = NativeBridgefySpec.NAME)
@@ -380,9 +381,9 @@ class BridgefyReactNativeModule(
       modeManager.setOperationMode(mode)
 
       // Start service if needed
-      // if (modeManager.shouldRunInService()) {
-      startService()
-      // }
+      if (modeManager.shouldRunInService()) {
+        startService()
+      }
 
       val initIntent =
         Intent(context, BridgefyService::class.java).apply {
@@ -630,11 +631,30 @@ class BridgefyReactNativeModule(
   }
 
   override fun licenseExpirationDate(promise: Promise) {
-    promise.reject("NOT_IMPLEMENTED", "Use service binding")
+    runCatching {
+      val exp =
+        serviceManager
+          .getBridgefy()
+          ?.licenseExpirationDate()
+          ?.getOrThrow()
+          ?.time ?: 0L
+      Arguments.createMap().apply {
+        putDouble("expirationDate", exp.toDouble())
+        putBoolean("isValid", exp > System.currentTimeMillis())
+      }
+    }.fold(
+      onSuccess = { promise.resolve(it) },
+      onFailure = {
+        promise.reject("LICENSE_ERROR", it.message)
+      },
+    )
   }
 
   override fun updateLicense(promise: Promise) {
-    promise.reject("NOT_IMPLEMENTED", "Not supported")
+    promise.reject(
+      "LICENSE_UPDATE_FAILED",
+      "The updateLicense method has been deprecated and will be removed in a future release."
+    )
   }
 
   override fun isInitialized(promise: Promise) {

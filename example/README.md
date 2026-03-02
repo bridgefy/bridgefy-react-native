@@ -1,108 +1,217 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Bridgefy React Native – Example Project
 
-# Getting Started
+[![npm version](https://img.shields.io/npm/v/bridgefy-react-native.svg)](https://www.npmjs.com/package/bridgefy-react-native)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+**App ID**: `me.bridgefy.android.sample` | **Bundle ID**: `me.bridgefy.android.sample`
 
-To create a Bridgefy API KEY, follow these general steps:
+This is a **React Native** project bootstrapped with [`@react-native-community/cli`](https://github.com/react-native-community/cli), demonstrating full **Bridgefy SDK** integration (TurboModule, background service, mesh networking).
 
-* **Register for a Bridgefy account:** If you haven't already, sign up for a Bridgefy account on their website (https://developer.bridgefy.me).
+## 🚀 Quick Start
 
-* **Log in to the developer dashboard:** After registering, log in to your Bridgefy account and access the developer dashboard. The dashboard is where you can manage your API KEY and access other developer-related resources.
+1. **Clone & Install**
+   ```bash
+   git clone <your-repo>
+   cd example
+   yarn install
+   cd ios && pod install && cd ..
+   ```
 
-* **Generate an API KEY:** Once you've created a project, you should be able to generate an API KEY specific to that project. The API KEY is a unique identifier that allows you to use Bridgefy's services.
+2. **Configure API Key** (see below)
+3. **Run** (2+ **physical devices** nearby!)
+   ```bash
+   yarn android  # or yarn ios (real device)
+   ```
 
-  **Only for this sample project**
-  * Add the application id `me.bridgefy.android.example` for Android.
-  * Add the bundleId `me.bridgefy.react.sample` for iOS.
+---
 
-* **Integrate the API KEY:** After generating the API KEY, you'll typically receive a KEY string. Integrate this KEY into your application or project to start using Bridgefy's messaging services.
+## 📱 Get Your Bridgefy API Key
 
-  **Only for this sample project**
+1. **Register**: [Bridgefy Developer](https://developer.bridgefy.me)
+2. **Create Project** with:
+  - **Android**: `me.bridgefy.android.sample`
+  - **iOS**: `me.bridgefy.android.sample`
+3. **Copy API Key** → Replace `YOUR_API_KEY_HERE` in `src/config/environment.ts`
 
-  Replace the text "YOUR_API_KEY_HERE" with a key generated from your account, the paths where it should be replaced are as follows:
->     example/android/app/src/main/AndroidManifest.xml
->
->     example/src/config/environment.ts
+**Paths to update**:
+```
+src/config/environment.ts
+android/app/src/main/AndroidManifest.xml
+```
 
-* **Review the documentation:** As you integrate the API into your application, refer to the Bridgefy documentation and guides for information on how to use their API effectively. The documentation should include details on available endpoints, usage limits, and best practices.
-  * Documentation: https://docs.bridgefy.me/
-  * Github
-    * [Android](https://github.com/bridgefy/sdk-android)
-    * [iOS](https://github.com/bridgefy/sdk-ios)
+**Docs**: [Bridgefy SDK](https://docs.bridgefy.me/) | [Android](https://github.com/bridgefy/sdk-android) | [iOS](https://github.com/bridgefy/sdk-ios)
 
-___
+---
 
-## Step 1: Start the Metro Server
+## 🛠️ Prerequisites
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+```
+💻 Node 18+ | RN CLI 11+ | RN 0.73+
+📱 Android Studio (SDK 34) | Xcode 15+
+☕ Java 17 | iOS 13+ devices (NO simulator)
+```
 
-To start Metro, run the following command from the _root_ of your React Native project:
+---
+
+## 📋 Step-by-Step Setup
+
+### Step 1: Environment
+```
+npx react-native doctor  # Fix issues
+```
+
+### Step 2: Android Gradle + Desugaring (`android/app/build.gradle`)
+```gradle
+android {
+    compileSdk 34
+    defaultConfig {
+        applicationId "me.bridgefy.android.sample"  # ✅
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+        coreLibraryDesugaringEnabled true  # ✅ CRITICAL
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'  # ✅
+}
+```
+
+### Step 3: Android Permissions + Service (`android/app/src/main/AndroidManifest.xml`)
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+                 android:usesPermissionFlags="neverForLocation" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+<application>
+    <service android:name="me.bridgefy.sdk.BridgefyService"
+             android:foregroundServiceType="dataSync"
+             android:exported="false" />  <!-- HYBRID/BACKGROUND -->
+</application>
+```
+
+### Step 4: iOS Permissions (`ios/BridgefySample/Info.plist`)
+```xml
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>Bridgefy uses Bluetooth for offline messaging</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Bluetooth scanning requires location access</string>
+```
+
+### Step 5: Clean & Build
+```bash
+yarn clean  # Custom script or:
+rm -rf node_modules ios/Pods
+yarn install && cd ios && pod install && cd ..
+cd android && ./gradlew clean && cd ..
+```
+
+---
+
+## 🎮 Example Code (`App.tsx`)
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, FlatList, Alert } from 'react-native';
+import Bridgefy, {
+  BridgefyPropagationProfile,
+  BridgefyOperationMode,
+} from 'bridgefy-react-native';
+
+export default function App() {
+  const [status, setStatus] = useState({ initialized: false, started: false });
+  const [peers, setPeers] = useState<string[]>([]);
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    Bridgefy.onConnectedPeers(({ peers }) => setPeers(peers));
+    Bridgefy.onReceiveData(({ data }) => Alert.alert('📨 Received', data));
+
+    return () => Bridgefy.removeAllListeners();
+  }, []);
+
+  const init = async () => {
+    await Bridgefy.initialize('YOUR_API_KEY_HERE', true, BridgefyOperationMode.HYBRID);
+    setStatus(s => ({ ...s, initialized: true }));
+  };
+
+  const start = async () => {
+    const id = await Bridgefy.currentUserId();
+    setUserId(id);
+    await Bridgefy.start(id, BridgefyPropagationProfile.REALTIME);
+    setStatus(s => ({ ...s, started: true }));
+    const peers = await Bridgefy.connectedPeers();
+    setPeers(peers);
+  };
+
+  const broadcast = () => Bridgefy.sendBroadcast(`Hello from ${userId}!`);
+
+  return (
+    <View style={{ flex: 1, padding: 20, gap: 10 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Bridgefy Mesh Demo</Text>
+
+      <Button title="🔑 Initialize" onPress={init} disabled={status.initialized} />
+      <Button title="🚀 Start Mesh" onPress={start} disabled={!status.initialized} />
+      <Button title="📢 Broadcast" onPress={broadcast} disabled={!status.started} />
+
+      <Text>User ID: {userId.slice(0, 8)}...</Text>
+      <Text>Status: {status.initialized ? '✅ Init' : '❌'} | {status.started ? '✅ Started' : '❌'}</Text>
+
+      <Text>Peers ({peers.length}):</Text>
+      <FlatList
+        data={peers}
+        renderItem={({ item }) => <Text>👥 {item.slice(0, 8)}...</Text>}
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
+}
+```
+
+**Replace `YOUR_API_KEY_HERE`** with your key!
+
+---
+
+## ▶️ Run & Test
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
+# Terminal 1: Metro
 yarn start
-```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
+# Terminal 2: Android (2+ physical devices <50m)
 yarn android
-```
 
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
+# Terminal 3: iOS (real devices)
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+**Success indicators**:
+- ✅ Init success (no license errors)
+- ✅ Start → User ID shown
+- ✅ Nearby devices → Peers list populates
+- ✅ Broadcast → Alerts on receiving devices
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+---
 
-## Step 3: Modifying your App
+## ⚠️ Common Issues & Fixes
 
-Now that you have successfully run the app, let's modify it.
+| Error | Cause | Fix |
+|-------|-------|-----|
+| **Desugaring crash** | Missing Gradle config | Add `coreLibraryDesugaringEnabled true` |
+| **SERVICE_NOT_STARTED** | No manifest service | Add `<service foregroundServiceType="dataSync">` |
+| **Bluetooth denied** | Permissions | Request 6 perms runtime |
+| **No peers** | Simulator/distance | **Real devices** <50m |
+| **License expired** | Wrong key | Valid key for `me.bridgefy.android.sample` |
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+**Debug**:
+```bash
+adb logcat | grep Bridgefy  # Android
+# Xcode console (iOS)
+```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+---
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+*Made with ❤️ by Bridgefy – Offline mesh networking for everyone.*

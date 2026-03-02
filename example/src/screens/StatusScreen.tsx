@@ -48,7 +48,7 @@ export default function StatusScreen() {
   return (
     <View style={statusStyles.container}>
       <ScrollView style={statusStyles.content}>
-        <Text style={statusStyles.sectionTitle}>Status</Text>
+        <Text style={statusStyles.sectionTitle}>{'Status'}</Text>
         <View style={statusStyles.statusCard}>
           {/* Status Cards */}
           <StatusCard title="Initialized" isActive={status.isInitialized} />
@@ -63,26 +63,47 @@ export default function StatusScreen() {
             />
           )}
 
-          <InfoCard
-            label="Connected Peers"
-            value={status.connectedPeers.length.toString()}
-            icon="lan-connect"
-          />
-          <InfoCard
-            label="Propagation Profile"
-            value={status.propagationProfile}
-            icon="sync"
-          />
-          <InfoCard
-            label="Operation mode"
-            value={status.operationStatus}
-            icon="arrange-send-backward"
-          />
-        </View>
+          {/* License expiration date */}
+          {status.isInitialized &&
+            !status.loading &&
+            status.bridgefyLicenseInfo && (
+              <InfoCard
+                label="License expiration date"
+                value={status.bridgefyLicenseInfo}
+                icon="certificate"
+              />
+            )}
 
+          {/* Connected Peers */}
+          {status.isStarted && status.connectedPeers.length > 0 && (
+            <InfoCard
+              label="Connected Peers"
+              value={status.connectedPeers.length.toString()}
+              icon="lan-connect"
+            />
+          )}
+
+          {/* Propagation profile */}
+          {status.isStarted && (
+            <InfoCard
+              label="Propagation Profile"
+              value={status.propagationProfile.toUpperCase()}
+              icon="sync"
+            />
+          )}
+
+          {/* Operation mode */}
+          {status.isStarted && (
+            <InfoCard
+              label="Operation mode"
+              value={status.operationStatus}
+              icon="arrange-send-backward"
+            />
+          )}
+        </View>
         {/* Control Buttons */}
         <View style={statusStyles.controlsSection}>
-          <Text style={statusStyles.sectionTitle}>Controls</Text>
+          <Text style={statusStyles.sectionTitle}>{'Controls'}</Text>
 
           {!status.isInitialized && (
             <ControlButton
@@ -126,10 +147,9 @@ export default function StatusScreen() {
 
           {status.isStarted &&
             Platform.OS === 'android' &&
-            status.operationStatus !==
-              BridgefyOperationMode.BACKGROUND.toUpperCase() && (
+            status.operationStatus === BridgefyOperationMode.FOREGROUND && (
               <ControlButton
-                title="Set background mode"
+                title="Switch background mode"
                 icon="arrange-send-to-back"
                 onPress={changeOperationMode.bind(
                   null,
@@ -142,10 +162,9 @@ export default function StatusScreen() {
 
           {status.isStarted &&
             Platform.OS === 'android' &&
-            status.operationStatus !==
-              BridgefyOperationMode.FOREGROUND.toUpperCase() && (
+            status.operationStatus === BridgefyOperationMode.BACKGROUND && (
               <ControlButton
-                title="Set foreground mode"
+                title="Switch foreground mode"
                 icon="arrange-send-backward"
                 onPress={changeOperationMode.bind(
                   null,
@@ -164,10 +183,8 @@ export default function StatusScreen() {
             variant="refresh"
           />
         </View>
-
         {/* Peers List */}
         <PeersList peers={status.connectedPeers} />
-
         {/* eslint-disable-next-line react-native/no-inline-styles */}
         <View style={{ height: 40 }} />
       </ScrollView>

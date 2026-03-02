@@ -45,7 +45,6 @@ export class ChatRepository implements IChatRepository {
     });
 
     Bridgefy.onStart((event) => {
-      console.log('Bridgefy started with user ID:', event.userId);
       this.eventHandlers.onUserIdChanged?.(event.userId);
     });
   }

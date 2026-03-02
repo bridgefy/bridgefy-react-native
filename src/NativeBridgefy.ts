@@ -48,10 +48,6 @@ export enum BridgefyEvents {
   BRIDGEFY_DID_FAIL_SENDING_MESSAGE = 'bridgefyDidFailSendingMessage',
   BRIDGEFY_DID_RECEIVE_DATA = 'bridgefyDidReceiveData',
   BRIDGEFY_MESSAGE_RECEIVED = 'bridgefyMessageReceived',
-
-  // License Events
-  BRIDGEFY_DID_UPDATE_LICENSE = 'bridgefyDidUpdateLicense',
-  BRIDGEFY_DID_FAIL_TO_UPDATE_LICENSE = 'bridgefyDidFailToUpdateLicense',
 }
 
 export enum BridgefyErrorCode {
