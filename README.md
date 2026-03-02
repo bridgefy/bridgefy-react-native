@@ -1,13 +1,14 @@
 <p align="center">
-  <img src="https://www.gitbook.com/cdn-cgi/image/width=256,dpr=2,height=40,fit=contain,format=auto/https%3A%2F%2F3290834949-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F5XKIMMP6VF2l9XuPV80l%252Flogo%252Fd78nQFIysoU2bbM5fYNP%252FGroup%25203367.png%3Falt%3Dmedia%26token%3Df83a642d-8a9a-411f-9ef4-d7189a4c5f0a" />
+  <img src="example/assets/bridgefylogo1.svg" width="512"/>
 </p>
 <p align="center">
-  <img src="https://bridgefy.me/wp-content/themes/bridgefysdkbeta/assets/images/usecasemain2.png" width="500"/>
+  <img src="example/assets/usecasemain.png" width="256"/>
 </p>
 
 # Bridgefy React Native SDK
 
-
+![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-react-native)
+![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-react-native?style=plastic)
 
 
 The **Bridgefy Software Development Kit (SDK)** is a state‑of‑the‑art plug‑and‑play solution that enables offline communication in your mobile apps by using Bluetooth mesh networks.
