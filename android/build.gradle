@@ -6,7 +6,7 @@ buildscript {
   rootProject.allprojects {
     repositories {
       maven {
-        url "https://maven.bridgefy.me/artifactory/libs-release-local"
+        url "https://maven.bridgefy.me"
       }
     }
   }
@@ -79,7 +79,7 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
-  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.5", ext: "aar") {
+  implementation (group: "me.bridgefy", name: "android-sdk", version: "1.2.6", ext: "aar") {
     transitive = true
   }
   implementation "com.facebook.react:react-android"
