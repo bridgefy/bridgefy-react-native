@@ -1,6 +1,6 @@
 {
   "name": "bridgefy-react-native",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Bridgefy React Native Library",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
