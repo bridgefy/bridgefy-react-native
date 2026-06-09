@@ -26,10 +26,8 @@ import me.bridgefy.plugin.react_native.service.BridgefyService
 import me.bridgefy.plugin.react_native.util.BridgefyOperationModeManager
 import me.bridgefy.plugin.react_native.util.BridgefyServiceManager
 import me.bridgefy.plugin.react_native.util.OperationMode
-import me.bridgefy.plugin.react_native.util.Utils.bundleFromTransmissionMode
 import me.bridgefy.plugin.react_native.util.Utils.mapFromTransmissionMode
 import me.bridgefy.plugin.react_native.util.Utils.transmissionModeFromBundle
-import java.util.Date
 import java.util.UUID
 
 @ReactModule(name = NativeBridgefySpec.NAME)
@@ -439,8 +437,7 @@ class BridgefyReactNativeModule(
   override fun destroySession(promise: Promise) {
     try {
       stopService()
-      serviceManager.getBridgefy()?.destroySession()
-      serviceManager.refreshBridgefy()
+      serviceManager.getSDK().destroySession()
       serviceManager.clearState()
       promise.resolve(null)
     } catch (e: Exception) {
@@ -529,8 +526,8 @@ class BridgefyReactNativeModule(
   override fun getOperationStatus(promise: Promise) {
     try {
       val mode = modeManager.getOperationMode().name.lowercase()
-      val isInit = serviceManager.getBridgefy()?.isInitialized ?: false
-      val isStart = serviceManager.getBridgefy()?.isStarted ?: false
+      val isInit = serviceManager.getSDK().isInitialized ?: false
+      val isStart = serviceManager.getSDK().isStarted ?: false
 
       promise.resolve(
         Arguments.createMap().apply {
@@ -561,23 +558,19 @@ class BridgefyReactNativeModule(
 
       val mode =
         when (type) {
-          "broadcast" -> TransmissionMode.Broadcast(UUID.randomUUID())
+          "broadcast" -> TransmissionMode.Broadcast(serviceManager.getSDK().currentUserId().getOrDefault(UUID.randomUUID()))
           "p2p" -> TransmissionMode.P2P(UUID.fromString(recipientId))
           "mesh" -> TransmissionMode.Mesh(UUID.fromString(recipientId))
           else -> error("INVALID_MESSAGE" to "Invalid mode")
         }
 
-      val sendIntent =
-        Intent(context, BridgefyService::class.java).apply {
-          action = BridgefyService.ACTION_SEND_MESSAGE
-          putExtra(BridgefyService.EXTRA_MESSAGE_DATA, data.toByteArray())
-          putExtra(BridgefyService.EXTRA_TRANSMISSION_MODE, bundleFromTransmissionMode(mode))
-          putExtra(BridgefyService.EXTRA_RECIPIENT_ID, recipientId)
-        }
-      context.startService(sendIntent)
+      if (!serviceManager.isSDKStarted()) {
+        promise.reject("SERVICE_NOT_STARTED", "Bridgefy not started")
+        return
+      }
 
       // Message ID will be returned via broadcast event
-      promise.resolve("pending")
+      promise.resolve(serviceManager.getSDK().send(data.toByteArray(), mode).toString())
     } catch (e: Exception) {
       promise.reject("SEND_FAILED", e.message, e)
     }
@@ -617,9 +610,9 @@ class BridgefyReactNativeModule(
     try {
       val peers =
         serviceManager
-          .getBridgefy()
-          ?.connectedPeers()
-          ?.getOrNull()
+          .getSDK()
+          .connectedPeers()
+          .getOrNull()
           ?.map { it.toString() }
           ?.distinct()
       val array = Arguments.createArray()
@@ -634,7 +627,7 @@ class BridgefyReactNativeModule(
     runCatching {
       val exp =
         serviceManager
-          .getBridgefy()
+          .getSDK()
           ?.licenseExpirationDate()
           ?.getOrThrow()
           ?.time ?: 0L
@@ -653,13 +646,13 @@ class BridgefyReactNativeModule(
   override fun updateLicense(promise: Promise) {
     promise.reject(
       "LICENSE_UPDATE_FAILED",
-      "The updateLicense method has been deprecated and will be removed in a future release."
+      "The updateLicense method has been deprecated and will be removed in a future release.",
     )
   }
 
   override fun isInitialized(promise: Promise) {
     try {
-      val initialized = serviceManager.getBridgefy()?.isInitialized ?: false
+      val initialized = serviceManager.getSDK().isInitialized ?: false
       promise.resolve(initialized)
     } catch (e: Exception) {
       promise.resolve(false)
@@ -668,7 +661,7 @@ class BridgefyReactNativeModule(
 
   override fun isStarted(promise: Promise) {
     try {
-      val started = serviceManager.getBridgefy()?.isStarted ?: false
+      val started = serviceManager.getSDK().isStarted ?: false
       promise.resolve(started)
     } catch (e: Exception) {
       promise.resolve(false)

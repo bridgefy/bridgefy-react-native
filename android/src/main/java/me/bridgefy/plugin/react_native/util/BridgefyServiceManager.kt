@@ -16,13 +16,10 @@ import me.bridgefy.Bridgefy
 class BridgefyServiceManager private constructor(
   val context: Context,
 ) {
-  private var bridgefy: Bridgefy? = null
+
+  private val bridgefy: Bridgefy by lazy { Bridgefy(context) }
 
   private val prefs: SharedPreferences by lazy { context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
-
-  init {
-    bridgefy = Bridgefy(context)
-  }
 
   companion object {
     private const val TAG = "BridgefyServiceManager"
@@ -30,6 +27,7 @@ class BridgefyServiceManager private constructor(
     private const val KEY_CURRENT_USER_ID = "current_user_id"
     private const val KEY_SERVICE_STATUS = "service_status"
 
+    @Volatile
     private var instance: BridgefyServiceManager? = null
 
     fun getInstance(context: Context): BridgefyServiceManager =
@@ -38,7 +36,7 @@ class BridgefyServiceManager private constructor(
       }
   }
 
-  fun getBridgefy(): Bridgefy? = bridgefy
+  fun getSDK(): Bridgefy = bridgefy
 
   // In-memory cache for quick access
   private var cachedUserId: String? = null
@@ -49,13 +47,13 @@ class BridgefyServiceManager private constructor(
    * Check if SDK is initialized in the background service
    * Returns cached value from SharedPreferences
    */
-  fun isSDKInitialized(): Boolean = bridgefy?.isInitialized ?: false
+  fun isSDKInitialized(): Boolean = bridgefy.isInitialized ?: false
 
   /**
    * Check if SDK is started in the background service
    * Returns cached value from SharedPreferences
    */
-  fun isSDKStarted(): Boolean = bridgefy?.isStarted ?: false
+  fun isSDKStarted(): Boolean = bridgefy.isStarted ?: false
 
   /**
    * Get current user ID from background service
@@ -112,12 +110,5 @@ class BridgefyServiceManager private constructor(
     }
     cachedUserId = null
     Log.d(TAG, "State cleared")
-  }
-
-  internal fun refreshBridgefy() {
-    synchronized(this) {
-      bridgefy = null
-      bridgefy = Bridgefy(context)
-    }
   }
 }
