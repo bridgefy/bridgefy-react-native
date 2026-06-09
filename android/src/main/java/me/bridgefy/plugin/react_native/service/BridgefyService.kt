@@ -16,16 +16,13 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
-import android.graphics.drawable.Drawable
 import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
-import me.bridgefy.Bridgefy
 import me.bridgefy.commons.TransmissionMode
 import me.bridgefy.commons.exception.BridgefyException
 import me.bridgefy.commons.listener.BridgefyDelegate
@@ -34,7 +31,6 @@ import me.bridgefy.logger.enums.LogType
 import me.bridgefy.plugin.react_native.util.BridgefyServiceManager
 import me.bridgefy.plugin.react_native.util.Utils.bundleFromBridgefyException
 import me.bridgefy.plugin.react_native.util.Utils.bundleFromTransmissionMode
-import me.bridgefy.plugin.react_native.util.Utils.transmissionModeFromBundle
 import java.util.UUID
 
 class BridgefyService :
@@ -50,7 +46,6 @@ class BridgefyService :
     const val ACTION_INITIALIZE = "me.bridgefy.INITIALIZE"
     const val ACTION_START_SDK = "me.bridgefy.START_SDK"
     const val ACTION_STOP_SDK = "me.bridgefy.STOP_SDK"
-    const val ACTION_SEND_MESSAGE = "me.bridgefy.SEND_MESSAGE"
     const val ACTION_ESTABLISH_SECURE = "me.bridgefy.ESTABLISH_SECURE"
 
     // Broadcast Events
@@ -133,12 +128,6 @@ class BridgefyService :
 
       ACTION_STOP_SDK -> {
         stopBridgefy()
-      }
-
-      ACTION_SEND_MESSAGE -> {
-        val data = intent.getByteArrayExtra(EXTRA_MESSAGE_DATA) ?: ByteArray(0)
-        val mode = intent.getBundleExtra(EXTRA_TRANSMISSION_MODE) ?: Bundle()
-        sendMessage(data, transmissionModeFromBundle(mode))
       }
 
       ACTION_ESTABLISH_SECURE -> {
@@ -346,7 +335,7 @@ class BridgefyService :
           return
         }
 
-      serviceManager.getBridgefy()!!.init(
+      serviceManager.getSDK().init(
         uuid,
         this,
         if (verboseLogging) LogType.ConsoleLogger(Log.DEBUG) else LogType.None,
@@ -391,7 +380,7 @@ class BridgefyService :
           }
         }
 
-      serviceManager.getBridgefy()?.start(customUserId, profile)
+      serviceManager.getSDK().start(customUserId, profile)
     } catch (e: Exception) {
       sendErrorBroadcast("START_FAILED", e.message ?: "Unknown error")
     }
@@ -404,25 +393,9 @@ class BridgefyService :
         return
       }
 
-      serviceManager.getBridgefy()?.stop()
+      serviceManager.getSDK().stop()
     } catch (e: Exception) {
       sendErrorBroadcast("STOP_FAILED", e.message ?: "Unknown error")
-    }
-  }
-
-  private fun sendMessage(
-    data: ByteArray,
-    transmissionMode: TransmissionMode,
-  ) {
-    try {
-      if (!serviceManager.isSDKStarted()) {
-        sendErrorBroadcast("SERVICE_NOT_STARTED", "Bridgefy not started")
-        return
-      }
-
-      serviceManager.getBridgefy()?.send(data, transmissionMode)
-    } catch (e: Exception) {
-      sendErrorBroadcast("SEND_FAILED", e.message ?: "Unknown error")
     }
   }
 
@@ -441,7 +414,7 @@ class BridgefyService :
           return
         }
 
-      serviceManager.getBridgefy()?.establishSecureConnection(uuid)
+      serviceManager.getSDK().establishSecureConnection(uuid)
     } catch (e: Exception) {
       sendErrorBroadcast("CONNECTION_FAILED", e.message ?: "Unknown error")
     }
@@ -619,7 +592,6 @@ class BridgefyService :
     }
     // Clear state when service is destroyed
     serviceManager.clearState()
-    serviceManager.refreshBridgefy()
     super.onDestroy()
   }
 }
